@@ -190,6 +190,18 @@
                 <input type="range" id="protonSlider" min="1" max="30" value="2" class="hidden">
                 <input type="range" id="neutronSlider" min="0" max="40" value="2" class="hidden">
 
+                <!-- Preset Cepat Contoh Nuklida -->
+                <div class="pt-2 border-t border-slate-800">
+                  <span class="text-3xs text-slate-400 block mb-1.5 font-bold uppercase tracking-wider">Contoh Cepat Nuklida:</span>
+                  <div class="flex flex-wrap gap-1.5">
+                    <button onclick="setNucleusPreset(1, 0, 'H')" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 text-3xs font-bold border border-slate-700 transition">¹H</button>
+                    <button onclick="setNucleusPreset(2, 2, 'He')" class="px-2 py-1 rounded bg-blue-900/60 hover:bg-blue-800 text-blue-200 text-3xs font-bold border border-blue-600 transition">⁴He</button>
+                    <button onclick="setNucleusPreset(6, 6, 'C')" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 text-3xs font-bold border border-slate-700 transition">¹²C</button>
+                    <button onclick="setNucleusPreset(8, 8, 'O')" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 text-3xs font-bold border border-slate-700 transition">¹⁶O</button>
+                    <button onclick="setNucleusPreset(26, 30, 'Fe')" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 text-3xs font-bold border border-slate-700 transition">⁵⁶Fe</button>
+                  </div>
+                </div>
+
                 <!-- Display Kartu Unsur Simbol -->
                 <div class="pt-2 border-t border-slate-700/60 flex items-center justify-between">
                   <div class="w-16 h-16 rounded-lg bg-white text-slate-900 p-1 flex flex-col justify-between border border-slate-300 font-mono shadow-xs">
@@ -296,7 +308,7 @@
           </div>
           <div class="bg-white p-5 rounded-2xl border border-blue-100 shadow-xs space-y-4">
             <div class="flex justify-between items-center">
-              <span class="text-xs text-slate-600">Inti $^{235}\text{U}$ Terbelah: <b id="fissionCountText" class="text-blue-700 text-sm">0</b> / 40</span>
+              <span class="text-xs text-slate-600">Inti ${}^{235}\text{U}$ Terbelah: <b id="fissionCountText" class="text-blue-700 text-sm">0</b> / 40</span>
               <div class="flex gap-2">
                 <button onclick="startChainReaction()" class="px-4 py-2 rounded-xl bg-blue-600 text-white font-bold text-xs">💥 Tembak Neutron Awal</button>
                 <button onclick="resetChainReaction()" class="px-3 py-2 rounded-xl bg-slate-100 text-slate-700 font-bold text-xs">↺ Tata Ulang</button>
@@ -348,26 +360,31 @@
 
     // Tombol +/- Counter Proton & Neutron di Panel Build a Nucleus
     function adjustProton(delta) {
+      let val = (typeof protonCount !== 'undefined' ? protonCount : 2) + delta;
+      val = Math.max(1, Math.min(30, val));
+      protonCount = val;
       const pSlider = document.getElementById('protonSlider');
-      if (pSlider) {
-        let val = parseInt(pSlider.value) + delta;
-        val = Math.max(1, Math.min(30, val));
-        pSlider.value = val;
-        protonCount = val;
-        updateNucleusDisplay();
-      }
+      if (pSlider) pSlider.value = val;
+      if (typeof updateNucleusDisplay === 'function') updateNucleusDisplay();
     }
 
     function adjustNeutron(delta) {
+      let val = (typeof neutronCount !== 'undefined' ? neutronCount : 2) + delta;
+      val = Math.max(0, Math.min(40, val));
+      neutronCount = val;
       const nSlider = document.getElementById('neutronSlider');
-      if (nSlider) {
-        let val = parseInt(nSlider.value) + delta;
-        val = Math.max(0, Math.min(40, val));
-        nSlider.value = val;
-        neutronCount = val;
-        updateNucleusDisplay();
-      }
+      if (nSlider) nSlider.value = val;
+      if (typeof updateNucleusDisplay === 'function') updateNucleusDisplay();
     }
+
+    // Inisialisasi otomatis saat kanvas siap
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        if (typeof updateNucleusDisplay === 'function') {
+          updateNucleusDisplay();
+        }
+      }, 50);
+    });
   </script>
 </body>
 </html>

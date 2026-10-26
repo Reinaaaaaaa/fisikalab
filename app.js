@@ -64,8 +64,8 @@ window.renderAllMath = renderAllMath;
 const elementsMap = {
   1: 'H', 2: 'He', 3: 'Li', 4: 'Be', 5: 'B', 6: 'C', 7: 'N', 8: 'O',
   9: 'F', 10: 'Ne', 11: 'Na', 12: 'Mg', 13: 'Al', 14: 'Si', 15: 'P',
-  16: 'S', 17: 'Cl', 18: 'Ar', 19: 'K', 20: 'Ca', 26: 'Fe', 28: 'Ni',
-  29: 'Cu', 30: 'Zn'
+  16: 'S', 17: 'Cl', 18: 'Ar', 19: 'K', 20: 'Ca', 21: 'Sc', 22: 'Ti',
+  23: 'V', 24: 'Cr', 25: 'Mn', 26: 'Fe', 27: 'Co', 28: 'Ni', 29: 'Cu', 30: 'Zn'
 };
 
 let protonCount = 2;
@@ -76,14 +76,16 @@ function initNucleusViewer() {
   const pSlider = document.getElementById('protonSlider');
   const nSlider = document.getElementById('neutronSlider');
 
-  if (pSlider && nSlider) {
+  if (pSlider) {
     pSlider.addEventListener('input', (e) => {
-      protonCount = parseInt(e.target.value);
+      protonCount = parseInt(e.target.value) || 1;
       updateNucleusDisplay();
     });
+  }
 
+  if (nSlider) {
     nSlider.addEventListener('input', (e) => {
-      neutronCount = parseInt(e.target.value);
+      neutronCount = parseInt(e.target.value) || 0;
       updateNucleusDisplay();
     });
   }
@@ -92,51 +94,85 @@ function initNucleusViewer() {
 }
 
 function setNucleusPreset(z, n, sym) {
+  protonCount = z;
+  neutronCount = n;
   const pSlider = document.getElementById('protonSlider');
   const nSlider = document.getElementById('neutronSlider');
-  if (pSlider && nSlider) {
-    pSlider.value = z;
-    nSlider.value = n;
-    protonCount = z;
-    neutronCount = n;
-    updateNucleusDisplay();
-  }
+  if (pSlider) pSlider.value = z;
+  if (nSlider) nSlider.value = n;
+  updateNucleusDisplay();
 }
+
+function adjustProton(delta) {
+  const pSlider = document.getElementById('protonSlider');
+  let val = protonCount + delta;
+  val = Math.max(1, Math.min(30, val));
+  protonCount = val;
+  if (pSlider) pSlider.value = val;
+  updateNucleusDisplay();
+}
+
+function adjustNeutron(delta) {
+  const nSlider = document.getElementById('neutronSlider');
+  let val = neutronCount + delta;
+  val = Math.max(0, Math.min(40, val));
+  neutronCount = val;
+  if (nSlider) nSlider.value = val;
+  updateNucleusDisplay();
+}
+
+window.setNucleusPreset = setNucleusPreset;
+window.adjustProton = adjustProton;
+window.adjustNeutron = adjustNeutron;
+window.updateNucleusDisplay = updateNucleusDisplay;
+window.drawNucleusCanvas = drawNucleusCanvas;
 
 function updateNucleusDisplay() {
   const aVal = protonCount + neutronCount;
   const sym = elementsMap[protonCount] || 'X';
 
-  document.getElementById('protonVal').textContent = protonCount;
-  document.getElementById('neutronVal').textContent = neutronCount;
-  document.getElementById('displayA').textContent = aVal;
-  document.getElementById('displayZ').textContent = protonCount;
-  document.getElementById('displaySym').textContent = sym;
-  document.getElementById('calcA').textContent = aVal;
-  document.getElementById('calcZ').textContent = protonCount;
-  document.getElementById('calcN').textContent = neutronCount;
+  const elP = document.getElementById('protonVal');
+  if (elP) elP.textContent = protonCount;
+  const elN = document.getElementById('neutronVal');
+  if (elN) elN.textContent = neutronCount;
+  const elDispA = document.getElementById('displayA');
+  if (elDispA) elDispA.textContent = aVal;
+  const elDispZ = document.getElementById('displayZ');
+  if (elDispZ) elDispZ.textContent = protonCount;
+  const elDispSym = document.getElementById('displaySym');
+  if (elDispSym) elDispSym.textContent = sym;
+  
+  // Guard untuk elemen calcA/calcZ/calcN yang mungkin tidak ada di simulasi.html
+  const elCalcA = document.getElementById('calcA');
+  if (elCalcA) elCalcA.textContent = aVal;
+  const elCalcZ = document.getElementById('calcZ');
+  if (elCalcZ) elCalcZ.textContent = protonCount;
+  const elCalcN = document.getElementById('calcN');
+  if (elCalcN) elCalcN.textContent = neutronCount;
 
   // Analisis rasio N/Z kestabilan
   const ratio = protonCount > 0 ? (neutronCount / protonCount) : 0;
   const badge = document.getElementById('stabilityBadge');
   const desc = document.getElementById('stabilityDesc');
 
-  if (protonCount === 1 && neutronCount === 0) {
-    badge.className = "inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-bold bg-emerald-50 text-emerald-800 border border-emerald-300";
-    badge.textContent = `✅ Inti Hidrogen Stabil (Proton Tunggal)`;
-    desc.textContent = "Hidrogen-1 (^1_1H) adalah satu-satunya inti stabil tanpa neutron di alam semesta.";
-  } else if (ratio >= 0.95 && ratio <= 1.55 && aVal <= 80) {
-    badge.className = "inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-bold bg-emerald-50 text-emerald-800 border border-emerald-300";
-    badge.textContent = `✅ Berada di Pita Kestabilan (N/Z = ${ratio.toFixed(2)})`;
-    desc.textContent = "Komposisi nukleon seimbang. Gaya tarik nuklir kuat mampu menahan tolakan elektrostatis antar-proton.";
-  } else if (ratio < 0.95) {
-    badge.className = "inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-bold bg-rose-50 text-rose-800 border border-rose-300";
-    badge.textContent = `⚠️ Kurang Neutron / Kelebihan Proton (N/Z = ${ratio.toFixed(2)})`;
-    desc.textContent = "Tolakan Coulomb antar-proton terlalu kuat. Inti cenderung meluruh melalui pemancaran positron (β+) atau penangkapan elektron.";
-  } else {
-    badge.className = "inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-bold bg-amber-50 text-amber-800 border border-amber-300";
-    badge.textContent = `⚠️ Kelebihan Neutron (N/Z = ${ratio.toFixed(2)})`;
-    desc.textContent = "Inti berada di atas pita kestabilan, cenderung meluruh dengan memancarkan partikel beta-minus (β-) untuk mengubah neutron berlebih menjadi proton.";
+  if (badge) {
+    if (protonCount === 1 && neutronCount === 0) {
+      badge.className = "inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-bold bg-emerald-950 text-emerald-300 border border-emerald-700";
+      badge.textContent = `✅ Hidrogen Stabil`;
+      if (desc) desc.textContent = "Hidrogen-1 (¹₁H) stabil dengan 1 proton tanpa neutron.";
+    } else if (ratio >= 0.95 && ratio <= 1.55 && aVal <= 80) {
+      badge.className = "inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-bold bg-emerald-950 text-emerald-300 border border-emerald-700";
+      badge.textContent = `✅ Berada di Pita Kestabilan (N/Z = ${ratio.toFixed(2)})`;
+      if (desc) desc.textContent = "Komposisi nukleon seimbang. Gaya tarik kuat mengimbangi tolakan Coulomb.";
+    } else if (ratio < 0.95) {
+      badge.className = "inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-bold bg-rose-950 text-rose-300 border border-rose-700";
+      badge.textContent = `⚠️ Kurang Neutron (N/Z = ${ratio.toFixed(2)})`;
+      if (desc) desc.textContent = "Tolakan Coulomb antarproton terlalu dominan. Cenderung meluruh melalui emisi positron (β+) atau tangkapan elektron.";
+    } else {
+      badge.className = "inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-bold bg-amber-950 text-amber-300 border border-amber-700";
+      badge.textContent = `⚠️ Ekses Neutron (N/Z = ${ratio.toFixed(2)})`;
+      if (desc) desc.textContent = "Inti berada di atas pita kestabilan, cenderung meluruh dengan memancarkan partikel beta-minus (β-).";
+    }
   }
 
   drawNucleusCanvas();
@@ -155,17 +191,41 @@ function drawNucleusCanvas() {
   const centerX = width / 2;
   const centerY = height / 2;
 
-  // Soft glow lingkaran batas medan nuklir
-  const maxR = Math.max(38, Math.sqrt(total) * 17);
-  const grad = ctx.createRadialGradient(centerX, centerY, 5, centerX, centerY, maxR + 10);
-  grad.addColorStop(0, 'rgba(13, 148, 136, 0.12)');
-  grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
-  ctx.fillStyle = grad;
+  // Latar belakang orbital kuantum visual (cincin elips halus)
+  ctx.save();
+  ctx.strokeStyle = 'rgba(56, 189, 248, 0.14)';
+  ctx.lineWidth = 1;
+  ctx.setLineDash([4, 4]);
   ctx.beginPath();
-  ctx.arc(centerX, centerY, maxR + 10, 0, Math.PI * 2);
+  ctx.ellipse(centerX, centerY, 140, 65, Math.PI / 6, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.ellipse(centerX, centerY, 140, 65, -Math.PI / 6, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.restore();
+
+  if (total === 0) {
+    ctx.fillStyle = '#64748b';
+    ctx.font = '12px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('Gunakan tombol [+] untuk menambahkan proton dan neutron', centerX, centerY);
+    return;
+  }
+
+  // Aura Medan Gaya Nuklir Kuat (Strong Force Potential Well)
+  const maxR = Math.max(34, Math.sqrt(total) * 15 + 8);
+  const aura = ctx.createRadialGradient(centerX, centerY, 5, centerX, centerY, maxR + 15);
+  aura.addColorStop(0, 'rgba(59, 130, 246, 0.28)');
+  aura.addColorStop(0.5, 'rgba(147, 51, 234, 0.15)');
+  aura.addColorStop(1, 'rgba(7, 16, 29, 0)');
+  ctx.fillStyle = aura;
+  ctx.beginPath();
+  ctx.arc(centerX, centerY, maxR + 15, 0, Math.PI * 2);
   ctx.fill();
 
-  // Susun koordinat partikel dengan Fermat's spiral
+  // Susun koordinat partikel bergerombol dengan Fermat's spiral
   const particles = [];
   let pLeft = protonCount;
   let nLeft = neutronCount;
@@ -182,35 +242,48 @@ function drawNucleusCanvas() {
     }
 
     const angle = i * 2.39996;
-    const radius = Math.sqrt(i) * 13 + (i > 0 ? 2 : 0);
+    // Penskalaan radius agar inti kompak dan tidak meluber keluar kanvas
+    const scaleFactor = total > 30 ? 10.5 : 12.5;
+    const radius = Math.sqrt(i) * scaleFactor + (i > 0 ? 1 : 0);
     const px = centerX + Math.cos(angle) * radius;
     const py = centerY + Math.sin(angle) * radius;
     particles.push({ x: px, y: py, type: type });
   }
 
-  // Gambar setiap partikel di kanvas terang
+  // Gambar partikel sebagai bola 3D bergradien cahaya
+  const pRadius = total > 35 ? 7.5 : 9;
   particles.forEach(pt => {
     ctx.beginPath();
-    ctx.arc(pt.x, pt.y, 8.5, 0, Math.PI * 2);
+    ctx.arc(pt.x, pt.y, pRadius, 0, Math.PI * 2);
+
     if (pt.type === 'p') {
-      // Proton: Merah terang dengan border halus
-      ctx.fillStyle = '#ef4444';
-      ctx.strokeStyle = '#b91c1c';
+      // Bola Proton 3D: Merah menyala dengan specular highlight
+      const pGrad = ctx.createRadialGradient(pt.x - 2.5, pt.y - 2.5, 1, pt.x, pt.y, pRadius);
+      pGrad.addColorStop(0, '#fecaca');
+      pGrad.addColorStop(0.4, '#ef4444');
+      pGrad.addColorStop(1, '#991b1b');
+      ctx.fillStyle = pGrad;
+      ctx.strokeStyle = '#f87171';
     } else {
-      // Neutron: Biru cerah dengan border halus
-      ctx.fillStyle = '#0ea5e9';
-      ctx.strokeStyle = '#0369a1';
+      // Bola Neutron 3D: Biru langit menyala dengan specular highlight
+      const nGrad = ctx.createRadialGradient(pt.x - 2.5, pt.y - 2.5, 1, pt.x, pt.y, pRadius);
+      nGrad.addColorStop(0, '#bae6fd');
+      nGrad.addColorStop(0.4, '#0ea5e9');
+      nGrad.addColorStop(1, '#075985');
+      ctx.fillStyle = nGrad;
+      ctx.strokeStyle = '#38bdf8';
     }
-    ctx.lineWidth = 1.5;
+
+    ctx.lineWidth = 1.2;
     ctx.fill();
     ctx.stroke();
 
-    // Label muatan +/-
+    // Simbol muatan + / 0
     ctx.fillStyle = '#ffffff';
-    ctx.font = 'bold 9px Arial, sans-serif';
+    ctx.font = `bold ${pRadius > 8 ? 9 : 8}px Arial, sans-serif`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText(pt.type === 'p' ? '+' : '0', pt.x, pt.y);
+    ctx.fillText(pt.type === 'p' ? '+' : '0', pt.x, pt.y + 0.5);
   });
 }
 
