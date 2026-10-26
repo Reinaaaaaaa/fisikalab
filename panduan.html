@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panduan & Glosarium - NUCLEAR LAB</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { 50: '#eff6ff', 100: '#dbeafe', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 900: '#1e3a8a' }
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+    onload="if (typeof renderAllMath === 'function') renderAllMath();"></script>
+</head>
+<body class="bg-[#f8fafd] text-slate-800 font-sans min-h-screen flex flex-col selection:bg-blue-600 selection:text-white">
+
+  <!-- NAVBAR -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center space-x-2.5">
+        <div class="text-blue-600">
+          <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3" fill="#2563eb" stroke="#1d4ed8"/>
+            <ellipse cx="12" cy="12" rx="10" ry="4" stroke="#2563eb" transform="rotate(30 12 12)"/>
+            <ellipse cx="12" cy="12" rx="10" ry="4" stroke="#2563eb" transform="rotate(90 12 12)"/>
+            <ellipse cx="12" cy="12" rx="10" ry="4" stroke="#2563eb" transform="rotate(150 12 12)"/>
+          </svg>
+        </div>
+        <span class="font-extrabold text-xl tracking-tight text-[#0f284e]">NUCLEAR LAB</span>
+      </a>
+
+      <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold">
+        <a href="index.html" class="text-slate-600 hover:text-blue-600 transition pb-1">Beranda</a>
+        <a href="materi.html" class="text-slate-600 hover:text-blue-600 transition pb-1">Materi</a>
+        <a href="simulasi.html" class="text-slate-600 hover:text-blue-600 transition pb-1">Simulasi</a>
+        <a href="kuis.html" class="text-slate-600 hover:text-blue-600 transition pb-1">Kuis</a>
+        <a href="panduan.html" class="text-blue-600 border-b-2 border-blue-600 pb-1 font-bold">Panduan</a>
+      </nav>
+
+      <div class="flex items-center space-x-3">
+        <a href="panduan.html" class="w-9 h-9 rounded-full bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-700 hover:bg-blue-100 transition shadow-xs">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/></svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENT PANDUAN & ALUR (PERSIS PANEL 5 MOCKUP) -->
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10 space-y-8">
+
+    <div>
+      <h1 class="text-2xl sm:text-3xl font-extrabold text-[#0f284e]">Panduan Belajar & Rangkuman Alur Navigasi</h1>
+      <p class="text-xs sm:text-sm text-slate-500 mt-1">
+        Sistem alur pembelajaran terpadu untuk mencapai Capaian Pembelajaran Fisika Fase F (Kurikulum Merdeka).
+      </p>
+    </div>
+
+    <!-- WIREFRAME RANGKUMAN ALUR NAVIGASI (PERSIS MOCKUP PANEL 5) -->
+    <div class="bg-white p-6 rounded-2xl border border-blue-100 shadow-xs space-y-4">
+      <h2 class="font-bold text-[#0f284e] text-sm">Alur Penggunaan Media Pembelajaran:</h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3 text-xs">
+        
+        <!-- Step 1: Beranda -->
+        <a href="index.html" class="p-4 rounded-xl bg-blue-50/60 border border-blue-200 hover:border-blue-400 transition flex flex-col justify-between">
+          <div>
+            <div class="text-xl mb-1">🏠</div>
+            <strong class="text-blue-900 block font-bold mb-1">1. Beranda</strong>
+            <ul class="text-slate-600 text-3xs space-y-0.5">
+              <li>• Pengantar media</li>
+              <li>• Tombol mulai</li>
+              <li>• 4 Fitur utama</li>
+            </ul>
+          </div>
+        </a>
+
+        <!-- Step 2: Materi -->
+        <a href="materi.html" class="p-4 rounded-xl bg-blue-50/60 border border-blue-200 hover:border-blue-400 transition flex flex-col justify-between">
+          <div>
+            <div class="text-xl mb-1">📖</div>
+            <strong class="text-blue-900 block font-bold mb-1">2. Materi</strong>
+            <ul class="text-slate-600 text-3xs space-y-0.5">
+              <li>• 6 Topik bahasan</li>
+              <li>• Halaman materi terpisah</li>
+              <li>• Ringkasan konsep</li>
+            </ul>
+          </div>
+        </a>
+
+        <!-- Step 3: Simulasi -->
+        <a href="simulasi.html" class="p-4 rounded-xl bg-blue-50/60 border border-blue-200 hover:border-blue-400 transition flex flex-col justify-between">
+          <div>
+            <div class="text-xl mb-1">🧪</div>
+            <strong class="text-blue-900 block font-bold mb-1">3. Simulasi</strong>
+            <ul class="text-slate-600 text-3xs space-y-0.5">
+              <li>• Build a Nucleus</li>
+              <li>• Lab Daya Tembus</li>
+              <li>• Reaksi Berantai Fisi</li>
+            </ul>
+          </div>
+        </a>
+
+        <!-- Step 4: Kuis -->
+        <a href="kuis.html" class="p-4 rounded-xl bg-blue-50/60 border border-blue-200 hover:border-blue-400 transition flex flex-col justify-between">
+          <div>
+            <div class="text-xl mb-1">📝</div>
+            <strong class="text-blue-900 block font-bold mb-1">4. Kuis</strong>
+            <ul class="text-slate-600 text-3xs space-y-0.5">
+              <li>• Kuis interaktif per bab</li>
+              <li>• Umpan balik seketika</li>
+              <li>• Kotak tips "Ingat!"</li>
+            </ul>
+          </div>
+        </a>
+
+        <!-- Step 5: Panduan -->
+        <div class="p-4 rounded-xl bg-blue-600 text-white shadow-xs flex flex-col justify-between">
+          <div>
+            <div class="text-xl mb-1">ℹ️</div>
+            <strong class="block font-bold mb-1">5. Panduan</strong>
+            <ul class="text-blue-100 text-3xs space-y-0.5">
+              <li>• Cara penggunaan</li>
+              <li>• Glosarium istilah</li>
+              <li>• Capaian kurikulum</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 2 Kolom: Fitur Tambahan & Glosarium -->
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+      
+      <!-- Fitur Tambahan (Persis Box Bintang di Mockup) -->
+      <div class="md:col-span-5 bg-blue-50/80 p-6 rounded-2xl border border-blue-200 space-y-3">
+        <div class="flex items-center gap-2 text-blue-900 font-bold text-sm">
+          <span>⭐</span>
+          <span>Fitur Tambahan Platform</span>
+        </div>
+        <ul class="text-xs text-slate-700 space-y-2">
+          <li class="flex items-center gap-2 font-medium">
+            <span class="text-blue-600 font-bold">✓</span> Navigasi mudah dan jelas
+          </li>
+          <li class="flex items-center gap-2 font-medium">
+            <span class="text-blue-600 font-bold">✓</span> Desain responsif (HP & Laptop)
+          </li>
+          <li class="flex items-center gap-2 font-medium">
+            <span class="text-blue-600 font-bold">✓</span> Ikon visual yang konsisten
+          </li>
+          <li class="flex items-center gap-2 font-medium">
+            <span class="text-blue-600 font-bold">✓</span> Integrasi link eksternal (PhET Colorado, dll.)
+          </li>
+          <li class="flex items-center gap-2 font-medium">
+            <span class="text-blue-600 font-bold">✓</span> Persamaan rumus KaTeX berstandar LaTeX
+          </li>
+        </ul>
+
+        <div class="pt-4 border-t border-blue-200/80 text-center">
+          <div class="font-serif italic text-blue-800 text-sm">
+            "Belajar Hari Ini, Untuk Teknologi Masa Depan"
+          </div>
+        </div>
+      </div>
+
+      <!-- Glosarium Singkat -->
+      <div class="md:col-span-7 bg-white p-6 rounded-2xl border border-blue-100 shadow-xs space-y-3">
+        <h2 class="font-bold text-[#0f284e] text-sm flex items-center gap-2">
+          <span>📚</span> Glosarium Komprehensif Terminologi Fisika Inti
+        </h2>
+        <div class="space-y-2.5 text-xs text-slate-600 max-h-96 overflow-y-auto pr-1">
+          <p><strong>Nukleon:</strong> Partikel konstituen penyusun inti atom, yaitu proton bermuatan $+e$ dan neutron netral bermassa $\approx 1\text{ sma}$.</p>
+          <p><strong>Defek Massa ($\Delta m$):</strong> Selisih massa relativistik antara jumlah massa nukleon bebas penyusun dengan massa riil inti terikat utuh.</p>
+          <p><strong>Energi Ikat Inti ($E_b$):</strong> Energi kuantum yang memegang erat nukleon di dalam nukleus melawan tolakan elektrostatik Coulomb ($E_b = \Delta m \cdot c^2$).</p>
+          <p><strong>Pita Kestabilan (*Valley of Stability*):</strong> Distribusi rasio $N/Z$ isotop stabil di alam ($N/Z \approx 1$ untuk $Z \le 20$, dan $N/Z \approx 1.5$ untuk inti berat hingga $Z = 82$).</p>
+          <p><strong>Waktu Paruh ($T_{1/2}$):</strong> Periode waktu karakteristik yang dibutuhkan populasi radionuklida untuk menyusut menjadi tepat separuh ($50\%$) dari kondisi mula-mula.</p>
+          <p><strong>Aktivitas Radiasi ($A$):</strong> Laju disintegrasi kuantum per satuan waktu, diukur dalam satuan Becquerel ($1\text{ Bq} = 1\text{ peluruhan/detik}$) atau Curie ($1\text{ Ci} = 3.7 \times 10^{10}\text{ Bq}$).</p>
+          <p><strong>Reaksi Fisi Induksi:</strong> Pembelahan inti berat (seperti $^{235}\text{U}$) oleh penyerapan neutron lambat termal menjadi dua fragmen inti sedang disertai pelepasan energi eksotermik masif $\approx 200\text{ MeV}$.</p>
+          <p><strong>Reaksi Fusi Termonuklir:</strong> Sintesis penggabungan inti atom ringan (seperti Deuterium dan Tritium) pada temperatur plasma ekstrem $> 10^8\text{ K}$ menghasilkan inti Helium dan neutron bebas berenergi tinggi.</p>
+          <p><strong>Dosis Serap ($D$) & Dosis Efektif ($E$):</strong> Kuantitas dosimetri radiasi; Gray ($1\text{ Gy} = 1\text{ J/kg}$) untuk energi terserap murni, dan Sievert ($\text{Sv}$) untuk estimasi dampak radiobiologis jaringan tubuh manusia.</p>
+          <p><strong>Filosofi ALARA:</strong> *As Low As Reasonably Achievable*, pedoman keselamatan internasional untuk menekan penerimaan dosis radiasi serendah mungkin melalui optimisasi Waktu, Jarak, dan Perisai.</p>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <footer class="border-t border-slate-200 bg-white py-8 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4">NUCLEAR LAB - Panduan Pembelajaran &copy; 2026</div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

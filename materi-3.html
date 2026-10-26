@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Materi 3: Radioaktivitas & Peluruhan - NUCLEAR LAB</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { 50: '#eff6ff', 100: '#dbeafe', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 900: '#1e3a8a' }
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+    onload="if (typeof renderAllMath === 'function') renderAllMath();"></script>
+  <style>.katex-display { margin: 0.6em 0 !important; overflow-x: auto; padding: 4px 0; }</style>
+</head>
+<body class="bg-[#f8fafd] text-slate-800 font-sans min-h-screen flex flex-col selection:bg-blue-600 selection:text-white">
+
+  <!-- NAVBAR -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center space-x-2.5">
+        <div class="text-blue-600">
+          <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3" fill="#2563eb" stroke="#1d4ed8"/>
+            <ellipse cx="12" cy="12" rx="10" ry="4" stroke="#2563eb" transform="rotate(30 12 12)"/>
+            <ellipse cx="12" cy="12" rx="10" ry="4" stroke="#2563eb" transform="rotate(90 12 12)"/>
+            <ellipse cx="12" cy="12" rx="10" ry="4" stroke="#2563eb" transform="rotate(150 12 12)"/>
+          </svg>
+        </div>
+        <span class="font-extrabold text-xl tracking-tight text-[#0f284e]">NUCLEAR LAB</span>
+      </a>
+
+      <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold">
+        <a href="index.html" class="text-slate-600 hover:text-blue-600 transition pb-1">Beranda</a>
+        <a href="materi.html" class="text-blue-600 border-b-2 border-blue-600 pb-1 font-bold">Materi</a>
+        <a href="simulasi.html" class="text-slate-600 hover:text-blue-600 transition pb-1">Simulasi</a>
+        <a href="kuis.html" class="text-slate-600 hover:text-blue-600 transition pb-1">Kuis</a>
+        <a href="panduan.html" class="text-slate-600 hover:text-blue-600 transition pb-1">Panduan</a>
+      </nav>
+
+      <div class="flex items-center space-x-3">
+        <a href="panduan.html" class="w-9 h-9 rounded-full bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-700 hover:bg-blue-100 transition shadow-xs">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/></svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENT MATERI 3 -->
+  <main class="flex-grow max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+
+    <!-- Breadcrumb -->
+    <div class="flex items-center gap-2 text-xs font-bold text-slate-500 uppercase tracking-wider">
+      <a href="index.html" class="hover:text-blue-600">Beranda</a>
+      <span>/</span>
+      <a href="materi.html" class="hover:text-blue-600">Materi</a>
+      <span>/</span>
+      <span class="text-blue-600 font-bold">Modul 3</span>
+    </div>
+
+    <!-- Judul Bab -->
+    <div class="bg-white p-6 sm:p-8 rounded-2xl border border-blue-100 shadow-xs">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="w-7 h-7 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xs">3</span>
+        <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">Modul Teori 3</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-[#0f284e]">Radioaktivitas & Jenis Peluruhan Nuklir</h1>
+      <p class="text-slate-600 text-sm mt-2 leading-relaxed">
+        Analisis fenomena disintegrasi spontan nukleus tak stabil, penembusan terowongan kuantum Gamow ($\alpha$), interaksi elektro-lemah Fermi ($\beta^\pm, \text{EC}$), radiasi elektromagnetik de-eksitasi nuklir ($\gamma$), hukum pergeseran Soddy-Fajans, serta deret radioaktif alami.
+      </p>
+    </div>
+
+    <!-- Bagian 1: Hakikat Radioaktivitas -->
+    <div class="bg-white p-6 sm:p-8 rounded-2xl border border-blue-100 shadow-xs space-y-4">
+      <h2 class="text-xl font-bold text-[#0f284e] flex items-center gap-2">
+        <span>☢️</span> Hakikat Radioaktivitas sebagai Proses Stokastik Kuantum
+      </h2>
+      <p class="text-sm text-slate-600 leading-relaxed">
+        <strong>Radioaktivitas</strong> adalah peristiwa transformasi spontan suatu nuklida tidak stabil (induk) menjadi nuklida lain yang lebih stabil (anak) disertai pembebasan radiasi pengion berenergi tinggi. Karakteristik fisis fundamental radioaktivitas meliputi:
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+        <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+          <strong class="text-blue-900 block font-bold mb-1">1. Proses Stokastik Murni</strong>
+          <p class="text-slate-600 leading-relaxed">
+            Waktu pasti luruhnya satu inti tunggal tidak dapat ditentukan secara deterministik, melainkan diatur oleh probabilitas kuantum per satuan waktu konstan ($\lambda$).
+          </p>
+        </div>
+        <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+          <strong class="text-blue-900 block font-bold mb-1">2. Independensi Kondisi Luar</strong>
+          <p class="text-slate-600 leading-relaxed">
+            Laju disintegrasi inti kebal terhadap perubahan faktor termodinamika makroskopis (suhu tinggi, tekanan ekstrem, medan elektromagnetik eksternal, atau ikatan senyawa kimia).
+          </p>
+        </div>
+        <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+          <strong class="text-blue-900 block font-bold mb-1">3. Hukum Kekekalan Mutlak</strong>
+          <p class="text-slate-600 leading-relaxed">
+            Seluruh peluruhan tunduk pada hukum kekekalan muatan total ($\Sigma Z$), nomor massa ($\Sigma A$), momentum linier, momentum sudut kuantum (spin), dan massa-energi total.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bagian 2: 3 Ragam Peluruhan Nuklir -->
+    <div class="space-y-4">
+      <h2 class="text-xl font-bold text-[#0f284e]">Mekanisme Tiga Ragam Peluruhan Utama</h2>
+
+      <!-- Peluruhan Alfa -->
+      <div class="bg-white p-6 rounded-2xl border border-blue-100 shadow-xs space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-teal-800 text-base flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-teal-100 text-teal-800 flex items-center justify-center text-xs font-bold">α</span>
+            1. Peluruhan Alfa ($\alpha$) & Terowongan Kuantum Gamow
+          </span>
+          <span class="text-xs px-2.5 py-1 rounded bg-teal-50 text-teal-700 font-bold border border-teal-200">Inti Helium $^4_2\text{He}^{2+}$</span>
+        </div>
+        <p class="text-xs text-slate-600 leading-relaxed">
+          Terjadi pada nuklida berbobot tinggi ($A > 200, Z > 82$) yang memancarkan inti Helium-4 terikat erat (2 proton + 2 neutron, bermuatan $+2e$). Berdasarkan mekanika klasik, energi partikel alfa ($\approx 4 - 9\text{ MeV}$) jauh lebih kecil daripada tinggi penghalang potensial Coulomb inti ($\approx 25 - 30\text{ MeV}$). George Gamow (1928) membuktikan bahwa partikel lolos melalui efek terowongan kuantum (*quantum tunneling*):
+        </p>
+        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 text-center font-serif text-teal-950 text-sm">
+          $$^A_Z\text{X} \;\xrightarrow{\quad}\; ^{A-4}_{Z-2}\text{Y} + \,^4_2\alpha + Q_\alpha$$
+          <div class="text-2xs text-slate-600 font-sans mt-2">
+            Contoh: $\;^{238}_{92}\text{U} \;\longrightarrow\; ^{234}_{90}\text{Th} + \,^4_2\text{He} + 4.27\text{ MeV}$
+          </div>
+        </div>
+        <div class="p-3 bg-teal-50/50 rounded-lg border border-teal-200 text-xs text-slate-700">
+          <strong>Kinematika Peluruhan Dua Bodi:</strong> Karena momentum kekal dan inti induk mula-mula diam, spektrum energi kinetik partikel alfa bersifat <em>diskrit (monoenergetik)</em>:
+          $$K_\alpha = \frac{m_{\text{anak}}}{m_{\text{anak}} + m_\alpha} Q_\alpha \approx \frac{A - 4}{A} Q_\alpha$$
+        </div>
+      </div>
+
+      <!-- Peluruhan Beta -->
+      <div class="bg-white p-6 rounded-2xl border border-blue-100 shadow-xs space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-cyan-800 text-base flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-cyan-100 text-cyan-800 flex items-center justify-center text-xs font-bold">β</span>
+            2. Peluruhan Beta ($\beta^-, \beta^+, \text{EC}$) & Teori Interaksi Lemah
+          </span>
+          <span class="text-xs px-2.5 py-1 rounded bg-cyan-50 text-cyan-700 font-bold border border-cyan-200">Interaksi Vektor Intermediat $W^\pm$</span>
+        </div>
+        <p class="text-xs text-slate-600 leading-relaxed">
+          Peluruhan beta dimediasi oleh interaksi gaya nuklir lemah (*weak interaction*) yang mengubah rasa kuark ($d \leftrightarrow u$). Wolfgang Pauli dan Enrico Fermi merumuskan bahwa peluruhan ini melibatkan emisi partikel neutrino ($\nu$) / antineutrino ($\bar{\nu}$) tanpa massa diam signifikan dan tanpa muatan listrik:
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+          <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200">
+            <strong class="text-cyan-800 block font-bold mb-1">Peluruhan Beta Minus ($\beta^-$)</strong>
+            <p class="text-3xs text-slate-600 mb-2">Terjadi saat inti memiliki ekses neutron ($N/Z$ tinggi):</p>
+            <div class="font-serif text-cyan-900 text-xs text-center py-1 bg-white rounded border border-slate-200">
+              $$n \longrightarrow p + e^- + \bar{\nu}_e$$
+            </div>
+            <p class="text-3xs text-slate-500 mt-1">Nomor atom bertambah 1: $^{14}_6\text{C} \to \,^{14}_7\text{N} + e^- + \bar{\nu}_e$.</p>
+          </div>
+
+          <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200">
+            <strong class="text-cyan-800 block font-bold mb-1">Peluruhan Beta Plus ($\beta^+$)</strong>
+            <p class="text-3xs text-slate-600 mb-2">Terjadi saat inti memiliki defisit neutron ($N/Z$ rendah):</p>
+            <div class="font-serif text-cyan-900 text-xs text-center py-1 bg-white rounded border border-slate-200">
+              $$p \longrightarrow n + e^+ + \nu_e$$
+            </div>
+            <p class="text-3xs text-slate-500 mt-1">Memancarkan positron: $^{11}_6\text{C} \to \,^{11}_5\text{B} + e^+ + \nu_e$.</p>
+          </div>
+
+          <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200">
+            <strong class="text-cyan-800 block font-bold mb-1">Penangkapan Elektron (EC)</strong>
+            <p class="text-3xs text-slate-600 mb-2">Inti menangkap elektron orbital dalam (kulit K):</p>
+            <div class="font-serif text-cyan-900 text-xs text-center py-1 bg-white rounded border border-slate-200">
+              $$p + e^- \longrightarrow n + \nu_e$$
+            </div>
+            <p class="text-3xs text-slate-500 mt-1">Diiringi emisi foton sinar-X karakteristik.</p>
+          </div>
+        </div>
+
+        <div class="p-3 bg-cyan-50/50 rounded-lg border border-cyan-200 text-xs text-slate-700">
+          <strong>Spektrum Energi Beta Kontinu:</strong> Karena energi $Q$ dibagi bersama antara elektron dan neutrino ($Q = K_e + K_\nu$), spektrum kinetik elektron bersifat kontinu mulai dari $0$ hingga batas energi maksimum $E_{\max} = Q_\beta$.
+        </div>
+      </div>
+
+      <!-- Pemancaran Gamma -->
+      <div class="bg-white p-6 rounded-2xl border border-blue-100 shadow-xs space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-indigo-800 text-base flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-indigo-100 text-indigo-800 flex items-center justify-center text-xs font-bold">γ</span>
+            3. Transisi De-Eksitasi Gamma ($\gamma$) & Keadaan Isomerik
+          </span>
+          <span class="text-xs px-2.5 py-1 rounded bg-indigo-50 text-indigo-700 font-bold border border-indigo-200">Foton Elektromagnetik Kuantum</span>
+        </div>
+        <p class="text-xs text-slate-600 leading-relaxed">
+          Setelah memancarkan partikel $\alpha$ atau $\beta$, inti anak umumnya berada dalam keadaan tereksitasi ($^A_Z\text{X}^*$). Nukleus kemudian jatuh ke tingkat dasar (*ground state*) dengan memancarkan kuanta radiasi elektromagnetik frekuensi ultra-tinggi (sinar gamma, $E = h\nu$), tanpa merubah nomor atom maupun nomor massa:
+        </p>
+        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 text-center font-serif text-indigo-950 text-sm">
+          $$^A_Z\text{X}^* \;\xrightarrow{\quad}\; ^A_Z\text{X} + \gamma \quad (E_\gamma = E_{\text{eksitasi}} - E_{\text{dasar}})$$
+          <div class="text-2xs text-slate-600 font-sans mt-2">
+            Contoh isomer metastabil: $\;^{99m}_{43}\text{Tc} \;\xrightarrow{T_{1/2}=6\text{ jam}}\; ^{99}_{43}\text{Tc} + \gamma\;(142.7\text{ keV})$
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bagian 3: Hukum Pergeseran Soddy-Fajans & Deret Alami -->
+    <div class="bg-white p-6 sm:p-8 rounded-2xl border border-blue-100 shadow-xs space-y-4">
+      <h2 class="text-xl font-bold text-[#0f284e] flex items-center gap-2">
+        <span>🧭</span> Hukum Pergeseran Soddy-Fajans & 4 Deret Radioaktif Alami
+      </h2>
+      <p class="text-sm text-slate-600 leading-relaxed">
+        Frederick Soddy dan Kasimir Fajans merumuskan aturan pergeseran posisi isotop dalam tabel periodik:
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+        <div class="p-3 rounded-lg bg-teal-50/60 border border-teal-200 text-teal-950">
+          <strong>Pergeseran Emisi Alfa:</strong> Menggeser posisi unsur <strong>2 kolom ke kiri</strong> dalam tabel periodik ($Z \to Z - 2$) dan nomor massa berkurang 4 ($A \to A - 4$).
+        </div>
+        <div class="p-3 rounded-lg bg-cyan-50/60 border border-cyan-200 text-cyan-950">
+          <strong>Pergeseran Emisi Beta Minus:</strong> Menggeser posisi unsur <strong>1 kolom ke kanan</strong> dalam tabel periodik ($Z \to Z + 1$) tanpa merubah nomor massa ($A \to A$).
+        </div>
+      </div>
+
+      <!-- Tabel 4 Deret -->
+      <div class="overflow-x-auto pt-2">
+        <table class="w-full text-left text-xs border border-slate-200 rounded-lg overflow-hidden">
+          <thead class="bg-slate-100 text-slate-700 font-bold">
+            <tr>
+              <th class="p-3">Nama Deret</th>
+              <th class="p-3">Rumus Massa</th>
+              <th class="p-3">Nuklida Induk Awal</th>
+              <th class="p-3">Waktu Paruh ($T_{1/2}$)</th>
+              <th class="p-3">Nuklida Stabil Akhir</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200">
+            <tr>
+              <td class="p-3 font-bold text-blue-900">Deret Torium</td>
+              <td class="p-3 font-mono">$4n$</td>
+              <td class="p-3">Torium-232 ($^{232}_{90}\text{Th}$)</td>
+              <td class="p-3">$1.405 \times 10^{10}\text{ th}$</td>
+              <td class="p-3 font-bold text-slate-700">Timbal-208 ($^{208}_{82}\text{Pb}$)</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-bold text-blue-900">Deret Neptunium (Sintetis)</td>
+              <td class="p-3 font-mono">$4n + 1$</td>
+              <td class="p-3">Neptunium-237 ($^{237}_{93}\text{Np}$)</td>
+              <td class="p-3">$2.14 \times 10^{6}\text{ th}$</td>
+              <td class="p-3 font-bold text-slate-700">Bismut-209 ($^{209}_{83}\text{Bi}$)</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-bold text-blue-900">Deret Uranium-Radium</td>
+              <td class="p-3 font-mono">$4n + 2$</td>
+              <td class="p-3">Uranium-238 ($^{238}_{92}\text{U}$)</td>
+              <td class="p-3">$4.468 \times 10^{9}\text{ th}$</td>
+              <td class="p-3 font-bold text-slate-700">Timbal-206 ($^{206}_{82}\text{Pb}$)</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-bold text-blue-900">Deret Aktinium</td>
+              <td class="p-3 font-mono">$4n + 3$</td>
+              <td class="p-3">Uranium-235 ($^{235}_{92}\text{U}$)</td>
+              <td class="p-3">$7.038 \times 10^{8}\text{ th}$</td>
+              <td class="p-3 font-bold text-slate-700">Timbal-207 ($^{207}_{82}\text{Pb}$)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Bagian 4: Tabel Karakteristik & Hukum Atenuasi Lambert-Beer -->
+    <div class="bg-white p-6 sm:p-8 rounded-2xl border border-blue-100 shadow-xs space-y-4">
+      <h2 class="text-xl font-bold text-[#0f284e]">Interaksi Radiasi dengan Materi & Penetrasi</h2>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs border border-slate-200 rounded-lg overflow-hidden">
+          <thead class="bg-slate-100 text-slate-700 font-bold">
+            <tr>
+              <th class="p-3">Jenis Radiasi</th>
+              <th class="p-3">Muatan & Massa Diam</th>
+              <th class="p-3">Spektrum Kecepatan</th>
+              <th class="p-3">Daya Ionisasi Spesifik</th>
+              <th class="p-3">Daya Penetrasi</th>
+              <th class="p-3">Mekanisme Atenuasi</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200">
+            <tr>
+              <td class="p-3 font-bold text-teal-700">Alfa ($\alpha$)</td>
+              <td class="p-3">$+2e$ ; $4.0015\text{ sma}$</td>
+              <td class="p-3">$\approx 0.05\,c$ ($1.5 \times 10^7\text{ m/s}$)</td>
+              <td class="p-3 font-bold text-emerald-700">Ekstrem Tinggi ($\approx 50.000\text{ ion/cm}$)</td>
+              <td class="p-3 text-rose-600 font-bold">Sangat Rendah (Jangkauan udara $\sim 3-5\text{ cm}$)</td>
+              <td class="p-3">Diserap tuntas oleh selembar kertas tipis atau epidermis kulit luar.</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-bold text-cyan-700">Beta ($\beta$)</td>
+              <td class="p-3">$\mp 1e$ ; $0.000548\text{ sma}$</td>
+              <td class="p-3">Relativistik hingga $0.99\,c$</td>
+              <td class="p-3 font-bold text-amber-600">Sedang ($\approx 100\text{ ion/cm}$)</td>
+              <td class="p-3 text-amber-600 font-bold">Moderat (Jangkauan udara $\sim 1-3\text{ m}$)</td>
+              <td class="p-3">Diatenuasi tuntas oleh pelat aluminium tebal $3 - 5\text{ mm}$ atau akrilik.</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-bold text-indigo-700">Gamma ($\gamma$)</td>
+              <td class="p-3">$0$ ; $0$</td>
+              <td class="p-3">Tepat $c = 3 \times 10^8\text{ m/s}$</td>
+              <td class="p-3 font-bold text-rose-600">Paling Rendah ($\approx 1\text{ ion/cm}$)</td>
+              <td class="p-3 text-emerald-700 font-bold">Sangat Tinggi (Atenuasi eksponensial)</td>
+              <td class="p-3">Dibutuhkan lapisan tebal Timbal ($\text{Pb}$) berkepadatan tinggi atau beton barit.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Hukum Lambert Beer -->
+      <div class="p-4 bg-blue-50/70 rounded-xl border border-blue-200 space-y-2">
+        <strong class="text-blue-900 text-sm block">Hukum Pelemahan Foton Gamma (Hukum Lambert-Beer):</strong>
+        <p class="text-xs text-slate-700 leading-relaxed">
+          Intensitas radiasi gamma yang melewati medium penyerap dengan ketebalan $x$ mengalami pelemahan secara eksponensial:
+        </p>
+        <div class="text-center font-serif text-blue-950 text-base py-1">
+          $$I(x) = I_0 \cdot e^{-\mu x} = I_0 \left(\frac{1}{2}\right)^{\frac{x}{\text{HVL}}}$$
+        </div>
+        <p class="text-2xs text-slate-600">
+          dengan $\mu$ adalah koefisien atenuasi linear bahan ($\text{cm}^{-1}$), dan $\text{HVL}$ (*Half-Value Layer*) adalah ketebalan bahan yang mereduksi intensitas menjadi tepat $50\%$: $\text{HVL} = \frac{\ln 2}{\mu} \approx \frac{0.693}{\mu}$.
+        </p>
+      </div>
+
+      <div class="pt-2 text-right">
+        <a href="simulasi.html" class="text-xs font-bold text-blue-600 hover:underline">
+          Buka Lab Uji Simulasi Daya Tembus di Halaman Simulasi →
+        </a>
+      </div>
+    </div>
+
+    <!-- Tombol Navigasi Lanjut -->
+    <div class="pt-6 border-t border-slate-200 flex flex-wrap justify-between items-center gap-4">
+      <a href="materi-2.html" class="px-5 py-2.5 rounded-full bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-semibold text-xs transition">
+        ← Modul 2: Kestabilan Inti Atom
+      </a>
+      <a href="materi-4.html" class="px-6 py-2.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-600/20 transition flex items-center gap-1.5">
+        Lanjut ke Modul 4: Waktu Paruh & Kinetika →
+      </a>
+    </div>
+
+  </main>
+
+  <footer class="border-t border-slate-200 bg-white py-8 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4">NUCLEAR LAB - Modul 3: Radioaktivitas & Peluruhan &copy; 2026</div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

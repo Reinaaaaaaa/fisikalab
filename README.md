@@ -1,59 +1,46 @@
-# FisikaInti.Lab - Media Pembelajaran Digital Fisika Inti (Light Theme)
+# NUCLEAR LAB - Media Pembelajaran Digital Fisika Inti
 
-Media pembelajaran interaktif berbasis web untuk konsep **Fisika Inti** (SMA / Perguruan Tinggi Dasar) dengan tampilan **Clean White / Light Mode**, tipografi profesional, dan rumus matematika berstandar LaTeX (KaTeX).
-
----
-
-## 🚀 Fitur Utama & Modul Pembelajaran
-
-1. **Modul 1: Struktur & Model Inti Atom**
-   - Notasi nuklida matematis: $^A_Z\text{X}$ dengan persamaan $A = Z + N$.
-   - Slider interaktif jumlah Proton ($Z$) dan Neutron ($N$).
-   - Visualisasi model inti 2D di Canvas dengan partikel proton (merah $+$) dan neutron (biru $0$).
-   - Evaluasi otomatis rasio pita kestabilan ($N/Z$).
-
-2. **Modul 2: Defek Massa & Energi Ikat Inti**
-   - Penulisan rumus formal KaTeX:
-     $$\Delta m = [Z \cdot m_p + (A - Z) \cdot m_n] - m_{\text{inti}}$$
-     $$E_b = \Delta m \times 931.5 \text{ MeV}$$
-   - Kalkulator otomatis energi ikat total ($E_b$) dan energi ikat per nukleon ($E_b / A$).
-   - Preset nuklida: $^{4}_{2}\text{He}$, $^{12}_{6}\text{C}$, $^{16}_{8}\text{O}$, $^{56}_{26}\text{Fe}$, $^{235}_{92}\text{U}$, dan input kustom manual.
-   - Penjabaran matematis langkah demi langkah yang transparan.
-
-3. **Modul 3: Radioaktivitas & Simulasi Waktu Paruh (*Half-Life*)**
-   - Rumus hukum peluruhan radioaktif:
-     $$N(t) = N_0 \left(\frac{1}{2}\right)^{\frac{t}{T_{1/2}}}$$
-   - Wadah Canvas 200 partikel radioaktif yang meluruh secara stokastik (acak) real-time.
-   - Grafik interaktif kurva eksponensial **Chart.js** (Light theme) membandingkan kurva teori dengan sampel nyata.
-
-4. **Modul 4: Lab Visual Daya Tembus Radiasi**
-   - Simulasi animasi penembakan berkas sinar **Alfa ($\alpha$)**, **Beta ($\beta$)**, dan **Gamma ($\gamma$)**.
-   - Pengujian material perisai: Kertas ($0.1\text{ mm}$), Aluminium ($3\text{ mm}$), dan Balok Timbal ($50\text{ mm}$).
-   - Tabel komparasi daya ionisasi, daya tembus, dan muatan/massa.
-
-5. **Modul 5: Reaksi Inti & Simulasi Fisi Berantai**
-   - Komparasi persamaan reaksi Fisi ($^{235}_{92}\text{U}$) vs Fusi ($^2_1\text{H} + ^3_1\text{H}$).
-   - **Simulasi Reaksi Berantai Fisi Nuklir**: Tembakkan satu neutron lambat untuk membelah inti $^{235}\text{U}$ dan memicu reaksi berantai multiplikasi neutron.
-
-6. **Modul 6: Kalkulator Penanggalan Radiokarbon ($^{14}\text{C}$)**
-   - Menghitung perkiraan umur artefak purbakala berdasarkan sisa persentase $^{14}\text{C}$ ($T_{1/2} = 5730\text{ tahun}$).
-
-7. **Modul 7: Kuis Evaluasi Pemahaman**
-   - 5 Soal pilihan ganda konsep dan hitungan.
-   - Feedback seketika (indikator benar/salah), skor terhitung otomatis, dan kotak pembahasan ilmiah dengan rumus KaTeX.
+Platform media pembelajaran interaktif fisika inti atom yang dirancang khusus mengikuti wireframe UI/UX **NUCLEAR LAB** (Sesuai Kurikulum Merdeka Fase F / SMA Kelas XII).
 
 ---
 
-## 🛠️ Pustaka & Teknologi yang Digunakan
+## 🎨 Halaman Utama & Struktur Navigasi (Sesuai Wireframe Desain)
 
-- **HTML5 & CSS3**
-- **Tailwind CSS (CDN)** (Clean Light Mode Theme)
-- **KaTeX (CDN)** (Render rumus fisika dan matematika berkualitas cetak)
-- **Chart.js (CDN)** (Grafik eksponensial real-time)
-- **HTML5 Canvas API** (Simulasi model inti, peluruhan acak, uji penetrasi radiasi, dan reaksi berantai fisi)
+### 1. Halaman Beranda (`index.html`)
+* Hero banner bertema biru modern cerah: **"NUCLEAR LAB - Misi Menjelajahi Inti Atom"**.
+* Ilustrasi atom 3D dengan nukleon mengorbit dan kutipan *"Small particles, Big impact"*.
+* Tombol CTA: **Mulai Eksplorasi →** dan **Lihat Panduan**.
+* 4 Kartu Fitur: *Materi Interaktif*, *Simulasi PhET*, *Kuis & Tantangan*, dan *Sertifikat*.
+* Bar Sasaran Pembelajaran: *Siswa SMA Kelas XII | Fase F (Kurikulum Merdeka)*.
+
+### 2. Navigasi Materi (`materi.html`) & 6 Sub-Halaman Materi
+Halaman hub 6 kartu topik materi pembelajaran yang masing-masing memiliki halaman modul sendiri:
+1. [**`materi-1.html`**](file:///C:/Users/tiery/.gemini/antigravity/scratch/fisika-inti-web/materi-1.html) — **Mengenal Inti Atom** (Proton, neutron, elektron, nomor atom $Z$, nomor massa $A$, lambang nuklida $^A_Z\text{X}$, isotop/isobar/isoton).
+2. [**`materi-2.html`**](file:///C:/Users/tiery/.gemini/antigravity/scratch/fisika-inti-web/materi-2.html) — **Kestabilan Inti** (Gaya nuklir kuat vs gaya Coulomb, pita kestabilan $N/Z$, defek massa $\Delta m$, kalkulator energi ikat $E_b$).
+3. [**`materi-3.html`**](file:///C:/Users/tiery/.gemini/antigravity/scratch/fisika-inti-web/materi-3.html) — **Radioaktivitas** (Peluruhan alfa $\alpha$, beta $\beta$, gamma $\gamma$, persamaan reaksi peluruhan, tabel sifat fisik radiasi).
+4. [**`materi-4.html`**](file:///C:/Users/tiery/.gemini/antigravity/scratch/fisika-inti-web/materi-4.html) — **Waktu Paruh** (Konsep $T_{1/2}$, rumus $N(t) = N_0(1/2)^{t/T_{1/2}}$, aktivitas radiasi Becquerel, contoh soal hitungan).
+5. [**`materi-5.html`**](file:///C:/Users/tiery/.gemini/antigravity/scratch/fisika-inti-web/materi-5.html) — **Reaksi Inti** (Fisi vs Fusi, reaksi berantai $^{235}\text{U}$, nilai energi reaksi $Q$, penanggalan Karbon-14).
+6. [**`materi-6.html`**](file:///C:/Users/tiery/.gemini/antigravity/scratch/fisika-inti-web/materi-6.html) — **Pemanfaatan & Keselamatan** (Aplikasi kedokteran nuklir, PLTN, industri, dan prinsip proteksi keselamatan ALARA).
+
+### 3. Halaman Simulasi (`simulasi.html`)
+* **Build a Nucleus (PhET / Interaktif)**: Kanvas gelap ala PhET untuk menyusun jumlah proton dan neutron dengan tombol $+/-$, indikator simbol unsur real-time, dan status kestabilan.
+* Dilengkapi tab *Daya Tembus Radiasi*, *Decay Simulation Chart*, dan *Reaksi Berantai Fisi*.
+* Tombol eksternal langsung menuju simulasi resmi PhET University of Colorado.
+
+### 4. Halaman Kuis (`kuis.html`)
+* Format stepper per soal dengan *Progress Bar* (misal: "Soal 3 / 5").
+* Opsi pilihan ganda berumus KaTeX dengan feedback seketika.
+* Widget kanan:
+  - **💡 Ingat!** (Tip konsep penting terkait soal).
+  - **❓ Butuh bantuan?** (Maskot toga nuklir dengan link "Buka Materi").
+
+### 5. Panduan & Glosarium (`panduan.html`)
+* Rangkuman alur navigasi 5 langkah.
+* Daftar fitur tambahan platform dan glosarium istilah fisika inti.
 
 ---
 
-## 💻 Cara Menjalankan
+## 🛠️ Berkas Pendukung
 
-Buka file [**`index.html`**](file:///C:/Users/tiery/.gemini/antigravity/scratch/fisika-inti-web/index.html) langsung di peramban web (*Google Chrome, Microsoft Edge, Mozilla Firefox, dll*).
+* `app.js`: Logika interaktif semua simulator, kuis stepper, dan KaTeX auto-polling.
+* `.nojekyll`: Kompatibilitas GitHub Pages agar rumus matematika tidak terganggu oleh Jekyll.

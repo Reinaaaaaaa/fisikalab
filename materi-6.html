@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Materi 6: Pemanfaatan & Dosimetri Keselamatan - NUCLEAR LAB</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { 50: '#eff6ff', 100: '#dbeafe', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 900: '#1e3a8a' }
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+    onload="if (typeof renderAllMath === 'function') renderAllMath();"></script>
+  <style>.katex-display { margin: 0.6em 0 !important; overflow-x: auto; padding: 4px 0; }</style>
+</head>
+<body class="bg-[#f8fafd] text-slate-800 font-sans min-h-screen flex flex-col selection:bg-blue-600 selection:text-white">
+
+  <!-- NAVBAR -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center space-x-2.5">
+        <div class="text-blue-600">
+          <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3" fill="#2563eb" stroke="#1d4ed8"/>
+            <ellipse cx="12" cy="12" rx="10" ry="4" stroke="#2563eb" transform="rotate(30 12 12)"/>
+            <ellipse cx="12" cy="12" rx="10" ry="4" stroke="#2563eb" transform="rotate(90 12 12)"/>
+            <ellipse cx="12" cy="12" rx="10" ry="4" stroke="#2563eb" transform="rotate(150 12 12)"/>
+          </svg>
+        </div>
+        <span class="font-extrabold text-xl tracking-tight text-[#0f284e]">NUCLEAR LAB</span>
+      </a>
+
+      <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold">
+        <a href="index.html" class="text-slate-600 hover:text-blue-600 transition pb-1">Beranda</a>
+        <a href="materi.html" class="text-blue-600 border-b-2 border-blue-600 pb-1 font-bold">Materi</a>
+        <a href="simulasi.html" class="text-slate-600 hover:text-blue-600 transition pb-1">Simulasi</a>
+        <a href="kuis.html" class="text-slate-600 hover:text-blue-600 transition pb-1">Kuis</a>
+        <a href="panduan.html" class="text-slate-600 hover:text-blue-600 transition pb-1">Panduan</a>
+      </nav>
+
+      <div class="flex items-center space-x-3">
+        <a href="panduan.html" class="w-9 h-9 rounded-full bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-700 hover:bg-blue-100 transition shadow-xs">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/></svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENT MATERI 6 -->
+  <main class="flex-grow max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+
+    <!-- Breadcrumb -->
+    <div class="flex items-center gap-2 text-xs font-bold text-slate-500 uppercase tracking-wider">
+      <a href="index.html" class="hover:text-blue-600">Beranda</a>
+      <span>/</span>
+      <a href="materi.html" class="hover:text-blue-600">Materi</a>
+      <span>/</span>
+      <span class="text-blue-600 font-bold">Modul 6</span>
+    </div>
+
+    <!-- Judul Bab -->
+    <div class="bg-white p-6 sm:p-8 rounded-2xl border border-blue-100 shadow-xs">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="w-7 h-7 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xs">6</span>
+        <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">Modul Teori 6</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-[#0f284e]">Aplikasi Iptek Nuklir & Fisika Dosimetri Radiasi</h1>
+      <p class="text-slate-600 text-sm mt-2 leading-relaxed">
+        Kajian implementasi teknologi nuklir dalam onkologi medis, industri NDT, agronomi, formulasi dosimetri kuantitatif (Gray & Sievert), efek radiobiologis deterministik vs stokastik, prinsip proteksi radiasi ALARA, serta standar Nilai Batas Dosis (NBD BAPETEN / ICRP-103).
+      </p>
+    </div>
+
+    <!-- Bagian 1: Aplikasi Iptek Nuklir -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+      <!-- Kedokteran Nuklir & Onkologi -->
+      <div class="bg-white p-6 rounded-2xl border border-blue-100 shadow-xs space-y-3 flex flex-col justify-between">
+        <div class="space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl">
+            🏥
+          </div>
+          <h3 class="font-bold text-[#0f284e] text-base">Kedokteran Nuklir & Radioterapi</h3>
+          <ul class="text-xs text-slate-600 space-y-2 leading-relaxed">
+            <li>• <strong>Radioterapi Eksternal:</strong> Teleterapi foton gamma berkas tinggi dari radioisotop Kobalt-60 ($^{60}_{27}\text{Co}$) atau akselerator linier (LINAC) untuk memusnahkan jaringan neoplasma/kanker.</li>
+            <li>• <strong>Radiofarmaka Diagnostik SPECT:</strong> Isotop Teknesium-99m ($^{99m}_{43}\text{Tc}$) memancarkan gamma monokromatik $142.7\text{ keV}$ untuk memetakan perfusi miokard dan fungsi ginjal.</li>
+            <li>• <strong>PET Scan ($^{18}\text{F}$-FDG):</strong> Deteksi tomografi berbasis emisi positron yang mengalami anihilasi elektron memancarkan 2 kuanta foton gamma koinsiden saling bertolak belakang ($511\text{ keV}$).</li>
+          </ul>
+        </div>
+        <div class="pt-3 border-t border-slate-100 text-3xs text-slate-500">
+          Target: Penanganan onkologi presisi tinggi.
+        </div>
+      </div>
+
+      <!-- Energi & Industri Modern -->
+      <div class="bg-white p-6 rounded-2xl border border-blue-100 shadow-xs space-y-3 flex flex-col justify-between">
+        <div class="space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl">
+            ⚡
+          </div>
+          <h3 class="font-bold text-[#0f284e] text-base">Energi & Rekayasa Industri</h3>
+          <ul class="text-xs text-slate-600 space-y-2 leading-relaxed">
+            <li>• <strong>Pembangkitan Daya Fisi Bersih:</strong> Reaktor daya komersial (PWR, BWR, CANDU) memproduksi listrik skala gigawatt dengan faktor kapasitas $> 90\%$ tanpa emisi gas rumah kaca ($CO_2$).</li>
+            <li>• <strong>Uji Radiografi Tak Merusak (NDT):</strong> Radiografi sinar gamma industri dari Iridium-192 ($^{192}_{77}\text{Ir}$) untuk mendeteksi keretakan mikro struktur las baja pipa minyak dan rangka pesawat.</li>
+            <li>• <strong>Sensor Ketebalan (*Thickness Gauging*):</strong> Atenuasi berkas elektron beta Kripton-85 ($^{85}_{36}\text{Kr}$) atau Stronsium-90 ($^{90}_{38}\text{Sr}$) untuk otomasi mikrometer plat baja dan kertas.</li>
+          </ul>
+        </div>
+        <div class="pt-3 border-t border-slate-100 text-3xs text-slate-500">
+          Target: Efisiensi manufaktur & kemandirian energi.
+        </div>
+      </div>
+
+      <!-- Pertanian, Pangan & Pengendalian Hama -->
+      <div class="bg-white p-6 rounded-2xl border border-blue-100 shadow-xs space-y-3 flex flex-col justify-between">
+        <div class="space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl">
+            🌾
+          </div>
+          <h3 class="font-bold text-[#0f284e] text-base">Agronomi & Pengawetan Pangan</h3>
+          <ul class="text-xs text-slate-600 space-y-2 leading-relaxed">
+            <li>• <strong>Pemuliaan Tanaman Mutasi:</strong> Iradiasi radiasi gamma untuk menghasilkan galur mutan tanaman pangan unggul (seperti varietas padi Sidenuk dan Kedelai Mutiara toleran kekeringan).</li>
+            <li>• <strong>Iradiasi Fitosanitari Pangan:</strong> Pemusnahan mikroorganisme pembusuk (*Salmonella*, listeria) dan serangga hama pascapanen tanpa residu bahan kimia dan tanpa merusak nutrisi.</li>
+            <li>• <strong>Teknik Serangga Mandul (SIT):</strong> Pemandulan radiasi serangga hama jantan untuk menekan drastis populasi vektor nyamuk demam berdarah dan lalat buah.</li>
+          </ul>
+        </div>
+        <div class="pt-3 border-t border-slate-100 text-3xs text-slate-500">
+          Target: Ketahanan pangan global & biosintesis.
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bagian 2: Besaran & Dosimetri Radiasi Pengion -->
+    <div class="bg-white p-6 sm:p-8 rounded-2xl border border-blue-100 shadow-xs space-y-4">
+      <h2 class="text-xl font-bold text-[#0f284e] flex items-center gap-2">
+        <span>📏</span> Besaran Fundamental Dosimetri Radiasi (Standar SI & ICRP)
+      </h2>
+      <p class="text-sm text-slate-600 leading-relaxed">
+        Untuk mengukur interaksi radiasi pengion dengan materi biologi secara objektif, Komisi Internasional untuk Perlindungan Radiologi (ICRP) merumuskan tiga tingkatan dosis kuantitatif:
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1">
+        
+        <!-- Dosis Serap -->
+        <div class="p-4 rounded-xl bg-blue-50/70 border border-blue-200 space-y-2">
+          <div class="flex justify-between items-center">
+            <strong class="text-blue-900 text-sm font-bold">1. Dosis Serap ($D$)</strong>
+            <span class="text-2xs bg-blue-200 text-blue-900 font-bold px-2 py-0.5 rounded">Gray ($\text{Gy}$)</span>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Energi radiasi netto yang didepositkan per satuan massa material penyerap:
+          </p>
+          <div class="font-serif text-blue-900 font-bold text-center py-1 text-sm">
+            $$D = \frac{d\bar{\varepsilon}}{dm} \quad [1\text{ Gy} = 1\text{ J/kg}]$$
+          </div>
+          <p class="text-3xs text-slate-500">Satuan non-SI: $1\text{ rad} = 0.01\text{ Gy}$.</p>
+        </div>
+
+        <!-- Dosis Ekivalen -->
+        <div class="p-4 rounded-xl bg-blue-50/70 border border-blue-200 space-y-2">
+          <div class="flex justify-between items-center">
+            <strong class="text-blue-900 text-sm font-bold">2. Dosis Ekivalen ($H_T$)</strong>
+            <span class="text-2xs bg-blue-200 text-blue-900 font-bold px-2 py-0.5 rounded">Sievert ($\text{Sv}$)</span>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Memperhitungkan efektivitas biologis relatif jenis radiasi melalui faktor bobot radiasi ($w_R$):
+          </p>
+          <div class="font-serif text-blue-900 font-bold text-center py-1 text-sm">
+            $$H_T = \sum_R w_R \cdot D_{T,R}$$
+          </div>
+          <p class="text-3xs text-slate-500">$w_R$ untuk foton/$\beta = 1$; proton $= 2$; partikel $\alpha = 20$.</p>
+        </div>
+
+        <!-- Dosis Efektif -->
+        <div class="p-4 rounded-xl bg-blue-50/70 border border-blue-200 space-y-2">
+          <div class="flex justify-between items-center">
+            <strong class="text-blue-900 text-sm font-bold">3. Dosis Efektif ($E$)</strong>
+            <span class="text-2xs bg-blue-200 text-blue-900 font-bold px-2 py-0.5 rounded">Sievert ($\text{Sv}$)</span>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Menghitung risiko stokastik total seluruh tubuh berdasarkan faktor bobot sensitivitas organ jaringan ($w_T$):
+          </p>
+          <div class="font-serif text-blue-900 font-bold text-center py-1 text-sm">
+            $$E = \sum_T w_T \cdot H_T$$
+          </div>
+          <p class="text-3xs text-slate-500">Sumsum tulang/paru $= 0.12$; tiroid $= 0.04$; kulit $= 0.01$.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Bagian 3: Radiobiologi: Deterministik vs Stokastik -->
+    <div class="bg-white p-6 sm:p-8 rounded-2xl border border-blue-100 shadow-xs space-y-4">
+      <h2 class="text-xl font-bold text-[#0f284e] flex items-center gap-2">
+        <span>🧬</span> Efek Biologis Radiasi Pengion pada Seluler
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+        <div class="p-4 rounded-xl bg-rose-50/70 border border-rose-200 space-y-2">
+          <strong class="text-rose-900 block text-sm font-bold">1. Efek Deterministik (Reaksi Jaringan Akut)</strong>
+          <p class="text-slate-700 leading-relaxed">
+            Muncul akibat kematian masif populasi sel jaringan. Memiliki <strong>nilai ambang batas dosis definitif (*threshold*)</strong>. Tingkat keparahan cedera klinis berbanding lurus secara eksponensial terhadap peningkatan dosis yang diterima.
+          </p>
+          <ul class="text-3xs text-slate-600 space-y-1 pt-1">
+            <li>• Eritema / kemerahan kulit: Ambang dosis $\approx 2 - 3\text{ Gy}$.</li>
+            <li>• Penurunan hitung sel darah putih (limfopenia): Ambang $\approx 0.5\text{ Gy}$.</li>
+            <li>• Sindrom Radiasi Akut (ARS): Paparan radiasi seluruh tubuh $> 1\text{ Gy}$.</li>
+          </ul>
+        </div>
+
+        <div class="p-4 rounded-xl bg-amber-50/70 border border-amber-200 space-y-2">
+          <strong class="text-amber-900 block text-sm font-bold">2. Efek Stokastik (Probabilistik Jangka Panjang)</strong>
+          <p class="text-slate-700 leading-relaxed">
+            Muncul akibat mutasi DNA subletal tanpa mematikan sel, yang kemudian mereplikasi diri secara tak terkendali. Berdasarkan model <strong>Linear Non-Threshold (LNT)</strong>, tidak ada dosis seaman apa pun yang memiliki risiko nol.
+          </p>
+          <ul class="text-3xs text-slate-600 space-y-1 pt-1">
+            <li>• Peluang terjadinya mutasi / kanker meningkat linier terhadap dosis akumulasi.</li>
+            <li>• Tingkat keparahan penyakit <em>tidak bergantung</em> pada besaran dosis awal.</li>
+            <li>• Periode laten klinis memakan waktu beberapa tahun hingga puluhan tahun.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bagian 4: Filosofi ALARA & Tiga Pilar Proteksi -->
+    <div class="bg-white p-6 sm:p-8 rounded-2xl border border-blue-100 shadow-xs space-y-4">
+      <div class="flex items-center gap-3">
+        <span class="text-2xl">🛡️</span>
+        <h2 class="text-xl font-bold text-[#0f284e]">Filosofi Proteksi Radiasi ALARA & Tiga Pilar Teknis</h2>
+      </div>
+      <p class="text-sm text-slate-600 leading-relaxed">
+        Sistem proteksi radiasi internasional ditegakkan atas filosofi <strong>ALARA (*As Low As Reasonably Achievable*, dengan mempertimbangkan faktor sosial dan ekonomi)</strong> melalui tiga pilar pertahanan fisis:
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1">
+        <div class="p-4 rounded-xl bg-blue-50/70 border border-blue-200 space-y-1.5">
+          <strong class="text-blue-900 block text-sm font-bold">1. Waktu Paparan (*Time*)</strong>
+          <div class="font-serif text-blue-950 font-bold text-center py-1 text-xs">$$D \propto t$$</div>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Dosis radiasi terakumulasi berbanding lurus dengan durasi keberadaan di dekat medan radiasi. Bekerja cepat dan terencana mereduksi dosis serap secara linier.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-blue-50/70 border border-blue-200 space-y-1.5">
+          <strong class="text-blue-900 block text-sm font-bold">2. Jarak Proteksi (*Distance*)</strong>
+          <div class="font-serif text-blue-950 font-bold text-center py-1 text-xs">$$I(r) \propto \frac{1}{r^2}$$</div>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Mengacu hukum kuadrat terbalik untuk radiasi titik isotropis. Menggandakan jarak dari sumber radiasi akan memangkas laju dosis menjadi tinggal $25\%$ ($1/4$).
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-blue-50/70 border border-blue-200 space-y-1.5">
+          <strong class="text-blue-900 block text-sm font-bold">3. Perisai Pelindung (*Shielding*)</strong>
+          <div class="font-serif text-blue-950 font-bold text-center py-1 text-xs">$$I = I_0 \, e^{-\mu x} = I_0 \left(\frac{1}{2}\right)^{x/\text{HVL}}$$</div>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Menempatkan material perisai penyerap: Timbal ($\text{Pb}$) dan beton barit tebal untuk foton $\gamma / X$, serta parafin kaya hidrogen untuk moderasi radiasi neutron.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bagian 5: Standar Regulasi Nilai Batas Dosis (NBD BAPETEN) -->
+    <div class="bg-white p-6 sm:p-8 rounded-2xl border border-blue-100 shadow-xs space-y-3">
+      <h2 class="text-xl font-bold text-[#0f284e]">Nilai Batas Dosis (NBD - Standar BAPETEN & ICRP-103)</h2>
+      <p class="text-xs text-slate-600 leading-relaxed">
+        Badan Pengawas Tenaga Nuklir (BAPETEN) menetapkan batas legal akumulasi radiasi yang diizinkan untuk mencegah timbulnya efek deterministik dan membatasi probabilitas efek stokastik:
+      </p>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs border border-slate-200 rounded-lg overflow-hidden">
+          <thead class="bg-slate-100 text-slate-700 font-bold">
+            <tr>
+              <th class="p-3">Kategori Individu</th>
+              <th class="p-3">Dosis Efektif Tahunan</th>
+              <th class="p-3">Dosis Ekivalen Lensa Mata</th>
+              <th class="p-3">Dosis Ekivalen Kulit & Ekstremitas</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200">
+            <tr>
+              <td class="p-3 font-bold text-blue-900">Pekerja Radiasi Profesional</td>
+              <td class="p-3 font-bold text-slate-800">$20\text{ mSv/tahun}$ (rata-rata 5 tahun, maks $50\text{ mSv}$ dalam 1 tahun)</td>
+              <td class="p-3">$20\text{ mSv/tahun}$</td>
+              <td class="p-3">$500\text{ mSv/tahun}$</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-bold text-slate-600">Masyarakat Umum (Publik)</td>
+              <td class="p-3 font-bold text-emerald-700">$1\text{ mSv/tahun}$ ($1000\ \mu\text{Sv/tahun}$)</td>
+              <td class="p-3">$15\text{ mSv/tahun}$</td>
+              <td class="p-3">$50\text{ mSv/tahun}$</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Tombol Navigasi Lanjut -->
+    <div class="pt-6 border-t border-slate-200 flex flex-wrap justify-between items-center gap-4">
+      <a href="materi-5.html" class="px-5 py-2.5 rounded-full bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-semibold text-xs transition">
+        ← Modul 5: Reaksi Inti, Fisi & Fusi
+      </a>
+      <a href="simulasi.html" class="px-6 py-2.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-600/20 transition flex items-center gap-1.5">
+        Lanjut ke Halaman Simulasi Interaktif →
+      </a>
+    </div>
+
+  </main>
+
+  <footer class="border-t border-slate-200 bg-white py-8 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4">NUCLEAR LAB - Modul 6: Aplikasi Iptek Nuklir & Keselamatan &copy; 2026</div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

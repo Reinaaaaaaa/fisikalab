@@ -3,24 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FisikaInti.Lab - Media Pembelajaran Digital Fisika Inti</title>
+  <title>NUCLEAR LAB - Misi Menjelajahi Inti Atom</title>
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
-      darkMode: 'class',
       theme: {
         extend: {
           colors: {
-            atom: {
-              50: '#f0fdfa',
-              100: '#ccfbf1',
-              400: '#2dd4bf',
-              500: '#14b8a6',
-              600: '#0d9488',
-              700: '#0f766e',
-              900: '#134e4a',
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              200: '#bfdbfe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
             }
           }
         }
@@ -31,631 +31,297 @@
   <!-- KaTeX for High Quality Math Formulas -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
-
-  <!-- Chart.js for Dynamic Curves -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+    onload="if (typeof renderAllMath === 'function') renderAllMath();"></script>
 
   <style>
-    /* KaTeX equation clean layout styling */
-    .katex-display {
-      margin: 0.6em 0 !important;
-      overflow-x: auto;
-      overflow-y: hidden;
-      padding: 4px 0;
+    /* Styling orbit rotasi atom */
+    @keyframes orbit1 {
+      0% { transform: rotate(0deg) rotateX(65deg) rotate(0deg); }
+      100% { transform: rotate(0deg) rotateX(65deg) rotate(360deg); }
     }
-    .katex {
-      font-size: 1.05em;
+    @keyframes orbit2 {
+      0% { transform: rotate(60deg) rotateX(65deg) rotate(0deg); }
+      100% { transform: rotate(60deg) rotateX(65deg) rotate(360deg); }
     }
-    canvas {
-      image-rendering: auto;
+    @keyframes orbit3 {
+      0% { transform: rotate(120deg) rotateX(65deg) rotate(0deg); }
+      100% { transform: rotate(120deg) rotateX(65deg) rotate(360deg); }
+    }
+    .orbit-ring {
+      border: 1.5px solid rgba(59, 130, 246, 0.35);
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform-style: preserve-3d;
+    }
+    .floating-nucleus {
+      animation: floatNucleus 4s ease-in-out infinite;
+    }
+    @keyframes floatNucleus {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
     }
   </style>
 </head>
-<body class="bg-white text-slate-800 font-sans min-h-screen flex flex-col selection:bg-teal-500 selection:text-white">
+<body class="bg-[#f8fafd] text-slate-800 font-sans min-h-screen flex flex-col selection:bg-blue-600 selection:text-white">
 
-  <!-- NAVBAR (Clean White Header) -->
-  <header class="sticky top-0 z-50 backdrop-blur-md bg-white/90 border-b border-slate-200 shadow-sm">
+  <!-- NAVBAR PERSIS MOCKUP -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-      <div class="flex items-center space-x-3">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-teal-600 to-cyan-500 flex items-center justify-center text-white text-xl font-bold shadow-md shadow-teal-500/20">
-          ⚛️
+      <!-- Logo NUCLEAR LAB -->
+      <a href="index.html" class="flex items-center space-x-2.5">
+        <div class="text-blue-600">
+          <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3" fill="#2563eb" stroke="#1d4ed8"/>
+            <ellipse cx="12" cy="12" rx="10" ry="4" stroke="#2563eb" transform="rotate(30 12 12)"/>
+            <ellipse cx="12" cy="12" rx="10" ry="4" stroke="#2563eb" transform="rotate(90 12 12)"/>
+            <ellipse cx="12" cy="12" rx="10" ry="4" stroke="#2563eb" transform="rotate(150 12 12)"/>
+          </svg>
         </div>
-        <div>
-          <span class="font-extrabold text-xl tracking-tight bg-gradient-to-r from-teal-700 via-cyan-700 to-blue-700 bg-clip-text text-transparent">
-            FisikaInti.Lab
-          </span>
-          <span class="hidden sm:inline-block text-xs text-teal-800 font-medium ml-2 px-2 py-0.5 rounded-full bg-teal-50 border border-teal-200">
-            Media Belajar Interaktif
-          </span>
-        </div>
-      </div>
+        <span class="font-extrabold text-xl tracking-tight text-[#0f284e]">
+          NUCLEAR LAB
+        </span>
+      </a>
 
-      <!-- Navigation Links -->
-      <nav class="hidden md:flex items-center space-x-1 lg:space-x-2 text-sm font-medium">
-        <a href="#struktur-inti" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-teal-700 hover:bg-slate-100 transition">Struktur Inti</a>
-        <a href="#defek-massa" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-teal-700 hover:bg-slate-100 transition">Defek Massa</a>
-        <a href="#peluruhan" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-teal-700 hover:bg-slate-100 transition">Waktu Paruh</a>
-        <a href="#daya-tembus" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-teal-700 hover:bg-slate-100 transition">Daya Tembus</a>
-        <a href="#reaksi-inti" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-teal-700 hover:bg-slate-100 transition">Fisi & Fusi</a>
-        <a href="#kuis" class="px-3.5 py-1.5 rounded-lg bg-teal-600 text-white font-semibold hover:bg-teal-700 transition shadow-sm">Kuis Evaluasi</a>
+      <!-- Desktop Nav Menu -->
+      <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold">
+        <a href="index.html" class="text-blue-600 border-b-2 border-blue-600 pb-1 font-bold">Beranda</a>
+        <a href="materi.html" class="text-slate-600 hover:text-blue-600 transition pb-1">Materi</a>
+        <a href="simulasi.html" class="text-slate-600 hover:text-blue-600 transition pb-1">Simulasi</a>
+        <a href="kuis.html" class="text-slate-600 hover:text-blue-600 transition pb-1">Kuis</a>
+        <a href="panduan.html" class="text-slate-600 hover:text-blue-600 transition pb-1">Panduan</a>
       </nav>
 
-      <!-- Mobile Menu Button -->
-      <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg bg-slate-100 text-slate-700 hover:text-teal-700" aria-label="Menu">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-      </button>
+      <!-- Right Action / User Icon -->
+      <div class="flex items-center space-x-3">
+        <a href="panduan.html" class="w-9 h-9 rounded-full bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-700 hover:bg-blue-100 transition shadow-xs" title="Profil & Panduan">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+          </svg>
+        </a>
+
+        <!-- Mobile Menu Toggle -->
+        <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg bg-slate-100 text-slate-700 hover:text-blue-600">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        </button>
+      </div>
     </div>
 
-    <!-- Mobile Dropdown -->
-    <div id="mobileMenu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-4 space-y-2 text-sm font-medium shadow-lg">
-      <a href="#struktur-inti" class="block py-2 text-slate-700 hover:text-teal-600">1. Struktur & Model Inti</a>
-      <a href="#defek-massa" class="block py-2 text-slate-700 hover:text-teal-600">2. Defek Massa & Energi Ikat</a>
-      <a href="#peluruhan" class="block py-2 text-slate-700 hover:text-teal-600">3. Waktu Paruh & Peluruhan</a>
-      <a href="#daya-tembus" class="block py-2 text-slate-700 hover:text-teal-600">4. Lab Daya Tembus Radiasi</a>
-      <a href="#reaksi-inti" class="block py-2 text-slate-700 hover:text-teal-600">5. Reaksi Fisi & Fusi Nuklir</a>
-      <a href="#kuis" class="block py-2 text-teal-700 font-bold">6. Kuis Evaluasi</a>
+    <!-- Mobile Nav -->
+    <div id="mobileMenu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-4 space-y-2 text-sm font-semibold shadow-md">
+      <a href="index.html" class="block py-2 text-blue-600 bg-blue-50 px-3 rounded-lg font-bold">Beranda</a>
+      <a href="materi.html" class="block py-2 text-slate-700 hover:text-blue-600 px-3">Materi Pembelajaran (6 Bab)</a>
+      <a href="simulasi.html" class="block py-2 text-slate-700 hover:text-blue-600 px-3">Simulasi Interaktif & PhET</a>
+      <a href="kuis.html" class="block py-2 text-slate-700 hover:text-blue-600 px-3">Kuis & Tantangan</a>
+      <a href="panduan.html" class="block py-2 text-slate-700 hover:text-blue-600 px-3">Panduan & Kurikulum</a>
     </div>
   </header>
 
-  <!-- HERO SECTION -->
-  <section class="relative overflow-hidden pt-12 pb-16 md:pt-18 md:pb-20 border-b border-slate-200 bg-gradient-to-b from-slate-50 via-white to-slate-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-semibold bg-teal-50 text-teal-800 border border-teal-200 mb-6 shadow-sm">
-        <span class="w-2 h-2 rounded-full bg-teal-500 animate-ping"></span>
-        Media Pembelajaran Digital Fisika Inti Interaktif
-      </div>
-      <h1 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-slate-900 max-w-4xl mx-auto leading-tight">
-        Eksplorasi Konsep <span class="bg-gradient-to-r from-teal-600 via-cyan-600 to-blue-600 bg-clip-text text-transparent">Fisika Inti</span> & Radioaktivitas
-      </h1>
-      <p class="mt-5 text-base sm:text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
-        Pelajari struktur nukleus subatomik, buktikan konversi massa menjadi energi via rumus $E = \Delta m \cdot c^2$, simulasikan peluruhan eksponensial secara acak, dan uji reaksi berantai fisi nuklir.
-      </p>
-      <div class="mt-8 flex flex-wrap justify-center gap-4">
-        <a href="#struktur-inti" class="px-6 py-3 rounded-xl bg-teal-600 text-white font-bold hover:bg-teal-700 shadow-lg shadow-teal-600/20 transition">
-          Mulai Eksplorasi 🚀
-        </a>
-        <a href="#defek-massa" class="px-6 py-3 rounded-xl bg-white text-slate-700 font-semibold border border-slate-300 hover:bg-slate-100 hover:border-slate-400 shadow-sm transition">
-          Kalkulator Energi Ikat ⚡
-        </a>
+  <!-- MAIN HERO SECTION (PERSIS MOCKUP HALAMAN 1) -->
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 space-y-8">
+
+    <!-- Card Hero Putih Besar -->
+    <div class="relative bg-white rounded-3xl border border-blue-100/80 shadow-sm p-6 sm:p-10 lg:p-14 overflow-hidden">
+      <!-- Background Soft Radial Gradient -->
+      <div class="absolute -top-24 -right-24 w-96 h-96 bg-blue-100/60 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+        <!-- Teks Kiri -->
+        <div class="lg:col-span-7 space-y-4">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-800 border border-blue-200">
+            <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
+            Media Pembelajaran Digital Fisika Modern & Inti Atom
+          </div>
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-[#0f284e] tracking-tight leading-none">
+            NUCLEAR LAB
+          </h1>
+          <h2 class="text-lg sm:text-2xl font-bold text-blue-600">
+            Eksplorasi Struktur Subatomik, Kestabilan Nuklida & Dinamika Termonuklir
+          </h2>
+          <p class="text-slate-600 text-sm sm:text-base leading-relaxed max-w-xl pt-1">
+            Platform pembelajaran digital interaktif berbasis pemodelan komputasional untuk mengkaji struktur nukleon, defek massa ($E = \Delta m \cdot c^2$), kinetika peluruhan radioaktif, reaksi fisi-fusi termonuklir, serta mitigasi radiasi sesuai standar Capaian Pembelajaran Fisika Fase F.
+          </p>
+
+          <!-- Action Buttons -->
+          <div class="flex flex-wrap items-center gap-3 pt-3">
+            <a href="materi.html" class="px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-md shadow-blue-600/25 transition flex items-center gap-2">
+              Mulai Eksplorasi Materi <span>→</span>
+            </a>
+            <a href="panduan.html" class="px-6 py-3 rounded-full bg-white hover:bg-slate-50 text-slate-700 font-semibold text-sm border border-slate-300 shadow-xs transition">
+              Lihat Panduan & Capaian Belajar
+            </a>
+          </div>
+        </div>
+
+        <!-- Ilustrasi Atom 3D Kanan (Persis Mockup dengan Tulisan "Small particles, Big impact") -->
+        <div class="lg:col-span-5 flex flex-col items-center justify-center relative min-h-[300px]">
+          
+          <div class="relative w-64 h-64 sm:w-72 sm:h-72 flex items-center justify-center">
+            <!-- Glow Latar Atom -->
+            <div class="absolute w-48 h-48 bg-gradient-to-tr from-blue-400/30 to-cyan-300/30 rounded-full blur-2xl"></div>
+
+            <!-- Orbit Cincin SVG & Partikel -->
+            <svg class="absolute inset-0 w-full h-full" viewBox="0 0 300 300">
+              <!-- Orbit 1 -->
+              <ellipse cx="150" cy="150" rx="125" ry="45" fill="none" stroke="#93c5fd" stroke-width="1.8" transform="rotate(-30 150 150)" stroke-dasharray="6 4" opacity="0.8"/>
+              <!-- Orbit 2 -->
+              <ellipse cx="150" cy="150" rx="125" ry="45" fill="none" stroke="#60a5fa" stroke-width="1.8" transform="rotate(30 150 150)" stroke-dasharray="6 4" opacity="0.8"/>
+              <!-- Orbit 3 -->
+              <ellipse cx="150" cy="150" rx="125" ry="45" fill="none" stroke="#3b82f6" stroke-width="1.8" transform="rotate(90 150 150)" stroke-dasharray="6 4" opacity="0.8"/>
+
+              <!-- Elektron Mengorbit -->
+              <circle cx="45" cy="115" r="5" fill="#2563eb" filter="drop-shadow(0 0 4px #60a5fa)"/>
+              <circle cx="235" cy="85" r="5" fill="#2563eb" filter="drop-shadow(0 0 4px #60a5fa)"/>
+              <circle cx="150" cy="275" r="5" fill="#2563eb" filter="drop-shadow(0 0 4px #60a5fa)"/>
+              <circle cx="150" cy="25" r="4" fill="#0284c7" filter="drop-shadow(0 0 4px #38bdf8)"/>
+            </svg>
+
+            <!-- Kumpulan Bola Nukleon Inti 3D (Proton & Neutron) -->
+            <div class="floating-nucleus relative z-10 w-28 h-28 flex items-center justify-center">
+              <svg viewBox="0 0 100 100" class="w-full h-full filter drop-shadow-xl">
+                <defs>
+                  <!-- Gradasi Bola Biru Tua 3D -->
+                  <radialGradient id="blueSphere" cx="35%" cy="35%" r="65%">
+                    <stop offset="0%" stop-color="#93c5fd"/>
+                    <stop offset="40%" stop-color="#2563eb"/>
+                    <stop offset="100%" stop-color="#0f284e"/>
+                  </radialGradient>
+                  <!-- Gradasi Bola Biru Cerah 3D -->
+                  <radialGradient id="cyanSphere" cx="35%" cy="35%" r="65%">
+                    <stop offset="0%" stop-color="#bae6fd"/>
+                    <stop offset="45%" stop-color="#0284c7"/>
+                    <stop offset="100%" stop-color="#082f49"/>
+                  </radialGradient>
+                </defs>
+
+                <!-- Partikel Belakang -->
+                <circle cx="36" cy="36" r="14" fill="url(#blueSphere)"/>
+                <circle cx="64" cy="38" r="14" fill="url(#cyanSphere)"/>
+                <circle cx="48" cy="68" r="14" fill="url(#blueSphere)"/>
+                <circle cx="32" cy="58" r="13" fill="url(#cyanSphere)"/>
+                <circle cx="68" cy="58" r="13" fill="url(#blueSphere)"/>
+
+                <!-- Partikel Tengah & Depan -->
+                <circle cx="50" cy="48" r="16" fill="url(#blueSphere)"/>
+                <circle cx="40" cy="42" r="12" fill="url(#cyanSphere)"/>
+                <circle cx="60" cy="46" r="12" fill="url(#blueSphere)"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Handwritten Note "Small particles, Big impact" persis seperti pada foto -->
+          <div class="absolute -bottom-2 right-4 text-xs font-serif italic text-blue-600 bg-white/80 px-3 py-1 rounded-full border border-blue-200/60 shadow-xs flex items-center gap-1">
+            <span>✨ Small particles, Big impact</span>
+          </div>
+
+        </div>
       </div>
     </div>
-  </section>
 
-  <!-- MAIN CONTENT CONTAINER -->
-  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-24 bg-white">
-
-    <!-- BAGIAN 1: STRUKTUR & MODEL INTI ATOM -->
-    <section id="struktur-inti" class="scroll-mt-20">
-      <div class="flex items-center gap-3 mb-3">
-        <span class="px-3 py-1 rounded-md text-xs font-bold uppercase tracking-wider bg-teal-100 text-teal-800 border border-teal-200">Bagian 1</span>
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Struktur & Model Inti Atom</h2>
-      </div>
-      <p class="text-slate-600 leading-relaxed max-w-3xl mb-8 text-base">
-        Inti atom (nukleus) tersusun atas <strong>nukleon</strong>, yakni <strong>proton</strong> bermuatan positif ($+e$) dan <strong>neutron</strong> yang netral ($0$). Notasi nuklida standar dituliskan sebagai:
-      </p>
-
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        <!-- Notasi & Penjelasan Formal -->
-        <div class="lg:col-span-5 bg-slate-50 p-6 rounded-2xl border border-slate-200 shadow-sm">
-          <div class="text-center p-6 bg-white rounded-xl border border-slate-200 mb-6 shadow-sm">
-            <div class="text-5xl font-serif text-slate-900 font-bold tracking-widest inline-block relative py-2">
-              <span class="text-2xl text-amber-600 font-bold absolute -top-1 -left-6" id="displayA">4</span>
-              <span class="text-2xl text-cyan-600 font-bold absolute -bottom-1 -left-6" id="displayZ">2</span>
-              <span class="text-6xl text-slate-800 ml-2 font-sans font-black" id="displaySym">He</span>
-            </div>
-            <div class="mt-3 text-xs text-slate-500 font-mono">
-              Persamaan Nukleon: $A = Z + N$
-            </div>
-          </div>
-          
-          <div class="space-y-3 text-sm">
-            <div class="flex items-center justify-between p-3 rounded-lg bg-white border border-slate-200">
-              <span class="text-amber-700 font-bold flex items-center gap-2">
-                <span class="w-3 h-3 rounded-full bg-amber-500"></span> $A$ (Nomor Massa)
-              </span>
-              <span class="text-slate-700 font-medium">Proton + Neutron (<span id="calcA" class="font-bold">4</span>)</span>
-            </div>
-            <div class="flex items-center justify-between p-3 rounded-lg bg-white border border-slate-200">
-              <span class="text-cyan-700 font-bold flex items-center gap-2">
-                <span class="w-3 h-3 rounded-full bg-cyan-500"></span> $Z$ (Nomor Atom)
-              </span>
-              <span class="text-slate-700 font-medium">Jumlah Proton (<span id="calcZ" class="font-bold">2</span>)</span>
-            </div>
-            <div class="flex items-center justify-between p-3 rounded-lg bg-white border border-slate-200">
-              <span class="text-indigo-700 font-bold flex items-center gap-2">
-                <span class="w-3 h-3 rounded-full bg-indigo-500"></span> $N$ (Neutron)
-              </span>
-              <span class="text-slate-700 font-medium">$N = A - Z$ (<span id="calcN" class="font-bold">2</span>)</span>
-            </div>
-          </div>
-
-          <div class="mt-6 p-4 rounded-xl bg-white border border-slate-200">
-            <h4 class="text-xs uppercase font-bold text-slate-500 tracking-wider mb-2">Evaluasi Pita Kestabilan ($N/Z$)</h4>
-            <div id="stabilityBadge" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-bold bg-emerald-50 text-emerald-800 border border-emerald-300">
-              ✅ Inti Stabil ($N/Z = 1.00$)
-            </div>
-            <p id="stabilityDesc" class="text-xs text-slate-600 mt-2.5 leading-relaxed">
-              Untuk inti ringan ($Z \le 20$), kestabilan tercapai saat rasio $N/Z \approx 1$. Gaya nuklir kuat sanggup menahan gaya tolak elektrostatis antarproton.
-            </p>
-          </div>
-        </div>
-
-        <!-- Simulator Interaktif Model Nukleon Canvas -->
-        <div class="lg:col-span-7 bg-slate-50 p-6 rounded-2xl border border-slate-200 shadow-sm">
-          <div class="flex items-center justify-between mb-3">
-            <h3 class="text-lg font-bold text-slate-900">Visualisasi Inti Atom 2D</h3>
-            <span class="text-xs text-slate-500">Geser slider untuk mengubah nukleon</span>
-          </div>
-
-          <!-- Canvas Representasi Inti (Light Background) -->
-          <div class="relative bg-white rounded-xl border border-slate-200 h-64 flex items-center justify-center overflow-hidden mb-6 shadow-inner">
-            <canvas id="nucleusCanvas" width="500" height="260" class="w-full h-full"></canvas>
-            <div class="absolute bottom-2 right-3 text-xs text-slate-600 bg-white/90 px-2.5 py-1 rounded-md border border-slate-200 shadow-sm">
-              <span class="text-rose-600 font-bold">🔴 Proton (+)</span> &nbsp;|&nbsp; 
-              <span class="text-sky-600 font-bold">🔵 Neutron (0)</span>
-            </div>
-          </div>
-
-          <!-- Slider Kontrol -->
-          <div class="space-y-4">
-            <div>
-              <div class="flex justify-between text-sm mb-1.5">
-                <label for="protonSlider" class="text-slate-800 font-semibold">Jumlah Proton ($Z$): <span id="protonVal" class="text-cyan-700 font-bold text-base">2</span></label>
-                <span class="text-xs text-slate-500">Rentang: 1 – 30</span>
-              </div>
-              <input type="range" id="protonSlider" min="1" max="30" value="2" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-cyan-600">
-            </div>
-
-            <div>
-              <div class="flex justify-between text-sm mb-1.5">
-                <label for="neutronSlider" class="text-slate-800 font-semibold">Jumlah Neutron ($N$): <span id="neutronVal" class="text-indigo-700 font-bold text-base">2</span></label>
-                <span class="text-xs text-slate-500">Rentang: 0 – 40</span>
-              </div>
-              <input type="range" id="neutronSlider" min="0" max="40" value="2" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
-            </div>
-
-            <div class="flex flex-wrap gap-2 pt-2 items-center">
-              <span class="text-xs font-bold text-slate-500">Pilihan Cepat:</span>
-              <button onclick="setNucleusPreset(1, 0, 'H')" class="px-2.5 py-1 text-xs font-medium rounded-md bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 shadow-sm transition">Hidrogen-1 ($^1_1\text{H}$)</button>
-              <button onclick="setNucleusPreset(2, 2, 'He')" class="px-2.5 py-1 text-xs font-medium rounded-md bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 shadow-sm transition">Helium-4 ($^4_2\text{He}$)</button>
-              <button onclick="setNucleusPreset(6, 6, 'C')" class="px-2.5 py-1 text-xs font-medium rounded-md bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 shadow-sm transition">Karbon-12 ($^{12}_6\text{C}$)</button>
-              <button onclick="setNucleusPreset(8, 8, 'O')" class="px-2.5 py-1 text-xs font-medium rounded-md bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 shadow-sm transition">Oksigen-16 ($^{16}_8\text{O}$)</button>
-              <button onclick="setNucleusPreset(26, 30, 'Fe')" class="px-2.5 py-1 text-xs font-medium rounded-md bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 shadow-sm transition">Besi-56 ($^{56}_{26}\text{Fe}$)</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BAGIAN 2: DEFEK MASSA & ENERGI IKAT (KALKULATOR) -->
-    <section id="defek-massa" class="scroll-mt-20">
-      <div class="flex items-center gap-3 mb-3">
-        <span class="px-3 py-1 rounded-md text-xs font-bold uppercase tracking-wider bg-amber-100 text-amber-800 border border-amber-200">Bagian 2</span>
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Defek Massa & Energi Ikat Inti</h2>
-      </div>
-      <p class="text-slate-600 leading-relaxed max-w-3xl mb-4 text-base">
-        Massa inti atom yang terbentuk selalu <strong>lebih kecil</strong> dibandingkan total massa nukleon bebas penyusunnya. Selisih massa ini disebut <strong>Defek Massa ($\Delta m$)</strong>:
-      </p>
+    <!-- 4 KARTU FITUR BAWAH HERO (SAINTIFIK & PERSIS MOCKUP) -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
       
-      <!-- Block Equations Display -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-        <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl text-center shadow-sm">
-          <div class="text-xs uppercase font-bold text-slate-500 mb-1">Rumus Defek Massa ($\Delta m$)</div>
-          <div class="text-slate-900 font-serif">
-            $$\Delta m = [Z \cdot m_p + (A - Z) \cdot m_n] - m_{\text{inti}}$$
-          </div>
+      <!-- Fitur 1: Materi Interaktif -->
+      <a href="materi.html" class="group bg-white p-5 rounded-2xl border border-blue-100 hover:border-blue-300 shadow-xs hover:shadow-md transition flex items-start gap-4">
+        <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 text-xl group-hover:scale-105 transition">
+          📖
         </div>
-        <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl text-center shadow-sm">
-          <div class="text-xs uppercase font-bold text-slate-500 mb-1">Rumus Energi Ikat Inti ($E_b$)</div>
-          <div class="text-slate-900 font-serif">
-            $$E_b = \Delta m \cdot c^2 = \Delta m \times 931.5 \text{ MeV}$$
-          </div>
+        <div>
+          <h3 class="font-bold text-slate-900 text-sm group-hover:text-blue-600 transition">Materi Konseptual</h3>
+          <p class="text-xs text-slate-500 mt-1 leading-snug">Analisis struktur nukleon, defek massa, dan moda peluruhan radioaktif</p>
+        </div>
+      </a>
+
+      <!-- Fitur 2: Simulasi PhET -->
+      <a href="simulasi.html" class="group bg-white p-5 rounded-2xl border border-blue-100 hover:border-blue-300 shadow-xs hover:shadow-md transition flex items-start gap-4">
+        <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 text-xl group-hover:scale-105 transition">
+          🧪
+        </div>
+        <div>
+          <h3 class="font-bold text-slate-900 text-sm group-hover:text-blue-600 transition">Simulasi PhET & Virtual</h3>
+          <p class="text-xs text-slate-500 mt-1 leading-snug">Eksperimen stokastik waktu paruh dan reaksi fisi berantai in-silico</p>
+        </div>
+      </a>
+
+      <!-- Fitur 3: Kuis & Tantangan -->
+      <a href="kuis.html" class="group bg-white p-5 rounded-2xl border border-blue-100 hover:border-blue-300 shadow-xs hover:shadow-md transition flex items-start gap-4">
+        <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 text-xl group-hover:scale-105 transition">
+          📝
+        </div>
+        <div>
+          <h3 class="font-bold text-slate-900 text-sm group-hover:text-blue-600 transition">Asesmen Formatif</h3>
+          <p class="text-xs text-slate-500 mt-1 leading-snug">Uji pemahaman kuantitatif dengan analisis pembahasan ilmiah</p>
+        </div>
+      </a>
+
+      <!-- Fitur 4: Sertifikat -->
+      <a href="kuis.html" class="group bg-white p-5 rounded-2xl border border-blue-100 hover:border-blue-300 shadow-xs hover:shadow-md transition flex items-start gap-4">
+        <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 text-xl group-hover:scale-105 transition">
+          🎓
+        </div>
+        <div>
+          <h3 class="font-bold text-slate-900 text-sm group-hover:text-blue-600 transition">Capaian Kompetensi</h3>
+          <p class="text-xs text-slate-500 mt-1 leading-snug">Penyelarasan indikator Capaian Pembelajaran (CP) Fisika Fase F</p>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- RIBBON TETAPAN FUNDAMENTAL FISIKA INTI -->
+    <div class="bg-white border border-blue-100 rounded-2xl p-5 shadow-2xs">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="text-blue-600 text-base">⚛️</span>
+        <h3 class="text-xs uppercase font-extrabold text-[#0f284e] tracking-wider">Tetapan Fundamental & Persamaan Utama Fisika Inti</h3>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center text-xs text-slate-700">
+        <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200/80">
+          <div class="text-3xs text-slate-500 font-semibold uppercase">Massa Proton ($m_p$)</div>
+          <div class="font-mono font-bold text-blue-900 text-xs mt-0.5">$1.007276\text{ sma}$</div>
+        </div>
+        <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200/80">
+          <div class="text-3xs text-slate-500 font-semibold uppercase">Massa Neutron ($m_n$)</div>
+          <div class="font-mono font-bold text-blue-900 text-xs mt-0.5">$1.008665\text{ sma}$</div>
+        </div>
+        <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200/80">
+          <div class="text-3xs text-slate-500 font-semibold uppercase">Konversi Massa-Energi</div>
+          <div class="font-mono font-bold text-blue-900 text-xs mt-0.5">$1\text{ sma} \equiv 931.5\text{ MeV}$</div>
+        </div>
+        <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200/80">
+          <div class="text-3xs text-slate-500 font-semibold uppercase">Hukum Peluruhan</div>
+          <div class="font-mono font-bold text-blue-900 text-xs mt-0.5">$N(t) = N_0(1/2)^{t/T_{1/2}}$</div>
         </div>
       </div>
+    </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        <!-- Input & Form Kalkulator -->
-        <div class="lg:col-span-6 bg-slate-50 p-6 rounded-2xl border border-slate-200 shadow-sm">
-          <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center justify-between">
-            <span>⚡ Kalkulator Interaktif Energi Ikat</span>
-            <span class="text-xs font-semibold px-2 py-1 rounded bg-amber-100 text-amber-800 border border-amber-200">$1\text{ sma} \approx 931.5\text{ MeV}$</span>
-          </h3>
-
-          <!-- Preset Pilihan Unsur -->
-          <div class="mb-4">
-            <label class="block text-xs uppercase text-slate-600 font-bold mb-1.5">Pilih Sampel Nuklida (Atau Input Sendiri):</label>
-            <select id="calcPreset" onchange="applyCalcPreset()" class="w-full bg-white border border-slate-300 text-slate-800 text-sm rounded-lg p-2.5 focus:border-teal-500 focus:outline-none shadow-sm">
-              <option value="he4">Helium-4 (2He4) - Partikel Alfa</option>
-              <option value="c12">Karbon-12 (6C12)</option>
-              <option value="o16">Oksigen-16 (8O16)</option>
-              <option value="fe56" selected>Besi-56 (26Fe56) - Puncak kestabilan energi ikat per nukleon</option>
-              <option value="u235">Uranium-235 (92U235) - Bahan bakar fisi nuklir</option>
-              <option value="custom">-- Input Kustom Manual --</option>
-            </select>
-          </div>
-
-          <div class="grid grid-cols-2 gap-4 mb-4">
-            <div>
-              <label class="block text-xs text-slate-700 font-bold mb-1">Nomor Atom ($Z$):</label>
-              <input type="number" id="inputZ" value="26" class="w-full bg-white border border-slate-300 text-slate-900 text-sm rounded-lg p-2.5 focus:border-teal-500 shadow-sm">
-            </div>
-            <div>
-              <label class="block text-xs text-slate-700 font-bold mb-1">Nomor Massa ($A$):</label>
-              <input type="number" id="inputA" value="56" class="w-full bg-white border border-slate-300 text-slate-900 text-sm rounded-lg p-2.5 focus:border-teal-500 shadow-sm">
-            </div>
-          </div>
-
-          <div class="mb-4">
-            <label class="block text-xs text-slate-700 font-bold mb-1">Massa Nyata Inti ($m_{\text{inti}}$) [$\text{sma}$]:</label>
-            <input type="number" step="0.0001" id="inputM" value="55.9349" class="w-full bg-white border border-slate-300 text-slate-900 text-sm rounded-lg p-2.5 focus:border-teal-500 shadow-sm">
-            <div class="text-xs text-slate-500 mt-1.5">
-              Konstanta: $m_p = 1.007825\text{ sma}$, $m_n = 1.008665\text{ sma}$
-            </div>
-          </div>
-
-          <button onclick="calculateBindingEnergy()" class="w-full py-3 rounded-xl bg-teal-600 text-white font-bold hover:bg-teal-700 shadow-md shadow-teal-600/20 transition">
-            Hitung Nilai $\Delta m$ & $E_b$
-          </button>
-        </div>
-
-        <!-- Output Hasil Perhitungan -->
-        <div class="lg:col-span-6 bg-slate-50 p-6 rounded-2xl border border-slate-200 shadow-sm">
-          <h3 class="text-lg font-bold text-slate-900 mb-4">Hasil Analisis Energi Ikat</h3>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
-              <span class="text-xs text-slate-500 uppercase font-bold">Defek Massa ($\Delta m$)</span>
-              <div class="text-2xl font-black text-amber-600 mt-1" id="resDeltaM">0.5284 sma</div>
-              <span class="text-xs text-slate-500">Massa yang lenyap</span>
-            </div>
-
-            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
-              <span class="text-xs text-slate-500 uppercase font-bold">Energi Ikat Total ($E_b$)</span>
-              <div class="text-2xl font-black text-teal-700 mt-1" id="resEb">492.20 MeV</div>
-              <span class="text-xs text-slate-500">$\Delta m \times 931.5 \text{ MeV}$</span>
-            </div>
-          </div>
-
-          <div class="bg-white p-4 rounded-xl border border-slate-200 mb-6 shadow-sm">
-            <div class="flex items-center justify-between">
-              <span class="text-xs text-slate-500 uppercase font-bold">Energi Ikat per Nukleon ($E_b / A$)</span>
-              <span id="ebPerNucleonBadge" class="text-xs px-2.5 py-1 rounded-md bg-emerald-100 text-emerald-800 font-bold border border-emerald-200">
-                Puncak Kestabilan
-              </span>
-            </div>
-            <div class="text-3xl font-black text-emerald-700 mt-2" id="resEbPerA">8.79 MeV/nukleon</div>
-            <p class="text-xs text-slate-600 mt-2 leading-relaxed">
-              Semakin tinggi nilai $E_b / A$, semakin rapat ikatan nukleon dan semakin sukar inti tersebut untuk dipecah (puncak tertinggi di sekitar $^{56}_{26}\text{Fe}$ dan $^{62}_{28}\text{Ni}$).
-            </p>
-          </div>
-
-          <!-- Langkah Perhitungan Rinci -->
-          <div class="bg-white p-4 rounded-xl border border-slate-200 text-xs font-mono space-y-2 text-slate-700 shadow-inner">
-            <div class="text-slate-900 font-bold font-sans uppercase mb-1">Penjabaran Matematis Lengkap:</div>
-            <div id="step1">1. Massa penyusun = (26 × 1.007825) + (30 × 1.008665) = 56.46340 sma</div>
-            <div id="step2">2. Defek massa Δm = 56.46340 - 55.93490 = 0.52850 sma</div>
-            <div id="step3">3. Eb = 0.52850 × 931.5 = 492.298 MeV</div>
-            <div id="step4">4. Eb/A = 492.298 / 56 = 8.791 MeV/nukleon</div>
-          </div>
-        </div>
+    <!-- PILL SASARAN PEMBELAJARAN (PERSIS MOCKUP) -->
+    <div class="bg-blue-50/70 border border-blue-100 rounded-xl px-5 py-3.5 flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm text-slate-700">
+      <div class="flex items-center gap-2.5">
+        <span class="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold">ℹ️</span>
+        <span><strong>Sasaran Pembelajaran:</strong> Siswa SMA Kelas XII</span>
+        <span class="text-slate-400">|</span>
+        <span>Fase F (Kurikulum Merdeka - Fisika Modern)</span>
       </div>
-    </section>
-
-    <!-- BAGIAN 3: PELURUHAN RADIOAKTIF & SIMULATOR WAKTU PARUH -->
-    <section id="peluruhan" class="scroll-mt-20">
-      <div class="flex items-center gap-3 mb-3">
-        <span class="px-3 py-1 rounded-md text-xs font-bold uppercase tracking-wider bg-cyan-100 text-cyan-800 border border-cyan-200">Bagian 3</span>
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Radioaktivitas & Waktu Paruh</h2>
-      </div>
-      <p class="text-slate-600 leading-relaxed max-w-3xl mb-4 text-base">
-        Peluruhan radioaktif adalah proses acak (stokastik) di mana inti tidak stabil bertransmutasi menjadi inti lain yang lebih stabil dengan memancarkan radiasi. 
-        Waktu yang dibutuhkan untuk meluruhkan separuh ($50\%$) jumlah inti awal ($N_0$) disebut <strong>Waktu Paruh ($T_{1/2}$)</strong>:
-      </p>
-
-      <!-- Persamaan Waktu Paruh -->
-      <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl text-center shadow-sm max-w-2xl mx-auto mb-8">
-        <div class="text-xs uppercase font-bold text-slate-500 mb-1">Persamaan Hukum Peluruhan Radioaktif</div>
-        <div class="text-slate-900 font-serif">
-          $$N(t) = N_0 \left(\frac{1}{2}\right)^{\frac{t}{T_{1/2}}} = N_0 \cdot e^{-\lambda t} \quad \text{dengan} \quad \lambda = \frac{\ln 2}{T_{1/2}} \approx \frac{0.693}{T_{1/2}}$$
-        </div>
-      </div>
-
-      <!-- Simulasi Interaktif Waktu Paruh -->
-      <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 shadow-sm">
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-slate-200">
-          <div>
-            <h3 class="text-xl font-bold text-slate-900">Simulasi Peluruhan Partikel Acak & Kurva Eksponensial</h3>
-            <p class="text-xs text-slate-500 mt-1">Atom meluruh secara acak pada wadah canvas kiri dan membentuk titik data pada grafik di sebelah kanan.</p>
-          </div>
-          <div class="flex items-center gap-2">
-            <button id="btnPlaySim" onclick="toggleSim()" class="px-4 py-2.5 rounded-xl bg-teal-600 text-white font-bold text-sm hover:bg-teal-700 transition flex items-center gap-2 shadow-sm">
-              <span id="playIcon">▶</span> <span id="playText">Mulai Peluruhan</span>
-            </button>
-            <button onclick="resetSim()" class="px-4 py-2.5 rounded-xl bg-white text-slate-700 font-semibold text-sm hover:bg-slate-100 border border-slate-300 transition shadow-sm">
-              ↺ Reset
-            </button>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          <!-- Canvas Wadah Partikel Atom -->
-          <div class="lg:col-span-6 bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
-            <div class="flex items-center justify-between text-xs text-slate-600 mb-2 font-medium">
-              <span>Sampel 200 Inti Radioaktif</span>
-              <div class="flex items-center gap-3">
-                <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-teal-500 inline-block"></span> Induk Aktif: <b id="lblActive" class="text-teal-700">200</b></span>
-                <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-slate-300 inline-block"></span> Anak Meluruh: <b id="lblDecayed" class="text-slate-500">0</b></span>
-              </div>
-            </div>
-            <div class="h-64 rounded-lg overflow-hidden border border-slate-200 bg-slate-50 relative">
-              <canvas id="decayCanvas" width="450" height="256" class="w-full h-full"></canvas>
-            </div>
-            <div class="mt-3 flex justify-between text-xs text-slate-600 font-medium">
-              <span>Waktu Berjalan ($t$): <b id="lblCurrentTime" class="text-teal-700 font-mono text-sm font-bold">0.0 s</b></span>
-              <span>Waktu Paruh ($T_{1/2}$): <b class="text-amber-700 font-mono text-sm font-bold">5.0 s</b></span>
-            </div>
-          </div>
-
-          <!-- Grafik Chart.js Peluruhan Eksponensial -->
-          <div class="lg:col-span-6 bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
-            <div class="text-xs text-slate-600 mb-2 flex justify-between font-medium">
-              <span>Grafik Jumlah Atom vs Waktu ($N$ vs $t$)</span>
-              <span class="text-amber-700 font-bold" id="lblPercentRemaining">100% Tersisa</span>
-            </div>
-            <div class="h-64">
-              <canvas id="decayChart"></canvas>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BAGIAN 4: LAB DAYA TEMBUS RADIASI (INTERAKTIF) -->
-    <section id="daya-tembus" class="scroll-mt-20">
-      <div class="flex items-center gap-3 mb-3">
-        <span class="px-3 py-1 rounded-md text-xs font-bold uppercase tracking-wider bg-rose-100 text-rose-800 border border-rose-200">Bagian 4</span>
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Lab Visual: Daya Tembus Sinar $\alpha$, $\beta$, dan $\gamma$</h2>
-      </div>
-      <p class="text-slate-600 leading-relaxed max-w-3xl mb-6 text-base">
-        Setiap jenis sinar radioaktif memiliki daya tembus dan daya ionisasi yang berbeda-beda. Uji coba langsung kemampuan ketiga sinar ini dalam menembus berbagai jenis material perisai radiasi:
-      </p>
-
-      <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 shadow-sm">
-        <!-- Kontrol Lab Daya Tembus -->
-        <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
-          <div class="flex items-center gap-3">
-            <span class="text-sm font-bold text-slate-700">Pilih Sumber Radiasi:</span>
-            <button onclick="setRadiationRay('alpha')" id="btnRayAlpha" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-teal-600 text-white shadow-sm transition">Sinar Alfa ($\alpha$)</button>
-            <button onclick="setRadiationRay('beta')" id="btnRayBeta" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-white text-slate-700 border border-slate-300 hover:bg-slate-100 shadow-sm transition">Sinar Beta ($\beta$)</button>
-            <button onclick="setRadiationRay('gamma')" id="btnRayGamma" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-white text-slate-700 border border-slate-300 hover:bg-slate-100 shadow-sm transition">Sinar Gamma ($\gamma$)</button>
-          </div>
-          <button onclick="fireRadiation()" class="px-5 py-2 rounded-xl bg-rose-600 text-white font-bold text-sm hover:bg-rose-700 shadow-md shadow-rose-600/20 transition">
-            🚀 Tembakkan Radiasi
-          </button>
-        </div>
-
-        <!-- Canvas Visualisasi Penetrasi Material -->
-        <div class="bg-white rounded-xl border border-slate-200 h-64 overflow-hidden relative shadow-inner mb-6">
-          <canvas id="radiationCanvas" width="800" height="256" class="w-full h-full"></canvas>
-          <div class="absolute bottom-2 left-4 text-xs text-slate-500 font-medium">
-            Status: <span id="rayStatusText" class="text-slate-800 font-bold">Siap menembakkan partikel...</span>
-          </div>
-        </div>
-
-        <!-- Tabel Perbandingan Sifat Radiasi -->
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-sm text-slate-700 border border-slate-200 rounded-xl overflow-hidden">
-            <thead class="bg-slate-100 text-slate-700 text-xs uppercase border-b border-slate-200">
-              <tr>
-                <th class="p-3.5">Jenis Sinar</th>
-                <th class="p-3.5">Identitas Partikel</th>
-                <th class="p-3.5">Muatan & Massa</th>
-                <th class="p-3.5">Daya Tembus</th>
-                <th class="p-3.5">Daya Ionisasi</th>
-                <th class="p-3.5">Penahan Efektif</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-slate-200 text-xs sm:text-sm bg-white">
-              <tr class="hover:bg-slate-50 transition">
-                <td class="p-3.5 font-bold text-teal-700">Alfa ($\alpha$)</td>
-                <td class="p-3.5">Inti Helium ($^4_2\text{He}$)</td>
-                <td class="p-3.5">$+2e$ ; $4\text{ sma}$</td>
-                <td class="p-3.5 text-rose-600 font-bold">Sangat Rendah</td>
-                <td class="p-3.5 text-emerald-700 font-bold">Sangat Kuat</td>
-                <td class="p-3.5">Selembar kertas / epidermis kulit</td>
-              </tr>
-              <tr class="hover:bg-slate-50 transition">
-                <td class="p-3.5 font-bold text-cyan-700">Beta ($\beta$)</td>
-                <td class="p-3.5">Elektron ($^0_{-1}e$) / Positron ($^0_{+1}e$)</td>
-                <td class="p-3.5">$-1e$ / $+1e$ ; $\approx \frac{1}{1836}\text{ sma}$</td>
-                <td class="p-3.5 text-amber-600 font-bold">Sedang</td>
-                <td class="p-3.5 text-amber-600 font-bold">Sedang</td>
-                <td class="p-3.5">Pelat aluminium tipis ($2 - 3\text{ mm}$)</td>
-              </tr>
-              <tr class="hover:bg-slate-50 transition">
-                <td class="p-3.5 font-bold text-indigo-700">Gamma ($\gamma$)</td>
-                <td class="p-3.5">Foton Gelombang Elektromagnetik</td>
-                <td class="p-3.5">$0$ ; $0$</td>
-                <td class="p-3.5 text-emerald-700 font-bold">Sangat Tinggi</td>
-                <td class="p-3.5 text-rose-600 font-bold">Paling Lemah</td>
-                <td class="p-3.5">Balok timbal tebal / dinding beton bertulang</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <!-- BAGIAN 5: REAKSI FISI, FUSI & SIMULASI REAKSI BERANTAI -->
-    <section id="reaksi-inti" class="scroll-mt-20">
-      <div class="flex items-center gap-3 mb-3">
-        <span class="px-3 py-1 rounded-md text-xs font-bold uppercase tracking-wider bg-purple-100 text-purple-800 border border-purple-200">Bagian 5</span>
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Reaksi Inti: Fisi vs Fusi Nuklir</h2>
-      </div>
-      <p class="text-slate-600 leading-relaxed max-w-3xl mb-8 text-base">
-        Reaksi inti mengubah komposisi atau struktur nukleon dalam inti atom dan membebaskan energi jutaan kali lebih dahsyat daripada reaksi pembakaran kimia biasa.
-      </p>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-        <!-- Reaksi Fisi -->
-        <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
-          <div>
-            <div class="inline-block px-3 py-1 rounded-md text-xs font-bold bg-rose-100 text-rose-800 border border-rose-200 mb-3">
-              PEMBELAHAN INTI BERAT
-            </div>
-            <h3 class="text-xl font-bold text-slate-900 mb-2">Reaksi Fisi Nuklir</h3>
-            <p class="text-sm text-slate-600 mb-4 leading-relaxed">
-              Inti atom berat seperti $^{235}\text{U}$ menangkap satu neutron lambat (*termal*), menjadi tidak stabil ($^{236}\text{U}^*$), lalu membelah menjadi dua fragmen inti sedang serta melepas 2–3 neutron baru dan energi kinetik $\approx 200\text{ MeV}$:
-            </p>
-            <div class="p-4 rounded-xl bg-white border border-slate-200 text-teal-800 text-sm overflow-x-auto text-center shadow-inner mb-4">
-              $$^1_0n + \,^{235}_{92}\text{U} \;\rightarrow\; ^{141}_{56}\text{Ba} + \,^{92}_{36}\text{Kr} + 3\;^1_0n + \text{Energi}$$
-            </div>
-            <p class="text-xs text-slate-600 leading-relaxed">
-              💡 <strong>Reaksi Berantai (*Chain Reaction*):</strong> Neutron-neutron baru tersebut dapat menembak inti Uranium berikutnya sehingga terjadi reaksi beruntun tanpa henti.
-            </p>
-          </div>
-          <div class="mt-6 pt-4 border-t border-slate-200 text-xs text-slate-500 font-medium">
-            Pemanfaatan: Pembangkit Listrik Tenaga Nuklir (PLTN), Reaktor Riset Serbaguna.
-          </div>
-        </div>
-
-        <!-- Reaksi Fusi -->
-        <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
-          <div>
-            <div class="inline-block px-3 py-1 rounded-md text-xs font-bold bg-amber-100 text-amber-800 border border-amber-200 mb-3">
-              PENGGABUNGAN INTI RINGAN
-            </div>
-            <h3 class="text-xl font-bold text-slate-900 mb-2">Reaksi Fusi Nuklir</h3>
-            <p class="text-sm text-slate-600 mb-4 leading-relaxed">
-              Dua inti atom ringan (seperti isotop hidrogen: Deuterium $^{2}\text{H}$ dan Tritium $^{3}\text{H}$) bergabung pada temperatur dan tekanan plasma supertinggi untuk membentuk inti yang lebih berat (Helium $^{4}\text{He}$):
-            </p>
-            <div class="p-4 rounded-xl bg-white border border-slate-200 text-amber-800 text-sm overflow-x-auto text-center shadow-inner mb-4">
-              $$^2_1\text{H} + \,^3_1\text{H} \;\rightarrow\; ^4_2\text{He} + \,^1_0n + 17.6\text{ MeV}$$
-            </div>
-            <p class="text-xs text-slate-600 leading-relaxed">
-              ☀️ <strong>Energi Bintang:</strong> Reaksi fusi merupakan sumber energi abadi matahari. Bebas limbah radioaktif jangka panjang dengan bahan bakar melimpah di samudra.
-            </p>
-          </div>
-          <div class="mt-6 pt-4 border-t border-slate-200 text-xs text-slate-500 font-medium">
-            Pemanfaatan: Inti Matahari, Eksperimen Reaktor Fusi Masa Depan (ITER Tokamak).
-          </div>
-        </div>
-      </div>
-
-      <!-- Simulasi Interaktif Reaksi Berantai Fisi -->
-      <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 shadow-sm">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
-          <div>
-            <h3 class="text-lg font-bold text-slate-900">⚡ Simulasi Reaksi Berantai Fisi Nuklir</h3>
-            <p class="text-xs text-slate-500">Tembakkan neutron awal untuk memicu pemecahan inti Uranium-235 secara berantai.</p>
-          </div>
-          <div class="flex items-center gap-3">
-            <button onclick="startChainReaction()" class="px-4 py-2 rounded-xl bg-teal-600 text-white font-bold text-sm hover:bg-teal-700 shadow-sm transition">
-              💥 Tembakkan Neutron Awal
-            </button>
-            <button onclick="resetChainReaction()" class="px-4 py-2 rounded-xl bg-white text-slate-700 font-semibold text-sm border border-slate-300 hover:bg-slate-100 shadow-sm transition">
-              ↺ Tata Ulang Atom
-            </button>
-          </div>
-        </div>
-
-        <div class="bg-white rounded-xl border border-slate-200 h-64 overflow-hidden relative shadow-inner">
-          <canvas id="fissionCanvas" width="800" height="256" class="w-full h-full"></canvas>
-          <div class="absolute bottom-2 left-4 text-xs text-slate-500 font-medium">
-            Inti $^{235}\text{U}$ Terbelah: <b id="fissionCountText" class="text-teal-700 text-sm">0</b> / 40
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BAGIAN 6: KALKULATOR PENANGGALAN KARBON-14 (APLIKASI NYATA) -->
-    <section class="bg-gradient-to-r from-teal-50 via-white to-cyan-50 p-6 md:p-8 rounded-2xl border border-teal-200 shadow-sm">
-      <div class="flex items-center gap-2 mb-2">
-        <span class="text-lg">🦴</span>
-        <h3 class="text-xl font-bold text-slate-900">Aplikasi Nyata: Kalkulator Penanggalan Radiokarbon ($^{14}\text{C}$)</h3>
-      </div>
-      <p class="text-sm text-slate-600 max-w-3xl mb-6">
-        Karbon-14 meluruh dengan waktu paruh $T_{1/2} = 5730\text{ tahun}$. Dengan mengukur persentase sisa $^{14}\text{C}$ pada fosil atau kayu purbakala, arkeolog dapat menentukan umur benda sejarah tersebut:
-        $$t = -\frac{T_{1/2}}{\ln 2} \ln\left(\frac{N}{N_0}\right)$$
-      </p>
-
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
-        <div class="md:col-span-7 space-y-3">
-          <div class="flex justify-between text-sm font-semibold">
-            <span class="text-slate-800">Persentase Sisa $^{14}\text{C}$ pada Fosil:</span>
-            <span id="c14SliderVal" class="text-teal-700 font-bold text-base">50%</span>
-          </div>
-          <input type="range" id="c14Slider" min="1" max="100" value="50" oninput="updateC14Calc()" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-teal-600">
-          <div class="flex justify-between text-xs text-slate-500">
-            <span>1% (Sangat tua)</span>
-            <span>50% (Tepat 1 Waktu Paruh)</span>
-            <span>100% (Baru mati)</span>
-          </div>
-        </div>
-
-        <div class="md:col-span-5 bg-white p-5 rounded-xl border border-teal-200 shadow-sm text-center">
-          <span class="text-xs uppercase font-bold text-slate-500 block mb-1">Perkiraan Umur Fosil / Artefak</span>
-          <div class="text-3xl font-black text-teal-700" id="c14ResultAge">5.730 Tahun</div>
-          <span class="text-xs text-slate-500 mt-1 block" id="c14PeriodText">Setara dengan 1.00 kali waktu paruh</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- BAGIAN 7: KUIS EVALUASI PEMAHAMAN -->
-    <section id="kuis" class="scroll-mt-20">
-      <div class="flex items-center gap-3 mb-3">
-        <span class="px-3 py-1 rounded-md text-xs font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 border border-emerald-200">Bagian 6</span>
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Kuis Evaluasi Pemahaman</h2>
-      </div>
-      <p class="text-slate-600 leading-relaxed max-w-3xl mb-8 text-base">
-        Uji penguasaan konsep Anda terhadap fisika inti. Nilai dan pembahasan detail akan langsung ditampilkan begitu Anda memilih jawaban.
-      </p>
-
-      <div class="bg-slate-50 p-6 md:p-8 rounded-2xl border border-slate-200 max-w-4xl mx-auto shadow-sm">
-        <!-- Skor Header -->
-        <div class="flex items-center justify-between pb-6 mb-6 border-b border-slate-200">
-          <div>
-            <h3 class="font-bold text-slate-900 text-lg">Evaluasi Konsep & Perhitungan</h3>
-            <span class="text-xs text-slate-500">Pilihlah salah satu opsi jawaban yang paling tepat.</span>
-          </div>
-          <div class="text-right">
-            <span class="text-xs text-slate-500 font-medium block">Skor Anda</span>
-            <span id="quizScoreText" class="text-2xl font-black text-teal-700">0 / 5</span>
-          </div>
-        </div>
-
-        <!-- Kontainer Soal Dinamis -->
-        <div id="quizContainer" class="space-y-6">
-          <!-- Soal akan di-render via JavaScript dengan KaTeX otomatis -->
-        </div>
-
-        <div class="mt-8 pt-6 border-t border-slate-200 flex justify-between items-center">
-          <button onclick="resetQuiz()" class="px-5 py-2.5 rounded-xl bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 text-sm font-semibold shadow-sm transition">
-            Ulangi Kuis ↺
-          </button>
-          <div id="quizFinalNotice" class="text-sm font-bold text-emerald-700 hidden">
-            🎉 Selamat! Semua soal telah selesai dijawab.
-          </div>
-        </div>
-      </div>
-    </section>
+      <a href="panduan.html" class="text-blue-600 font-bold hover:underline">
+        Lihat Capaian Pembelajaran & Glosarium →
+      </a>
+    </div>
 
   </main>
 
   <!-- FOOTER -->
-  <footer class="border-t border-slate-200 bg-slate-50 py-10 mt-20 text-center text-xs text-slate-600">
-    <div class="max-w-7xl mx-auto px-4 space-y-3">
-      <div class="flex justify-center items-center gap-2">
-        <span class="text-lg">⚛️</span>
-        <span class="font-bold text-slate-800 text-sm">FisikaInti.Lab - Media Pembelajaran Digital</span>
+  <footer class="border-t border-slate-200 bg-white py-8 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <span class="font-bold text-slate-800">NUCLEAR LAB</span>
+        <span>- Media Pembelajaran Fisika Inti</span>
       </div>
-      <p>Dirancang untuk memfasilitasi visualisasi konsep Fisika Inti secara terpadu, berbasis web open-standards (HTML5, Tailwind CSS, KaTeX, Chart.js).</p>
-      <p class="text-slate-400">&copy; 2026 FisikaInti.Lab. Siap digunakan untuk presentasi dan tugas pembelajaran.</p>
+      <div>Belajar Hari Ini, Untuk Teknologi Masa Depan ⚛️</div>
+      <div class="text-slate-400">&copy; 2026 NUCLEAR LAB</div>
     </div>
   </footer>
 
-  <!-- SCRIPT LOGIKA APLIKASI -->
   <script src="app.js"></script>
 </body>
 </html>

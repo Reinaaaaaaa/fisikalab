@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Materi 5: Reaksi Inti, Fisi & Fusi - NUCLEAR LAB</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { 50: '#eff6ff', 100: '#dbeafe', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 900: '#1e3a8a' }
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+    onload="if (typeof renderAllMath === 'function') renderAllMath();"></script>
+  <style>.katex-display { margin: 0.6em 0 !important; overflow-x: auto; padding: 4px 0; }</style>
+</head>
+<body class="bg-[#f8fafd] text-slate-800 font-sans min-h-screen flex flex-col selection:bg-blue-600 selection:text-white">
+
+  <!-- NAVBAR -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center space-x-2.5">
+        <div class="text-blue-600">
+          <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3" fill="#2563eb" stroke="#1d4ed8"/>
+            <ellipse cx="12" cy="12" rx="10" ry="4" stroke="#2563eb" transform="rotate(30 12 12)"/>
+            <ellipse cx="12" cy="12" rx="10" ry="4" stroke="#2563eb" transform="rotate(90 12 12)"/>
+            <ellipse cx="12" cy="12" rx="10" ry="4" stroke="#2563eb" transform="rotate(150 12 12)"/>
+          </svg>
+        </div>
+        <span class="font-extrabold text-xl tracking-tight text-[#0f284e]">NUCLEAR LAB</span>
+      </a>
+
+      <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold">
+        <a href="index.html" class="text-slate-600 hover:text-blue-600 transition pb-1">Beranda</a>
+        <a href="materi.html" class="text-blue-600 border-b-2 border-blue-600 pb-1 font-bold">Materi</a>
+        <a href="simulasi.html" class="text-slate-600 hover:text-blue-600 transition pb-1">Simulasi</a>
+        <a href="kuis.html" class="text-slate-600 hover:text-blue-600 transition pb-1">Kuis</a>
+        <a href="panduan.html" class="text-slate-600 hover:text-blue-600 transition pb-1">Panduan</a>
+      </nav>
+
+      <div class="flex items-center space-x-3">
+        <a href="panduan.html" class="w-9 h-9 rounded-full bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-700 hover:bg-blue-100 transition shadow-xs">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/></svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENT MATERI 5 -->
+  <main class="flex-grow max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+
+    <!-- Breadcrumb -->
+    <div class="flex items-center gap-2 text-xs font-bold text-slate-500 uppercase tracking-wider">
+      <a href="index.html" class="hover:text-blue-600">Beranda</a>
+      <span>/</span>
+      <a href="materi.html" class="hover:text-blue-600">Materi</a>
+      <span>/</span>
+      <span class="text-blue-600 font-bold">Modul 5</span>
+    </div>
+
+    <!-- Judul Bab -->
+    <div class="bg-white p-6 sm:p-8 rounded-2xl border border-blue-100 shadow-xs">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="w-7 h-7 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xs">5</span>
+        <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">Modul Teori 5</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-[#0f284e]">Reaksi Transmutasi Inti, Fisi & Fusi Nuklir</h1>
+      <p class="text-slate-600 text-sm mt-2 leading-relaxed">
+        Analisis kinematika reaksi nuklir, formulasi nilai-$Q$ relativistik, energi ambang penembakan, dinamika penampang lintang ($\sigma$), reaksi pembelahan berantai terkendali ($k_{\text{eff}}$), neutron kasip, serta kriteria Lawson pada sintesis termonuklir.
+      </p>
+    </div>
+
+    <!-- Bagian 1: Notasi Standar & Hukum Kekekalan -->
+    <div class="bg-white p-6 sm:p-8 rounded-2xl border border-blue-100 shadow-xs space-y-4">
+      <h2 class="text-xl font-bold text-[#0f284e] flex items-center gap-2">
+        <span>📜</span> Notasi Reaksi Inti & 4 Hukum Kekekalan Mutlak
+      </h2>
+      <p class="text-sm text-slate-600 leading-relaxed">
+        Suatu reaksi inti melibatkan tumbukan antara partikel proyektil ($a$) dengan inti target ($X$), menghasilkan inti produk ($Y$) dan partikel terhambur ($b$). Dalam notasi kompak Bethe dituliskan sebagai <strong>$X(a, b)Y$</strong>:
+      </p>
+
+      <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 text-center font-serif text-blue-950 text-sm">
+        $$^A_Z\text{X} + \,^{a}_{z}\text{a} \;\longrightarrow\; ^{Y}_{Z'}\text{Y} + \,^{b}_{z'}\text{b} + Q$$
+        <div class="text-2xs text-slate-600 font-sans mt-1">
+          Contoh transmutasi buatan pertama oleh Rutherford (1919): $\;^{14}_7\text{N}(\alpha, p)^{17}_8\text{O}$
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-700 pt-1">
+        <div class="p-3.5 bg-blue-50/60 rounded-xl border border-blue-200">
+          <strong class="text-blue-900 block mb-1">1. Kekekalan Muatan Listrik ($\Sigma Z$)</strong>
+          Jumlah aljabar muatan elektrostatik sebelum dan sesudah reaksi harus identik: $\sum Z_{\text{reaktan}} = \sum Z_{\text{produk}}$.
+        </div>
+        <div class="p-3.5 bg-blue-50/60 rounded-xl border border-blue-200">
+          <strong class="text-blue-900 block mb-1">2. Kekekalan Jumlah Barion / Nukleon ($\Sigma A$)</strong>
+          Total kuantitas proton dan neutron tetap kekal selama proses reaksi: $\sum A_{\text{reaktan}} = \sum A_{\text{produk}}$.
+        </div>
+        <div class="p-3.5 bg-blue-50/60 rounded-xl border border-blue-200">
+          <strong class="text-blue-900 block mb-1">3. Kekekalan Momentum Linier & Sudut</strong>
+          Vektor momentum total dan spin kuantum total sistem terisolasi bernilai konstan sepanjang sumbu interaksi.
+        </div>
+        <div class="p-3.5 bg-blue-50/60 rounded-xl border border-blue-200">
+          <strong class="text-blue-900 block mb-1">4. Kekekalan Massa-Energi Relativistik</strong>
+          Jumlah energi kinetik plus energi massa diam ($E = mc^2$) seluruh partikel selalu setimbang mutlak.
+        </div>
+      </div>
+    </div>
+
+    <!-- Bagian 2: Termodinamika Nilai-Q & Energi Ambang -->
+    <div class="bg-white p-6 sm:p-8 rounded-2xl border border-blue-100 shadow-xs space-y-4">
+      <h2 class="text-xl font-bold text-[#0f284e] flex items-center gap-2">
+        <span>⚡</span> Nilai-$Q$ Reaksi Relativistik & Energi Ambang (*Threshold Energy*)
+      </h2>
+      <p class="text-sm text-slate-600 leading-relaxed">
+        Besarnya energi yang dibebaskan atau diserap dalam suatu reaksi inti ditentukan oleh selisih massa diam reaktan dan produk:
+      </p>
+
+      <div class="p-4 bg-blue-50/70 rounded-xl border border-blue-200 text-center font-serif text-blue-950 text-base">
+        $$Q = \left[ (\Sigma m_{\text{reaktan}}) - (\Sigma m_{\text{produk}}) \right] \cdot c^2 = \Delta m \times 931.494\text{ MeV}$$
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs pt-1">
+        <div class="p-3.5 bg-emerald-50/70 border border-emerald-200 rounded-xl">
+          <strong class="text-emerald-900 block font-bold mb-1">Reaksi Eksotermik ($Q > 0$)</strong>
+          <p class="text-slate-700 leading-relaxed">
+            Massa reaktan lebih besar dibanding produk ($\Sigma m_{\text{awal}} > \Sigma m_{\text{akhir}}$). Defek massa dikonversi menjadi energi kinetik gerak fragmen produk atau foton gamma. Reaksi dapat berlangsung spontan tanpa energi kinetik minimum proyektil.
+          </p>
+        </div>
+
+        <div class="p-3.5 bg-rose-50/70 border border-rose-200 rounded-xl">
+          <strong class="text-rose-900 block font-bold mb-1">Reaksi Endotermik ($Q < 0$) & Energi Ambang</strong>
+          <p class="text-slate-700 leading-relaxed">
+            Massa produk lebih besar dibanding reaktan. Reaksi membutuhkan pasokan energi dari luar. Karena kekekalan momentum linier pada kerangka laboratorium (target $X$ diam), proyektil $a$ harus memiliki <strong>Energi Kinetik Ambang ($K_{\text{ambang}}$)</strong>:
+          </p>
+          <div class="font-serif text-rose-900 font-bold text-center my-1.5">
+            $$K_{\text{ambang}} = |Q| \left( 1 + \frac{m_a}{M_X} \right)$$
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bagian 3: Fisi Induksi & Reaktor Nuklir -->
+    <div class="bg-white p-6 sm:p-8 rounded-2xl border border-blue-100 shadow-xs space-y-4">
+      <div class="flex items-center justify-between">
+        <h2 class="text-xl font-bold text-[#0f284e] flex items-center gap-2">
+          <span>💥</span> Reaksi Fisi Induksi Nuklir & Fisika Reaktor Terkendali
+        </h2>
+        <span class="text-xs px-2.5 py-1 rounded bg-rose-50 text-rose-700 font-bold border border-rose-200">Pembelahan Nukleus Berat</span>
+      </div>
+      <p class="text-sm text-slate-600 leading-relaxed">
+        Terjadi saat nuklida fisil berat (seperti $^{235}_{92}\text{U}$ atau $^{239}_{94}\text{Pu}$) menyerap satu neutron lambat/termal ($E_k \approx 0.025\text{ eV}$), membentuk inti majemuk tereksitasi yang berosilasi hebat hingga membelah menjadi dua fragmen inti sedang berbobot asimetris disertai pemancaran rata-rata $2 - 3$ neutron baru:
+      </p>
+
+      <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 text-center font-serif text-rose-950 text-sm">
+        $$^1_0n_{\text{termal}} + \,^{235}_{92}\text{U} \;\longrightarrow\; [^{236}_{92}\text{U}]^* \;\longrightarrow\; ^{141}_{56}\text{Ba} + \,^{92}_{36}\text{Kr} + 3\;^1_0n + \approx 200\text{ MeV}$$
+      </div>
+
+      <!-- Faktor Multiplikasi & Neutron Kasip -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs pt-1">
+        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+          <strong class="text-blue-900 block font-bold text-sm">Faktor Multiplikasi Efektif ($k_{\text{eff}}$):</strong>
+          <p class="text-slate-600 leading-relaxed">
+            Rasio jumlah neutron generasi $n+1$ terhadap neutron generasi $n$:
+          </p>
+          <ul class="space-y-1 text-slate-700">
+            <li>• $k_{\text{eff}} < 1$ (<strong>Subkritis</strong>): Populasi neutron menurun, reaksi berantai padam.</li>
+            <li>• $k_{\text{eff}} = 1$ (<strong>Kritis Stabil</strong>): Populasi neutron konstan, kondisi operasi aman PLTN komersial.</li>
+            <li>• $k_{\text{eff}} > 1$ (<strong>Superkritis</strong>): Populasi neutron meningkat eksponensial (senjata nuklir).</li>
+          </ul>
+        </div>
+
+        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+          <strong class="text-blue-900 block font-bold text-sm">Peran Vital Neutron Kasip (*Delayed Neutrons*):</strong>
+          <p class="text-slate-600 leading-relaxed">
+            Sekitar $99.35\%$ neutron fisi dipancarkan seketika ($< 10^{-14}\text{ s}$, *prompt neutrons*). Namun, fraksi kecil $\beta \approx 0.65\%$ dipancarkan tertunda beberapa detik dari peluruhan beta fragmen anak (*delayed neutrons*, misal $^{87}\text{Br}$).
+          </p>
+          <p class="text-emerald-700 font-bold">
+            Waktu tunda ini memperpanjang respon neutronik sistem hingga ratusan milidetik, memungkinkan batang kendali mekanis (Boron/Kadmium) mengontrol kestabilan reaktor secara aman.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bagian 4: Fusi Termonuklir & Kriteria Lawson -->
+    <div class="bg-white p-6 sm:p-8 rounded-2xl border border-blue-100 shadow-xs space-y-4">
+      <div class="flex items-center justify-between">
+        <h2 class="text-xl font-bold text-[#0f284e] flex items-center gap-2">
+          <span>☀️</span> Reaksi Fusi Termonuklir & Kriteria Lawson
+        </h2>
+        <span class="text-xs px-2.5 py-1 rounded bg-amber-50 text-amber-700 font-bold border border-amber-200">Sintesis Inti Ringan</span>
+      </div>
+      <p class="text-sm text-slate-600 leading-relaxed">
+        <strong>Fusi nuklir</strong> adalah penggabungan dua inti bermuatan positif ringan menjadi inti yang lebih masif. Untuk mengatasi tolakan Coulomb antar-inti bermuatan positif ($V_C \approx 0.4\text{ MeV}$), partikel harus dipanaskan hingga menjadi fluida plasma berenergi kinetik termal $\sim 10 - 15\text{ keV}$ ($T \sim 10^8\text{ K}$, lebih panas dari pusat Matahari).
+      </p>
+
+      <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 text-center font-serif text-amber-950 text-sm">
+        $$^2_1\text{H (Deuterium)} + \,^3_1\text{H (Tritium)} \;\longrightarrow\; ^4_2\text{He}\,(3.5\text{ MeV}) + \,^1_0n\,(14.1\text{ MeV}) + 17.6\text{ MeV}$$
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs pt-1">
+        <div class="p-3.5 bg-amber-50/70 border border-amber-200 rounded-xl space-y-1">
+          <strong class="text-amber-900 block font-bold">Densitas Energi Fusi vs Fisi:</strong>
+          <p class="text-slate-700 leading-relaxed">
+            Reaksi fusi D-T membebaskan energi sebesar <strong>$3.52\text{ MeV/nukleon}$</strong>, hampir $4\times$ lipat lebih efisien dibanding reaksi fisi $^{235}\text{U}$ ($\approx 0.85\text{ MeV/nukleon}$). Selain itu, produk sampingnya hanyalah gas mulia Helium yang sama sekali tidak radioaktif.
+          </p>
+        </div>
+
+        <div class="p-3.5 bg-blue-50/70 border border-blue-200 rounded-xl space-y-1">
+          <strong class="text-blue-900 block font-bold">Kriteria Lawson untuk Penyalaan Fusi (*Ignition*):</strong>
+          <p class="text-slate-700 leading-relaxed">
+            Kondisi swasembada daya termal fusi menuntut hasil kali kerapatan partikel plasma ($n$) dan waktu kurungan energi ($\tau_E$) melampaui batas ambang:
+          </p>
+          <div class="font-serif text-blue-950 font-bold text-center py-1">
+            $$n \cdot \tau_E \ge \frac{12 k_B T}{\langle \sigma v \rangle Q_\alpha} \approx 10^{20} - 10^{21}\text{ s}\cdot\text{m}^{-3}$$
+          </div>
+          <p class="text-3xs text-slate-500">Diterapkan pada reaktor tokamak kurungan magnetik (ITER) dan kurungan inersial laser (NIF).</p>
+        </div>
+      </div>
+
+      <div class="pt-2 text-right">
+        <a href="simulasi.html" class="text-xs font-bold text-blue-600 hover:underline">
+          Buka Simulasi Reaksi Berantai Fisi Interaktif di Halaman Simulasi →
+        </a>
+      </div>
+    </div>
+
+    <!-- Tombol Navigasi Lanjut -->
+    <div class="pt-6 border-t border-slate-200 flex flex-wrap justify-between items-center gap-4">
+      <a href="materi-4.html" class="px-5 py-2.5 rounded-full bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-semibold text-xs transition">
+        ← Modul 4: Kinetika Peluruhan & Waktu Paruh
+      </a>
+      <a href="materi-6.html" class="px-6 py-2.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-600/20 transition flex items-center gap-1.5">
+        Lanjut ke Modul 6: Pemanfaatan & Keselamatan Radiasi →
+      </a>
+    </div>
+
+  </main>
+
+  <footer class="border-t border-slate-200 bg-white py-8 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4">NUCLEAR LAB - Modul 5: Reaksi Inti, Fisi & Fusi &copy; 2026</div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

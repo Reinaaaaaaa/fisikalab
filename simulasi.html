@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Halaman Simulasi - NUCLEAR LAB</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { 50: '#eff6ff', 100: '#dbeafe', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 900: '#1e3a8a' }
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+    onload="if (typeof renderAllMath === 'function') renderAllMath();"></script>
+
+  <!-- Chart.js for half-life -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>canvas { image-rendering: auto; } .katex-display { margin: 0.6em 0 !important; overflow-x: auto; padding: 4px 0; }</style>
+</head>
+<body class="bg-[#f8fafd] text-slate-800 font-sans min-h-screen flex flex-col selection:bg-blue-600 selection:text-white">
+
+  <!-- NAVBAR -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center space-x-2.5">
+        <div class="text-blue-600">
+          <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3" fill="#2563eb" stroke="#1d4ed8"/>
+            <ellipse cx="12" cy="12" rx="10" ry="4" stroke="#2563eb" transform="rotate(30 12 12)"/>
+            <ellipse cx="12" cy="12" rx="10" ry="4" stroke="#2563eb" transform="rotate(90 12 12)"/>
+            <ellipse cx="12" cy="12" rx="10" ry="4" stroke="#2563eb" transform="rotate(150 12 12)"/>
+          </svg>
+        </div>
+        <span class="font-extrabold text-xl tracking-tight text-[#0f284e]">NUCLEAR LAB</span>
+      </a>
+
+      <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold">
+        <a href="index.html" class="text-slate-600 hover:text-blue-600 transition pb-1">Beranda</a>
+        <a href="materi.html" class="text-slate-600 hover:text-blue-600 transition pb-1">Materi</a>
+        <a href="simulasi.html" class="text-blue-600 border-b-2 border-blue-600 pb-1 font-bold">Simulasi</a>
+        <a href="kuis.html" class="text-slate-600 hover:text-blue-600 transition pb-1">Kuis</a>
+        <a href="panduan.html" class="text-slate-600 hover:text-blue-600 transition pb-1">Panduan</a>
+      </nav>
+
+      <div class="flex items-center space-x-3">
+        <a href="panduan.html" class="w-9 h-9 rounded-full bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-700 hover:bg-blue-100 transition shadow-xs">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/></svg>
+        </a>
+        <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg bg-slate-100 text-slate-700 hover:text-blue-600">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        </button>
+      </div>
+    </div>
+
+    <div id="mobileMenu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-4 space-y-2 text-sm font-semibold shadow-md">
+      <a href="index.html" class="block py-2 text-slate-700 hover:text-blue-600 px-3">Beranda</a>
+      <a href="materi.html" class="block py-2 text-slate-700 hover:text-blue-600 px-3">Materi Pembelajaran (6 Bab)</a>
+      <a href="simulasi.html" class="block py-2 text-blue-600 bg-blue-50 px-3 rounded-lg font-bold">Simulasi Interaktif & PhET</a>
+      <a href="kuis.html" class="block py-2 text-slate-700 hover:text-blue-600 px-3">Kuis & Tantangan</a>
+      <a href="panduan.html" class="block py-2 text-slate-700 hover:text-blue-600 px-3">Panduan & Kurikulum</a>
+    </div>
+  </header>
+
+  <!-- CONTENT SIMULASI (PERSIS MOCKUP PANEL 3) -->
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10 space-y-8">
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+      <!-- Kolom Kiri: Daftar Menu Simulasi -->
+      <div class="lg:col-span-4 bg-white p-5 rounded-2xl border border-blue-100 shadow-xs space-y-3">
+        <h2 class="font-extrabold text-base text-[#0f284e]">Simulasi Interaktif</h2>
+        <p class="text-xs text-slate-500 pb-2">
+          Gunakan simulasi berikut untuk memahami konsep fisika inti secara langsung:
+        </p>
+
+        <!-- Tab 1: Build a Nucleus (Aktif) -->
+        <button onclick="switchSimTab('build')" id="tabBtn-build" class="w-full text-left p-3 rounded-xl bg-blue-50/80 border border-blue-200 text-blue-900 font-bold text-xs flex items-center justify-between transition shadow-2xs">
+          <div class="flex items-center gap-2.5">
+            <span class="w-7 h-7 rounded-lg bg-blue-600 text-white flex items-center justify-center text-sm">⚛️</span>
+            <div>
+              <div class="font-bold">Build a Nucleus</div>
+              <div class="text-2xs text-slate-500 font-normal">Model Inti & Partikel</div>
+            </div>
+          </div>
+          <span class="text-2xs px-2 py-0.5 rounded-full bg-blue-600 text-white font-bold">Aktif</span>
+        </button>
+
+        <!-- Tab 2: Alpha Decay Lab -->
+        <button onclick="switchSimTab('radiation')" id="tabBtn-radiation" class="w-full text-left p-3 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-semibold text-xs flex items-center justify-between transition">
+          <div class="flex items-center gap-2.5">
+            <span class="w-7 h-7 rounded-lg bg-rose-100 text-rose-600 flex items-center justify-center text-sm">🛡️</span>
+            <div>
+              <div class="font-bold">Daya Tembus Radiasi</div>
+              <div class="text-2xs text-slate-500 font-normal">Sinar Alfa, Beta, Gamma</div>
+            </div>
+          </div>
+          <span class="text-2xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-500 font-medium">Lab</span>
+        </button>
+
+        <!-- Tab 3: Half-Life Decay -->
+        <button onclick="switchSimTab('decay')" id="tabBtn-decay" class="w-full text-left p-3 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-semibold text-xs flex items-center justify-between transition">
+          <div class="flex items-center gap-2.5">
+            <span class="w-7 h-7 rounded-lg bg-cyan-100 text-cyan-600 flex items-center justify-center text-sm">⏳</span>
+            <div>
+              <div class="font-bold">Decay Simulation</div>
+              <div class="text-2xs text-slate-500 font-normal">Grafik Waktu Paruh</div>
+            </div>
+          </div>
+          <span class="text-2xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-500 font-medium">Chart</span>
+        </button>
+
+        <!-- Tab 4: Fission Chain Reaction -->
+        <button onclick="switchSimTab('fission')" id="tabBtn-fission" class="w-full text-left p-3 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-semibold text-xs flex items-center justify-between transition">
+          <div class="flex items-center gap-2.5">
+            <span class="w-7 h-7 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center text-sm">💥</span>
+            <div>
+              <div class="font-bold">Reaksi Berantai Fisi</div>
+              <div class="text-2xs text-slate-500 font-normal">Multiplikasi Neutron</div>
+            </div>
+          </div>
+          <span class="text-2xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-500 font-medium">Fisi</span>
+        </button>
+      </div>
+
+      <!-- Kolom Kanan: Area Simulasi Utama -->
+      <div class="lg:col-span-8 space-y-6">
+
+        <!-- SIMULASI 1: BUILD A NUCLEUS (PERSIS MOCKUP) -->
+        <div id="simPanel-build" class="space-y-4">
+          <div>
+            <h1 class="text-2xl font-black text-[#0f284e]">Build a Nucleus (Model Inti Atom)</h1>
+            <p class="text-xs text-slate-600 mt-1">
+              Susun model inti atom dengan mengatur jumlah proton ($Z$) dan neutron ($N$). Amati bagaimana variasi komposisi nukleon memengaruhi identitas nuklida dan kurva kestabilan inti atom.
+            </p>
+          </div>
+
+          <!-- Wadah Layar Dark Slate mirip PhET pada mockup -->
+          <div class="bg-[#0b172a] rounded-2xl p-6 border border-slate-800 text-white shadow-md">
+            <div class="flex justify-between items-center text-xs text-slate-400 border-b border-slate-800 pb-3 mb-4">
+              <span class="font-bold tracking-wider text-slate-200 uppercase text-2xs">Build a Nucleus Interactive Canvas</span>
+              <div class="flex items-center gap-3">
+                <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-red-500 inline-block"></span> Proton</span>
+                <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-sky-400 inline-block"></span> Neutron</span>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+              <!-- Visual Inti 2D/3D -->
+              <div class="md:col-span-7 flex items-center justify-center h-56 bg-[#07101d] rounded-xl border border-slate-800 relative overflow-hidden">
+                <canvas id="nucleusCanvas" width="380" height="220" class="w-full h-full"></canvas>
+              </div>
+
+              <!-- Kontrol Jumlah Partikel di Kanan (Persis Mockup) -->
+              <div class="md:col-span-5 space-y-4 bg-[#0e1d35] p-4 rounded-xl border border-slate-800">
+                <!-- Proton Counter -->
+                <div class="flex items-center justify-between text-xs">
+                  <span class="font-bold text-red-400 flex items-center gap-1.5">
+                    <span class="w-3 h-3 rounded-full bg-red-500 inline-block"></span> Proton ($Z$)
+                  </span>
+                  <div class="flex items-center gap-2">
+                    <button onclick="adjustProton(-1)" class="w-6 h-6 rounded bg-slate-800 hover:bg-slate-700 text-white font-bold flex items-center justify-center">-</button>
+                    <span id="protonVal" class="font-mono font-bold text-sm w-5 text-center">2</span>
+                    <button onclick="adjustProton(1)" class="w-6 h-6 rounded bg-blue-600 hover:bg-blue-500 text-white font-bold flex items-center justify-center">+</button>
+                  </div>
+                </div>
+
+                <!-- Neutron Counter -->
+                <div class="flex items-center justify-between text-xs">
+                  <span class="font-bold text-sky-400 flex items-center gap-1.5">
+                    <span class="w-3 h-3 rounded-full bg-sky-400 inline-block"></span> Neutron ($N$)
+                  </span>
+                  <div class="flex items-center gap-2">
+                    <button onclick="adjustNeutron(-1)" class="w-6 h-6 rounded bg-slate-800 hover:bg-slate-700 text-white font-bold flex items-center justify-center">-</button>
+                    <span id="neutronVal" class="font-mono font-bold text-sm w-5 text-center">2</span>
+                    <button onclick="adjustNeutron(1)" class="w-6 h-6 rounded bg-blue-600 hover:bg-blue-500 text-white font-bold flex items-center justify-center">+</button>
+                  </div>
+                </div>
+
+                <!-- Hidden Sliders to sync with app.js logic -->
+                <input type="range" id="protonSlider" min="1" max="30" value="2" class="hidden">
+                <input type="range" id="neutronSlider" min="0" max="40" value="2" class="hidden">
+
+                <!-- Display Kartu Unsur Simbol -->
+                <div class="pt-2 border-t border-slate-700/60 flex items-center justify-between">
+                  <div class="w-16 h-16 rounded-lg bg-white text-slate-900 p-1 flex flex-col justify-between border border-slate-300 font-mono shadow-xs">
+                    <span class="text-3xs text-slate-600" id="displayA">4</span>
+                    <span class="text-xl font-black text-center" id="displaySym">He</span>
+                    <span class="text-3xs text-slate-600" id="displayZ">2</span>
+                  </div>
+
+                  <!-- Badge Status Kestabilan -->
+                  <div class="text-right">
+                    <div id="stabilityBadge" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-bold bg-emerald-950 text-emerald-300 border border-emerald-700">
+                      ✅ Stabil
+                    </div>
+                    <div class="text-3xs text-slate-400 mt-1 max-w-[150px]" id="stabilityDesc">
+                      Nukleon seimbang dalam pita kestabilan.
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- Langkah Kegiatan Box & Tombol PhET Eksternal (Persis Mockup) -->
+          <div class="p-4 rounded-xl bg-blue-50/70 border border-blue-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs text-slate-700">
+            <div class="space-y-1">
+              <strong class="text-blue-900 block font-bold">📋 Langkah Kegiatan:</strong>
+              <p>1. Atur jumlah proton dan neutron menggunakan tombol tombol +/-.</p>
+              <p>2. Amati jenis unsur dan nomor massa yang terbentuk pada kotak lambang.</p>
+              <p>3. Coba ubah jumlah neutron dan perhatikan kapan inti berstatus stabil atau tidak stabil.</p>
+            </div>
+            <a href="https://phet.colorado.edu/in/simulations/build-an-atom" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shrink-0 shadow-sm transition flex items-center justify-center gap-1.5">
+              Buka Simulasi di PhET ↗
+            </a>
+          </div>
+
+        </div>
+
+        <!-- SIMULASI 2: LAB DAYA TEMBUS (TAB RADIATION) -->
+        <div id="simPanel-radiation" class="hidden space-y-4">
+          <div>
+            <h2 class="text-2xl font-black text-[#0f284e]">Lab Uji Daya Tembus Sinar Radiasi</h2>
+            <p class="text-xs text-slate-600 mt-1">Uji kemampuan sinar Alfa, Beta, dan Gamma dalam menembus kertas, aluminium, dan timbal.</p>
+          </div>
+          <div class="bg-white p-5 rounded-2xl border border-blue-100 shadow-xs space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <div class="flex items-center gap-2">
+                <button onclick="setRadiationRay('alpha')" id="btnRayAlpha" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-blue-600 text-white">Sinar Alfa (α)</button>
+                <button onclick="setRadiationRay('beta')" id="btnRayBeta" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-700">Sinar Beta (β)</button>
+                <button onclick="setRadiationRay('gamma')" id="btnRayGamma" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-700">Sinar Gamma (γ)</button>
+              </div>
+              <button onclick="fireRadiation()" class="px-5 py-2 rounded-xl bg-rose-600 text-white font-bold text-xs hover:bg-rose-700 shadow-sm">
+                🚀 Tembakkan Radiasi
+              </button>
+            </div>
+            <div class="h-60 bg-white border border-slate-200 rounded-xl overflow-hidden relative shadow-inner">
+              <canvas id="radiationCanvas" width="750" height="240" class="w-full h-full"></canvas>
+              <div class="absolute bottom-2 left-4 text-xs font-semibold text-slate-700" id="rayStatusText">
+                Siap menembakkan partikel...
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SIMULASI 3: DECAY SIMULATION (TAB DECAY) -->
+        <div id="simPanel-decay" class="hidden space-y-4">
+          <div>
+            <h2 class="text-2xl font-black text-[#0f284e]">Simulasi Peluruhan Waktu Paruh</h2>
+            <p class="text-xs text-slate-600 mt-1">Amati 200 atom meluruh secara acak dan membentuk grafik eksponensial secara real-time.</p>
+          </div>
+          <div class="bg-white p-5 rounded-2xl border border-blue-100 shadow-xs space-y-4">
+            <div class="flex justify-between items-center">
+              <div class="text-xs font-bold text-slate-700">
+                Sisa Aktif: <span id="lblActive" class="text-blue-600 font-mono text-sm">200</span> &nbsp;|&nbsp; 
+                Meluruh: <span id="lblDecayed" class="text-slate-400 font-mono text-sm">0</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <button id="btnPlaySim" onclick="toggleSim()" class="px-4 py-2 rounded-xl bg-blue-600 text-white font-bold text-xs">
+                  <span id="playIcon">▶</span> <span id="playText">Mulai Peluruhan</span>
+                </button>
+                <button onclick="resetSim()" class="px-3 py-2 rounded-xl bg-slate-100 text-slate-700 font-bold text-xs">↺ Reset</button>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="h-56 bg-slate-50 border border-slate-200 rounded-xl overflow-hidden p-2">
+                <canvas id="decayCanvas" width="350" height="210" class="w-full h-full"></canvas>
+              </div>
+              <div class="h-56 bg-slate-50 border border-slate-200 rounded-xl p-2">
+                <canvas id="decayChart"></canvas>
+              </div>
+            </div>
+            <div class="text-xs text-slate-500 flex justify-between">
+              <span>Waktu ($t$): <b id="lblCurrentTime" class="text-blue-700 font-mono">0.0 s</b></span>
+              <span id="lblPercentRemaining" class="text-amber-600 font-bold">100% Tersisa</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- SIMULASI 4: FISSION CHAIN REACTION (TAB FISSION) -->
+        <div id="simPanel-fission" class="hidden space-y-4">
+          <div>
+            <h2 class="text-2xl font-black text-[#0f284e]">Simulasi Reaksi Berantai Fisi Nuklir</h2>
+            <p class="text-xs text-slate-600 mt-1">Tembakkan neutron awal untuk memicu pembelahan inti atom Uranium-235 secara beruntun.</p>
+          </div>
+          <div class="bg-white p-5 rounded-2xl border border-blue-100 shadow-xs space-y-4">
+            <div class="flex justify-between items-center">
+              <span class="text-xs text-slate-600">Inti $^{235}\text{U}$ Terbelah: <b id="fissionCountText" class="text-blue-700 text-sm">0</b> / 40</span>
+              <div class="flex gap-2">
+                <button onclick="startChainReaction()" class="px-4 py-2 rounded-xl bg-blue-600 text-white font-bold text-xs">💥 Tembak Neutron Awal</button>
+                <button onclick="resetChainReaction()" class="px-3 py-2 rounded-xl bg-slate-100 text-slate-700 font-bold text-xs">↺ Tata Ulang</button>
+              </div>
+            </div>
+            <div class="h-60 bg-white border border-slate-200 rounded-xl overflow-hidden relative shadow-inner">
+              <canvas id="fissionCanvas" width="750" height="240" class="w-full h-full"></canvas>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <footer class="border-t border-slate-200 bg-white py-8 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4">NUCLEAR LAB - Halaman Simulasi Interaktif &copy; 2026</div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    // Tab Switcher pada Halaman Simulasi
+    function switchSimTab(tabId) {
+      const tabs = ['build', 'radiation', 'decay', 'fission'];
+      tabs.forEach(t => {
+        const panel = document.getElementById(`simPanel-${t}`);
+        const btn = document.getElementById(`tabBtn-${t}`);
+        if (panel) panel.classList.add('hidden');
+        if (btn) {
+          btn.className = "w-full text-left p-3 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-semibold text-xs flex items-center justify-between transition";
+        }
+      });
+
+      const activePanel = document.getElementById(`simPanel-${tabId}`);
+      const activeBtn = document.getElementById(`tabBtn-${tabId}`);
+      if (activePanel) activePanel.classList.remove('hidden');
+      if (activeBtn) {
+        activeBtn.className = "w-full text-left p-3 rounded-xl bg-blue-50/80 border border-blue-200 text-blue-900 font-bold text-xs flex items-center justify-between transition shadow-2xs";
+      }
+
+      // Re-trigger layout if canvas needs refresh
+      if (tabId === 'radiation') initRadiationLab();
+      if (tabId === 'decay') initDecaySimulation();
+      if (tabId === 'fission') initChainReactionSimulation();
+      if (tabId === 'build') updateNucleusDisplay();
+    }
+
+    // Tombol +/- Counter Proton & Neutron di Panel Build a Nucleus
+    function adjustProton(delta) {
+      const pSlider = document.getElementById('protonSlider');
+      if (pSlider) {
+        let val = parseInt(pSlider.value) + delta;
+        val = Math.max(1, Math.min(30, val));
+        pSlider.value = val;
+        protonCount = val;
+        updateNucleusDisplay();
+      }
+    }
+
+    function adjustNeutron(delta) {
+      const nSlider = document.getElementById('neutronSlider');
+      if (nSlider) {
+        let val = parseInt(nSlider.value) + delta;
+        val = Math.max(0, Math.min(40, val));
+        nSlider.value = val;
+        neutronCount = val;
+        updateNucleusDisplay();
+      }
+    }
+  </script>
+</body>
+</html>

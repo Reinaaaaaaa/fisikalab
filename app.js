@@ -4,7 +4,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   // Inisialisasi KaTeX Auto-Render pertama kali
-  triggerMathRender();
+  renderAllMath();
 
   // Mobile Menu Toggle
   const mobileMenuBtn = document.getElementById('mobileMenuBtn');
@@ -25,20 +25,38 @@ document.addEventListener('DOMContentLoaded', () => {
   initQuiz();
 });
 
-// Helper untuk Render Math KaTeX ke elemen tertentu atau seluruh dokumen
-function triggerMathRender(container = document.body) {
-  if (window.renderMathInElement) {
-    window.renderMathInElement(container, {
-      delimiters: [
-        { left: '$$', right: '$$', display: true },
-        { left: '$', right: '$', display: false },
-        { left: '\\[', right: '\\]', display: true },
-        { left: '\\(', right: '\\)', display: false }
-      ],
-      throwOnError: false
-    });
+// Helper untuk Render Math KaTeX ke elemen tertentu atau seluruh dokumen dengan mekanisme retry otomatis
+function renderAllMath(container = document.body) {
+  if (typeof window.renderMathInElement === 'function') {
+    try {
+      window.renderMathInElement(container, {
+        delimiters: [
+          { left: '$$', right: '$$', display: true },
+          { left: '$', right: '$', display: false },
+          { left: '\\[', right: '\\]', display: true },
+          { left: '\\(', right: '\\)', display: false }
+        ],
+        ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code"],
+        throwOnError: false
+      });
+    } catch (err) {
+      console.warn("KaTeX render error:", err);
+    }
+  } else {
+    // Jika KaTeX CDN masih dalam proses loading saat dipanggil, lakukan retry otomatis
+    let attempts = 0;
+    const checkInterval = setInterval(() => {
+      attempts++;
+      if (typeof window.renderMathInElement === 'function') {
+        clearInterval(checkInterval);
+        renderAllMath(container);
+      } else if (attempts >= 40) { // Berhenti setelah 4 detik jika gagal memuat
+        clearInterval(checkInterval);
+      }
+    }, 100);
   }
 }
+window.renderAllMath = renderAllMath;
 
 // ==========================================
 // MODUL 1: STRUKTUR & MODEL INTI ATOM (CANVAS)
@@ -54,6 +72,7 @@ let protonCount = 2;
 let neutronCount = 2;
 
 function initNucleusViewer() {
+  if (!document.getElementById('nucleusCanvas')) return;
   const pSlider = document.getElementById('protonSlider');
   const nSlider = document.getElementById('neutronSlider');
 
@@ -211,6 +230,7 @@ const calcPresets = {
 };
 
 function initBindingEnergyCalc() {
+  if (!document.getElementById('inputZ')) return;
   calculateBindingEnergy();
 }
 
@@ -281,6 +301,7 @@ let lastTimestamp = 0;
 let decayChartInstance = null;
 
 function initDecaySimulation() {
+  if (!document.getElementById('decayCanvas')) return;
   createAtoms();
   initDecayChart();
   drawDecayCanvas();
@@ -488,6 +509,7 @@ let rayParticles = [];
 let rayAnimationId = null;
 
 function initRadiationLab() {
+  if (!document.getElementById('radiationCanvas')) return;
   drawRadiationLab();
 }
 
@@ -655,6 +677,7 @@ let chainAnimId = null;
 let fissionCount = 0;
 
 function initChainReactionSimulation() {
+  if (!document.getElementById('fissionCanvas')) return;
   resetChainReaction();
 }
 
@@ -850,15 +873,15 @@ const quizQuestions = [
   },
   {
     id: 3,
-    question: "Di antara ketiga jenis sinar radioaktif ($\\\\alpha$, $\\\\beta$, $\\\\gamma$), radiasi yang memiliki daya tembus paling tinggi namun daya ionisasinya paling lemah adalah...",
+    question: "Di antara ketiga jenis sinar radioaktif ($\\alpha$, $\\beta$, $\\gamma$), radiasi yang memiliki daya tembus paling tinggi namun daya ionisasinya paling lemah adalah...",
     options: [
-      "Sinar Alfa ($\\\\alpha$)",
-      "Sinar Beta ($\\\\beta$)",
-      "Sinar Gamma ($\\\\gamma$)",
+      "Sinar Alfa ($\\alpha$)",
+      "Sinar Beta ($\\beta$)",
+      "Sinar Gamma ($\\gamma$)",
       "Sinar Katoda"
     ],
     answer: 2,
-    explanation: "Sinar Gamma ($\\\\gamma$) merupakan gelombang elektromagnetik berenergi sangat tinggi tanpa massa dan muatan, sehingga daya tembusnya paling dahsyat (hanya dapat diredam timbal tebal), namun daya ionisasinya paling lemah dibandingkan partikel bermuatan seperti Alfa."
+    explanation: "Sinar Gamma ($\\gamma$) merupakan gelombang elektromagnetik berenergi sangat tinggi tanpa massa dan muatan, sehingga daya tembusnya paling dahsyat (hanya dapat diredam timbal tebal), namun daya ionisasinya paling lemah dibandingkan partikel bermuatan seperti Alfa."
   },
   {
     id: 4,
@@ -932,7 +955,7 @@ function initQuiz() {
   });
 
   // Render KaTeX pada konten soal kuis yang baru dibuat
-  triggerMathRender(container);
+  renderAllMath(container);
 }
 
 function handleAnswer(questionIdx, selectedOptIdx) {
@@ -974,7 +997,7 @@ function handleAnswer(questionIdx, selectedOptIdx) {
   // Tampilkan kotak penjelasan dan render rumus jika ada
   const expBox = document.getElementById(`explanation-${questionIdx}`);
   expBox.classList.remove('hidden');
-  triggerMathRender(expBox);
+  renderAllMath(expBox);
 
   answeredCount++;
   document.getElementById('quizScoreText').textContent = `${userScore} / ${quizQuestions.length}`;

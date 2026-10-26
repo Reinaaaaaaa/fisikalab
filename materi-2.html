@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Materi 2: Kestabilan Inti & Model Energi Ikat - NUCLEAR LAB</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { 50: '#eff6ff', 100: '#dbeafe', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 900: '#1e3a8a' }
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+    onload="if (typeof renderAllMath === 'function') renderAllMath();"></script>
+  <style>.katex-display { margin: 0.6em 0 !important; overflow-x: auto; padding: 4px 0; }</style>
+</head>
+<body class="bg-[#f8fafd] text-slate-800 font-sans min-h-screen flex flex-col selection:bg-blue-600 selection:text-white">
+
+  <!-- NAVBAR -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center space-x-2.5">
+        <div class="text-blue-600">
+          <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3" fill="#2563eb" stroke="#1d4ed8"/>
+            <ellipse cx="12" cy="12" rx="10" ry="4" stroke="#2563eb" transform="rotate(30 12 12)"/>
+            <ellipse cx="12" cy="12" rx="10" ry="4" stroke="#2563eb" transform="rotate(90 12 12)"/>
+            <ellipse cx="12" cy="12" rx="10" ry="4" stroke="#2563eb" transform="rotate(150 12 12)"/>
+          </svg>
+        </div>
+        <span class="font-extrabold text-xl tracking-tight text-[#0f284e]">NUCLEAR LAB</span>
+      </a>
+
+      <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold">
+        <a href="index.html" class="text-slate-600 hover:text-blue-600 transition pb-1">Beranda</a>
+        <a href="materi.html" class="text-blue-600 border-b-2 border-blue-600 pb-1 font-bold">Materi</a>
+        <a href="simulasi.html" class="text-slate-600 hover:text-blue-600 transition pb-1">Simulasi</a>
+        <a href="kuis.html" class="text-slate-600 hover:text-blue-600 transition pb-1">Kuis</a>
+        <a href="panduan.html" class="text-slate-600 hover:text-blue-600 transition pb-1">Panduan</a>
+      </nav>
+
+      <div class="flex items-center space-x-3">
+        <a href="panduan.html" class="w-9 h-9 rounded-full bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-700 hover:bg-blue-100 transition shadow-xs">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/></svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENT MATERI 2 -->
+  <main class="flex-grow max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+
+    <!-- Breadcrumb -->
+    <div class="flex items-center gap-2 text-xs font-bold text-slate-500 uppercase tracking-wider">
+      <a href="index.html" class="hover:text-blue-600">Beranda</a>
+      <span>/</span>
+      <a href="materi.html" class="hover:text-blue-600">Materi</a>
+      <span>/</span>
+      <span class="text-blue-600 font-bold">Modul 2</span>
+    </div>
+
+    <!-- Judul Bab -->
+    <div class="bg-white p-6 sm:p-8 rounded-2xl border border-blue-100 shadow-xs">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="w-7 h-7 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xs">2</span>
+        <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">Modul Teori 2</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-[#0f284e]">Kestabilan Inti Atom & Model Energi Ikat</h1>
+      <p class="text-slate-600 text-sm mt-2 leading-relaxed">
+        Analisis kompetisi gaya fundamental di dalam nukleus, topografi pita kestabilan nuklida (*Valley of Stability*), bilangan magis nuklir, formulasi defek massa relativistik, kurva $E_b/A$, serta model tetes cairan Semi-Empirical Mass Formula (SEMF).
+      </p>
+    </div>
+
+    <!-- Bagian 1: Kompetisi Gaya Fundamental -->
+    <div class="bg-white p-6 sm:p-8 rounded-2xl border border-blue-100 shadow-xs space-y-4">
+      <h2 class="text-xl font-bold text-[#0f284e] flex items-center gap-2">
+        <span>⚖️</span> Kompetisi Gaya Fundamental di Dalam Nukleus
+      </h2>
+      <p class="text-sm text-slate-600 leading-relaxed">
+        Kestabilan suatu inti atom ditentukan oleh kesetimbangan dinamis antara dua interaksi fundamental yang bekerja dengan jangkauan dan magnitudo berbeda:
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
+        <div class="p-4 rounded-xl bg-rose-50/70 border border-rose-200">
+          <strong class="text-rose-800 text-sm block mb-1">1. Gaya Tolakan Elektrostatik Coulomb ($F_C$)</strong>
+          <p class="text-xs text-slate-700 leading-relaxed">
+            Bekerja secara tolak-menolak antar-seluruh proton bermuatan positif $+e$. Berdasarkan hukum Coulomb ($F \propto 1/r^2$), jangkauan gaya ini tak berhingga (*infinite range*). Akumulasi tolakan meningkat tajam seiring kuadrat jumlah proton $\propto Z(Z-1)$, cenderung mendisrupsi keutuhan inti pada nuklida berbobot tinggi.
+          </p>
+        </div>
+        <div class="p-4 rounded-xl bg-blue-50/70 border border-blue-200">
+          <strong class="text-blue-800 text-sm block mb-1">2. Gaya Nuklir Kuat Residual ($F_N$)</strong>
+          <p class="text-xs text-slate-700 leading-relaxed">
+            Merupakan interaksi residual kuat antar-kuark yang dimediasi oleh pertukaran meson $\pi$ (potensial Yukawa). Gaya ini bersifat tarik-menarik kuat independen muatan ($p-p \approx n-n \approx p-n$), jangkauan sangat pendek ($r \approx 1 - 2\text{ fm}$), dan jenuh (*saturating*). Pada jarak $r < 0.5\text{ fm}$, gaya ini berubah menjadi gaya tolak ekstrem (*hard-core repulsion*) yang mencegah kolaps inti.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bagian 2: Pita Kestabilan & Bilangan Magis -->
+    <div class="bg-white p-6 sm:p-8 rounded-2xl border border-blue-100 shadow-xs space-y-4">
+      <h2 class="text-xl font-bold text-[#0f284e] flex items-center gap-2">
+        <span>📉</span> Topografi Pita Kestabilan (*Valley of Stability*) & Bilangan Magis
+      </h2>
+      <p class="text-sm text-slate-600 leading-relaxed">
+        Plot jumlah neutron ($N$) terhadap jumlah proton ($Z$) untuk seluruh isotop yang diketahui menunjukkan pola distribusi teratur yang dinamakan <strong>Pita Kestabilan</strong>:
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+          <strong class="text-blue-700 block text-sm mb-1">Inti Ringan ($Z \le 20$)</strong>
+          <p class="text-slate-600 leading-relaxed">
+            Kestabilan tercapai saat rasio neutron-proton berimbang ideal:
+          </p>
+          <div class="font-serif text-blue-900 font-bold text-center my-2 text-sm">
+            $$\frac{N}{Z} \approx 1.0$$
+          </div>
+          <p class="text-3xs text-slate-500">Contoh nuklida stabil: $^{4}_2\text{He}, \,^{12}_6\text{C}, \,^{16}_8\text{O}, \,^{40}_{20}\text{Ca}$.</p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+          <strong class="text-blue-700 block text-sm mb-1">Inti Sedang & Berat ($Z > 20$)</strong>
+          <p class="text-slate-600 leading-relaxed">
+            Diperlukan kelebihan neutron sebagai pembatas fisis tolakan proton:
+          </p>
+          <div class="font-serif text-blue-900 font-bold text-center my-2 text-sm">
+            $$\frac{N}{Z} \approx 1.5 - 1.6$$
+          </div>
+          <p class="text-3xs text-slate-500">Contoh nuklida stabil: $^{107}_{47}\text{Ag}, \,^{197}_{79}\text{Au}, \,^{208}_{82}\text{Pb}$.</p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+          <strong class="text-rose-700 block text-sm mb-1">Batas Kestabilan ($Z > 82$)</strong>
+          <p class="text-slate-600 leading-relaxed">
+            Di atas Timbal ($^{208}_{82}\text{Pb}$) dan Bismut ($^{209}_{83}\text{Bi}$), tolakan Coulomb mendominasi total:
+          </p>
+          <div class="font-serif text-rose-900 font-bold text-center my-2 text-sm">
+            $$Z > 82 \implies \text{Tidak Ada Isotop Stabil}$$
+          </div>
+          <p class="text-3xs text-slate-500">Seluruh nuklida bersifat radioaktif dan meluruh secara spontan ($\alpha, \beta$, fisi).</p>
+        </div>
+      </div>
+
+      <!-- Mekanisme Peluruhan Mengembalikan ke Pita -->
+      <div class="p-4 rounded-xl bg-amber-50/70 border border-amber-200 text-xs text-slate-700 space-y-2">
+        <strong class="text-amber-900 block font-bold text-sm">Mekanisme Relaksasi Inti Tak Stabil:</strong>
+        <ul class="list-disc list-inside space-y-1">
+          <li><strong>Di atas pita kestabilan (Ekses Neutron, $N/Z$ terlalu besar):</strong> Nuklida meluruh melalui emisi partikel beta minus: $n \longrightarrow p + e^- + \bar{\nu}_e$.</li>
+          <li><strong>Di bawah pita kestabilan (Defisit Neutron, $N/Z$ terlalu kecil):</strong> Nuklida bertransformasi melalui emisi positron ($\beta^+$: $p \longrightarrow n + e^+ + \nu_e$) atau Penangkapan Elektron K (*Electron Capture*: $p + e^- \longrightarrow n + \nu_e$).</li>
+          <li><strong>Nuklida Superberat ($Z \ge 83$):</strong> Mengurangi massa berlebih secara cepat melalui emisi partikel alfa ($^4_2\alpha$).</li>
+        </ul>
+      </div>
+
+      <!-- Bilangan Magis -->
+      <div class="p-4 rounded-xl bg-blue-50/70 border border-blue-200 text-xs text-slate-700">
+        <strong class="text-blue-900 block font-bold text-sm mb-1">Bilangan Magis Nuklir (*Magic Numbers*):</strong>
+        <p class="leading-relaxed">
+          Nuklida dengan jumlah proton atau neutron bernilai <strong>$2, 8, 20, 28, 50, 82,$ atau $126$</strong> memiliki energi ikat per nukleon abnormal tinggi karena konfigurasi kulit nukleus terisi penuh (*closed shell*), analogi dengan kestabilan gas mulia dalam kimia orbital. Inti dengan $Z$ dan $N$ keduanya bernilai magis dinamakan <em>doubly magic</em> (misal $^{4}_2\text{He}, \,^{16}_8\text{O}, \,^{40}_{20}\text{Ca}, \,^{208}_{82}\text{Pb}$).
+        </p>
+      </div>
+    </div>
+
+    <!-- Bagian 3: Defek Massa & Energi Ikat -->
+    <div class="bg-white p-6 sm:p-8 rounded-2xl border border-blue-100 shadow-xs space-y-4">
+      <h2 class="text-xl font-bold text-[#0f284e] flex items-center gap-2">
+        <span>⚡</span> Formulasi Defek Massa Relativistik & Energi Ikat Inti ($E_b$)
+      </h2>
+      <p class="text-sm text-slate-600 leading-relaxed">
+        Berdasarkan prinsip kesetaraan massa-energi Einstein ($E_0 = mc^2$), massa terukur suatu inti stabil $m_{\text{inti}}$ selalu lebih kecil daripada jumlah massa konstituen nukleon penyusunnya dalam keadaan bebas tak terikat. Selisih massa tersebut dinamakan <strong>Defek Massa ($\Delta m$)</strong>:
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-2">
+        <div class="p-4 rounded-xl bg-blue-50/70 border border-blue-200 text-center">
+          <span class="text-xs uppercase font-bold text-slate-500">Defek Massa ($\Delta m$)</span>
+          <div class="text-blue-900 font-serif text-lg mt-1">
+            $$\Delta m = [Z \cdot m_p + (A - Z) \cdot m_n] - m_{\text{inti}}$$
+          </div>
+          <span class="text-2xs text-slate-500">dengan $m_p = 1.007276\text{ sma}$, $m_n = 1.008665\text{ sma}$</span>
+        </div>
+        <div class="p-4 rounded-xl bg-blue-50/70 border border-blue-200 text-center">
+          <span class="text-xs uppercase font-bold text-slate-500">Energi Ikat Total ($E_b$)</span>
+          <div class="text-blue-900 font-serif text-lg mt-1">
+            $$E_b = \Delta m \cdot c^2 = \Delta m \times 931.494 \text{ MeV}$$
+          </div>
+          <span class="text-2xs text-slate-500">Faktor konversi massa ke energi relativistik</span>
+        </div>
+      </div>
+
+      <!-- Kurva Eb/A -->
+      <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+        <strong class="text-slate-800 text-sm block">Energi Ikat per Nukleon ($E_b / A$):</strong>
+        <p class="text-xs text-slate-600 leading-relaxed">
+          Parameter sejati penentu kestabilan nukleus bukanlah $E_b$ total, melainkan fraksi energi ikat per jumlah nukleon:
+        </p>
+        <div class="text-center font-serif text-emerald-800 text-base py-1">
+          $$\frac{E_b}{A} = \frac{\Delta m \times 931.494\text{ MeV}}{A}$$
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs text-slate-700 pt-1">
+          <div class="p-3 bg-white rounded-lg border border-slate-200">
+            <strong class="text-emerald-700 block mb-0.5">Puncak Kestabilan Global:</strong>
+            Kurva $E_b/A$ mencapai puncak pada nuklida Besi-56 ($^{56}_{26}\text{Fe}$) sebesar $8.79\text{ MeV/nukleon}$ dan Nikel-62 ($^{62}_{28}\text{Ni}$) sebesar $8.795\text{ MeV/nukleon}$.
+          </div>
+          <div class="p-3 bg-white rounded-lg border border-slate-200">
+            <strong class="text-blue-700 block mb-0.5">Konsekuensi Termodinamika:</strong>
+            Inti ringan ($A < 56$) berfusi menuju puncak melepaskan energi masif, sementara inti sangat berat ($A > 200$) membelah (fisi) menuju daerah puncak melepaskan energi eksotermik.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bagian 4: Formula Massa Semi-Empiris Bethe-Weizsäcker -->
+    <div class="bg-white p-6 sm:p-8 rounded-2xl border border-blue-100 shadow-xs space-y-3">
+      <div class="flex items-center justify-between">
+        <h2 class="text-lg font-bold text-[#0f284e] flex items-center gap-2">
+          <span>📐</span> Pengayaan Teori: Model Tetes Cairan & Formula Bethe-Weizsäcker (SEMF)
+        </h2>
+        <span class="text-2xs font-bold px-2 py-0.5 bg-blue-100 text-blue-800 rounded">Model Semi-Empiris</span>
+      </div>
+      <p class="text-xs text-slate-600 leading-relaxed">
+        Model tetes cairan mengasumsikan nukleus berkarakteristik mirip cairan inkompresibel berdensitas konstan. Energi ikat total $B(A,Z)$ diprediksi melalui formulasi lima suku:
+      </p>
+
+      <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 text-center font-serif text-blue-950 text-sm overflow-x-auto">
+        $$B(A, Z) = a_v A - a_s A^{2/3} - a_c \frac{Z(Z-1)}{A^{1/3}} - a_a \frac{(A-2Z)^2}{A} + \delta(A, Z)$$
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-2 text-3xs text-slate-700 pt-1">
+        <div class="p-2.5 rounded-lg bg-blue-50/50 border border-blue-200">
+          <strong class="text-blue-900 block font-bold mb-0.5">Suku Volume ($a_v A$)</strong>
+          Daya tarik nuklir antar-tetangga terdekat bersifat saturasi sebanding $A$.
+        </div>
+        <div class="p-2.5 rounded-lg bg-blue-50/50 border border-blue-200">
+          <strong class="text-blue-900 block font-bold mb-0.5">Suku Permukaan ($-a_s A^{2/3}$)</strong>
+          Koreksi nukleon pada kulit luar yang memiliki sedikit ikatan tetangga.
+        </div>
+        <div class="p-2.5 rounded-lg bg-blue-50/50 border border-blue-200">
+          <strong class="text-blue-900 block font-bold mb-0.5">Suku Coulomb ($-a_c \frac{Z(Z-1)}{A^{1/3}}$)</strong>
+          Energi potensial elektrostatik tolakan antar-seluruh pasangan proton.
+        </div>
+        <div class="p-2.5 rounded-lg bg-blue-50/50 border border-blue-200">
+          <strong class="text-blue-900 block font-bold mb-0.5">Suku Asimetri ($-a_a \frac{(A-2Z)^2}{A}$)</strong>
+          Prinsip eksklusi Pauli yang menuntut paritas kuantum proton dan neutron.
+        </div>
+        <div class="p-2.5 rounded-lg bg-blue-50/50 border border-blue-200">
+          <strong class="text-blue-900 block font-bold mb-0.5">Suku Pasangan ($\delta(A, Z)$)</strong>
+          Kestabilan ekstra bagi konfigurasi nukleon genap-genap (even-even).
+        </div>
+      </div>
+    </div>
+
+    <!-- Bagian 5: Kalkulator Interaktif Energi Ikat -->
+    <div class="bg-white p-6 sm:p-8 rounded-2xl border border-blue-100 shadow-xs">
+      <h2 class="text-xl font-bold text-[#0f284e] mb-4 flex items-center justify-between">
+        <span class="flex items-center gap-2"><span>⚡</span> Kalkulator Komputasi Energi Ikat Nuklir</span>
+        <span class="text-xs text-blue-700 bg-blue-50 px-2.5 py-1 rounded-full font-bold border border-blue-200">1 sma = 931.494 MeV</span>
+      </h2>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div class="lg:col-span-6 space-y-4">
+          <div>
+            <label class="block text-xs uppercase text-slate-600 font-bold mb-1">Preset Nuklida Terkalibrasi:</label>
+            <select id="calcPreset" onchange="applyCalcPreset()" class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-sm rounded-lg p-2.5 focus:border-blue-500">
+              <option value="he4">Helium-4 (2He4) - Partikel Alfa Stabil</option>
+              <option value="c12">Karbon-12 (6C12) - Standar Massa Atom</option>
+              <option value="o16">Oksigen-16 (8O16) - Doubly Magic Nucleus</option>
+              <option value="fe56" selected>Besi-56 (26Fe56) - Puncak Kestabilan Termodinamika</option>
+              <option value="u235">Uranium-235 (92U235) - Bahan Fisi Fisil</option>
+              <option value="custom">-- Input Data Nuklida Manual --</option>
+            </select>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs text-slate-700 font-bold mb-1">Nomor Atom ($Z$):</label>
+              <input type="number" id="inputZ" value="26" class="w-full bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-lg p-2.5">
+            </div>
+            <div>
+              <label class="block text-xs text-slate-700 font-bold mb-1">Nomor Massa ($A$):</label>
+              <input type="number" id="inputA" value="56" class="w-full bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-lg p-2.5">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs text-slate-700 font-bold mb-1">Massa Nyata Inti ($m_{\text{inti}}$) [$\text{sma}$]:</label>
+            <input type="number" step="0.0001" id="inputM" value="55.9349" class="w-full bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-lg p-2.5">
+          </div>
+
+          <button onclick="calculateBindingEnergy()" class="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition shadow-sm">
+            Hitung Nilai Presisi Δm & Eb
+          </button>
+        </div>
+
+        <div class="lg:col-span-6 bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-4 text-xs">
+          <div class="grid grid-cols-2 gap-3">
+            <div class="bg-white p-3 rounded-lg border border-slate-200">
+              <span class="text-slate-500 font-bold block">Defek Massa ($\Delta m$)</span>
+              <span class="text-lg font-black text-amber-600 mt-1 block" id="resDeltaM">0.5284 sma</span>
+            </div>
+            <div class="bg-white p-3 rounded-lg border border-slate-200">
+              <span class="text-slate-500 font-bold block">Energi Ikat Total ($E_b$)</span>
+              <span class="text-lg font-black text-blue-700 mt-1 block" id="resEb">492.20 MeV</span>
+            </div>
+          </div>
+
+          <div class="bg-white p-3 rounded-lg border border-slate-200">
+            <div class="flex justify-between items-center mb-1">
+              <span class="text-slate-500 font-bold">Energi Ikat per Nukleon ($E_b/A$)</span>
+              <span id="ebPerNucleonBadge" class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold text-2xs">Puncak Kestabilan</span>
+            </div>
+            <span class="text-2xl font-black text-emerald-700" id="resEbPerA">8.79 MeV/nukleon</span>
+          </div>
+
+          <div class="bg-white p-3 rounded-lg border border-slate-200 font-mono text-slate-700 space-y-1">
+            <div class="font-bold text-slate-800 font-sans mb-1 uppercase tracking-wider text-2xs">Algoritma Komputasi:</div>
+            <div id="step1">1. Massa penyusun = ...</div>
+            <div id="step2">2. Defek massa Δm = ...</div>
+            <div id="step3">3. Eb = ...</div>
+            <div id="step4">4. Eb/A = ...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tombol Navigasi Lanjut -->
+    <div class="pt-6 border-t border-slate-200 flex flex-wrap justify-between items-center gap-4">
+      <a href="materi-1.html" class="px-5 py-2.5 rounded-full bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-semibold text-xs transition">
+        ← Modul 1: Struktur & Karakteristik Inti
+      </a>
+      <a href="materi-3.html" class="px-6 py-2.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-600/20 transition flex items-center gap-1.5">
+        Lanjut ke Modul 3: Radioaktivitas & Peluruhan →
+      </a>
+    </div>
+
+  </main>
+
+  <footer class="border-t border-slate-200 bg-white py-8 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4">NUCLEAR LAB - Modul 2: Kestabilan Inti Atom &copy; 2026</div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

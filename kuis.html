@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kuis Evaluasi - NUCLEAR LAB</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { 50: '#eff6ff', 100: '#dbeafe', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 900: '#1e3a8a' }
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+    onload="if (typeof renderAllMath === 'function') renderAllMath();"></script>
+  <style>.katex-display { margin: 0.4em 0 !important; overflow-x: auto; padding: 2px 0; }</style>
+</head>
+<body class="bg-[#f8fafd] text-slate-800 font-sans min-h-screen flex flex-col selection:bg-blue-600 selection:text-white">
+
+  <!-- NAVBAR -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center space-x-2.5">
+        <div class="text-blue-600">
+          <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3" fill="#2563eb" stroke="#1d4ed8"/>
+            <ellipse cx="12" cy="12" rx="10" ry="4" stroke="#2563eb" transform="rotate(30 12 12)"/>
+            <ellipse cx="12" cy="12" rx="10" ry="4" stroke="#2563eb" transform="rotate(90 12 12)"/>
+            <ellipse cx="12" cy="12" rx="10" ry="4" stroke="#2563eb" transform="rotate(150 12 12)"/>
+          </svg>
+        </div>
+        <span class="font-extrabold text-xl tracking-tight text-[#0f284e]">NUCLEAR LAB</span>
+      </a>
+
+      <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold">
+        <a href="index.html" class="text-slate-600 hover:text-blue-600 transition pb-1">Beranda</a>
+        <a href="materi.html" class="text-slate-600 hover:text-blue-600 transition pb-1">Materi</a>
+        <a href="simulasi.html" class="text-slate-600 hover:text-blue-600 transition pb-1">Simulasi</a>
+        <a href="kuis.html" class="text-blue-600 border-b-2 border-blue-600 pb-1 font-bold">Kuis</a>
+        <a href="panduan.html" class="text-slate-600 hover:text-blue-600 transition pb-1">Panduan</a>
+      </nav>
+
+      <div class="flex items-center space-x-3">
+        <a href="panduan.html" class="w-9 h-9 rounded-full bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-700 hover:bg-blue-100 transition shadow-xs">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/></svg>
+        </a>
+        <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg bg-slate-100 text-slate-700 hover:text-blue-600">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Nav -->
+    <div id="mobileMenu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-4 space-y-2 text-sm font-semibold shadow-md">
+      <a href="index.html" class="block py-2 text-slate-700 hover:text-blue-600 px-3">Beranda</a>
+      <a href="materi.html" class="block py-2 text-slate-700 hover:text-blue-600 px-3">Materi Pembelajaran (6 Bab)</a>
+      <a href="simulasi.html" class="block py-2 text-slate-700 hover:text-blue-600 px-3">Simulasi Interaktif & PhET</a>
+      <a href="kuis.html" class="block py-2 text-blue-600 bg-blue-50 px-3 rounded-lg font-bold">Kuis & Tantangan</a>
+      <a href="panduan.html" class="block py-2 text-slate-700 hover:text-blue-600 px-3">Panduan & Kurikulum</a>
+    </div>
+  </header>
+
+  <!-- CONTENT KUIS (PERSIS MOCKUP PANEL 4) -->
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10 space-y-6">
+
+    <!-- Header & Progress Bar -->
+    <div class="space-y-2">
+      <div class="flex items-center justify-between text-xs sm:text-sm font-bold text-[#0f284e]">
+        <h1 class="text-xl sm:text-2xl font-black">Kuis Interaktif: Uji Pemahaman Fisika Inti</h1>
+        <span id="quizStepText" class="text-blue-600">Soal 1 / 5</span>
+      </div>
+      <!-- Progress Bar (Biru Muda & Biru Tua) -->
+      <div class="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden">
+        <div id="quizProgressBar" class="bg-blue-600 h-full rounded-full transition-all duration-300" style="width: 20%;"></div>
+      </div>
+    </div>
+
+    <!-- Layout 2 Kolom: Soal di Kiri & Panel Widget Bantuan di Kanan -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+      <!-- Kolom Kiri: Kartu Pertanyaan Stepper -->
+      <div class="lg:col-span-8 bg-white p-6 sm:p-8 rounded-2xl border border-blue-100 shadow-xs space-y-6">
+        
+        <!-- Wadah Soal Aktif -->
+        <div id="activeQuestionCard" class="space-y-4">
+          <!-- Diisi otomatis oleh JavaScript -->
+        </div>
+
+        <!-- Feedback & Pembahasan Langsung -->
+        <div id="activeFeedbackCard" class="hidden p-4 rounded-xl border text-xs sm:text-sm leading-relaxed">
+          <!-- Diisi otomatis -->
+        </div>
+
+        <!-- Tombol Bawah: Sebelumnya & Lanjut (Persis Mockup) -->
+        <div class="pt-6 border-t border-slate-100 flex items-center justify-between">
+          <button id="btnPrevQuestion" onclick="prevQuestion()" class="px-5 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 font-bold text-xs transition disabled:opacity-40 disabled:cursor-not-allowed">
+            ← Sebelumnya
+          </button>
+          
+          <div class="flex items-center gap-3">
+            <span id="scoreCounter" class="text-xs font-semibold text-slate-500 hidden sm:inline">Skor: 0</span>
+            <button id="btnNextQuestion" onclick="nextQuestion()" class="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-600/20 transition flex items-center gap-1.5">
+              <span>Lanjut</span> →
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Kolom Kanan: 2 Kartu Widget (Persis Mockup Panel 4) -->
+      <div class="lg:col-span-4 space-y-4">
+        
+        <!-- Widget 1: Card "💡 Ingat!" -->
+        <div class="bg-blue-50/70 p-5 rounded-2xl border border-blue-200 space-y-2">
+          <div class="flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold">💡</span>
+            <h3 class="font-extrabold text-[#0f284e] text-sm">Ingat!</h3>
+          </div>
+          <p id="tipBoxText" class="text-xs text-slate-600 leading-relaxed">
+            Partikel alfa adalah inti helium ($^4_2\text{He}$), sehingga jumlah proton dan neutron berkurang masing-masing 2 saat peluruhan alfa terjadi.
+          </p>
+        </div>
+
+        <!-- Widget 2: Card "❓ Butuh bantuan?" dengan Maskot Avatar -->
+        <div class="bg-white p-5 rounded-2xl border border-blue-100 shadow-xs flex flex-col items-center text-center space-y-3">
+          <!-- Maskot Atom Topi Toga Lucu (SVG Persis Mockup) -->
+          <div class="w-20 h-20 rounded-full bg-blue-50 border border-blue-200 flex items-center justify-center relative shadow-xs">
+            <svg class="w-14 h-14" viewBox="0 0 100 100">
+              <!-- Topi Toga (Graduation cap) -->
+              <polygon points="50,15 85,28 50,40 15,28" fill="#1e3a8a"/>
+              <rect x="38" y="36" width="24" height="10" rx="3" fill="#1d4ed8"/>
+              <line x1="85" y1="28" x2="88" y2="50" stroke="#f59e0b" stroke-width="2"/>
+              <circle cx="88" cy="52" r="3" fill="#f59e0b"/>
+              <!-- Wajah Karakter Atom -->
+              <circle cx="50" cy="62" r="24" fill="#38bdf8"/>
+              <circle cx="42" cy="58" r="3" fill="#0f172a"/>
+              <circle cx="58" cy="58" r="3" fill="#0f172a"/>
+              <path d="M43 68 Q50 74 57 68" stroke="#0f172a" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <circle cx="36" cy="64" r="2.5" fill="#f43f5e" opacity="0.6"/>
+              <circle cx="64" cy="64" r="2.5" fill="#f43f5e" opacity="0.6"/>
+            </svg>
+          </div>
+
+          <div>
+            <h4 class="font-extrabold text-[#0f284e] text-sm">Butuh bantuan?</h4>
+            <p class="text-xs text-slate-500 mt-1">
+              Lihat penjelasan materi atau coba ulangi simulasi interaktif.
+            </p>
+          </div>
+
+          <a href="materi.html" class="px-5 py-2 rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 font-bold text-xs transition block w-full">
+            Buka Materi 📖
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <footer class="border-t border-slate-200 bg-white py-8 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4">NUCLEAR LAB - Modul Kuis &copy; 2026</div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    // Logika Stepper Kuis Interaktif (1 Soal per Layar persis Mockup Panel 4)
+    const questionsData = [
+      {
+        id: 1,
+        topic: "Materi 1: Mengenal Inti Atom",
+        question: "Partikel-partikel penyusun inti atom yang berada di dalam nukleus adalah...",
+        options: [
+          "Elektron dan Proton",
+          "Proton dan Neutron",
+          "Neutron dan Foton",
+          "Elektron dan Positron"
+        ],
+        answer: 1,
+        tip: "Inti atom hanya memuat partikel bermassa yang disebut nukleon (proton dan neutron). Elektron berada di kulit luar inti.",
+        explanation: "Inti atom tersusun dari proton (+e) dan neutron (netral). Keduanya bersama-sama disebut nukleon."
+      },
+      {
+        id: 2,
+        topic: "Materi 2: Kestabilan Inti",
+        question: "Berdasarkan prinsip kesetaraan Einstein ($E = \\Delta m \\cdot c^2$), massa inti yang lenyap (defek massa) dikonversi menjadi...",
+        options: [
+          "Gaya tolak elektrostatis antar-elektron",
+          "Energi kinetik rotasi orbital elektron",
+          "Energi ikat inti ($E_b$) untuk merekatkan nukleon",
+          "Energi potensial gravitasi subatomik"
+        ],
+        answer: 2,
+        tip: "Energi ikat inti ($E_b$) adalah energi yang mengikat kuat proton dan neutron melawan gaya tolak elektrostatis.",
+        explanation: "Selisih massa (defek massa) berubah menjadi energi ikat inti ($E_b = \\Delta m \\times 931.5\\text{ MeV}$) yang menjaga nukleon tetap bersatu."
+      },
+      {
+        id: 3,
+        topic: "Materi 3: Radioaktivitas",
+        question: "Jenis persamaan peluruhan berikut yang memancarkan partikel alfa ($^4_2\\text{He}$) adalah...",
+        options: [
+          "$^{14}_6\\text{C} \\longrightarrow \\,^{14}_7\\text{N} + e^-$",
+          "$^{238}_{92}\\text{U} \\longrightarrow \\,^{234}_{90}\\text{Th} + \\,^4_2\\text{He}$",
+          "$^{14}_6\\text{C} \\longrightarrow \\,^{14}_7\\text{N} + \\beta^-$",
+          "$^{226}_{88}\\text{Ra} \\longrightarrow \\,^{222}_{86}\\text{Rn} + \\gamma$"
+        ],
+        answer: 1,
+        tip: "Partikel alfa adalah inti helium ($^4_2\\text{He}$), sehingga nomor massa berkurang 4 ($238 \\rightarrow 234$) dan nomor atom berkurang 2 ($92 \\rightarrow 90$).",
+        explanation: "Peluruhan alfa memancarkan inti helium ($^4_2\\text{He}$), sesuai persamaan reaksi inti: $^{238}_{92}\\text{U} \\longrightarrow \\,^{234}_{90}\\text{Th} + \\,^4_2\\text{He}$."
+      },
+      {
+        id: 4,
+        topic: "Materi 4: Waktu Paruh",
+        question: "Suatu zat radioaktif memiliki massa awal 80 gram dan waktu paruh 4 hari. Berapakah massa zat yang tersisa setelah 12 hari?",
+        options: [
+          "40 gram",
+          "20 gram",
+          "10 gram",
+          "5 gram"
+        ],
+        answer: 2,
+        tip: "Hitung periode waktu paruh $n = t / T_{1/2}$. Setiap 1 periode, massa zat berkurang menjadi separuhnya (1/2).",
+        explanation: "Waktu 12 hari setara $n = 12/4 = 3$ waktu paruh. Maka sisa massa $N = 80 \\times (1/2)^3 = 80 \\times 1/8 = 10\\text{ gram}$."
+      },
+      {
+        id: 5,
+        topic: "Materi 5: Reaksi Inti",
+        question: "Reaksi termonuklir yang menjadi sumber energi utama di pusat matahari adalah...",
+        options: [
+          "Fisi berantai Uranium-235",
+          "Fusi penggabungan inti hidrogen/deuterium menjadi helium",
+          "Peluruhan spontan partikel beta-minus",
+          "Pembakaran gas metana dan hidrogen"
+        ],
+        answer: 1,
+        tip: "Matahari memancarkan panas dari reaksi fusi (penggabungan inti-inti ringan) pada suhu jutaan derajat Celsius.",
+        explanation: "Matahari menghasilkan energi melalui fusi nuklir: $^2_1\\text{H} + \,^3_1\\text{H} \\rightarrow \,^4_2\\text{He} + \,^1_0n + 17.6\\text{ MeV}$."
+      }
+    ];
+
+    let currentQIndex = 0;
+    let userAnswers = {};
+    let totalScore = 0;
+
+    function renderQuestion(index) {
+      const q = questionsData[index];
+      const container = document.getElementById('activeQuestionCard');
+      const feedback = document.getElementById('activeFeedbackCard');
+      const stepText = document.getElementById('quizStepText');
+      const progressBar = document.getElementById('quizProgressBar');
+      const tipText = document.getElementById('tipBoxText');
+
+      stepText.textContent = `Soal ${index + 1} / ${questionsData.length}`;
+      progressBar.style.width = `${((index + 1) / questionsData.length) * 100}%`;
+      tipText.innerHTML = q.tip;
+
+      // Render Soal
+      let optionsHtml = '';
+      q.options.forEach((opt, optIdx) => {
+        const isSelected = userAnswers[index] === optIdx;
+        const isAnswered = userAnswers[index] !== undefined;
+        let optClass = "p-3.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-800 flex items-center justify-between transition cursor-pointer text-xs sm:text-sm";
+        let radioClass = "w-5 h-5 rounded-full border-2 border-slate-300 flex items-center justify-center shrink-0";
+        let radioContent = '';
+
+        if (isAnswered) {
+          if (optIdx === q.answer) {
+            optClass = "p-3.5 rounded-xl border border-emerald-500 bg-emerald-50 text-emerald-900 flex items-center justify-between text-xs sm:text-sm font-semibold";
+            radioClass = "w-5 h-5 rounded-full bg-emerald-600 border border-emerald-600 flex items-center justify-center text-white text-xs font-bold";
+            radioContent = "✓";
+          } else if (isSelected) {
+            optClass = "p-3.5 rounded-xl border border-rose-400 bg-rose-50 text-rose-900 flex items-center justify-between text-xs sm:text-sm";
+            radioClass = "w-5 h-5 rounded-full bg-rose-500 border border-rose-500 flex items-center justify-center text-white text-xs font-bold";
+            radioContent = "✕";
+          }
+        }
+
+        optionsHtml += `
+          <div onclick="selectQuizAnswer(${index}, ${optIdx})" class="${optClass}">
+            <div class="flex items-center gap-3">
+              <span class="font-bold text-slate-500">${String.fromCharCode(65 + optIdx)}.</span>
+              <span>${opt}</span>
+            </div>
+            <div class="${radioClass}">
+              ${radioContent}
+            </div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = `
+        <div class="flex items-start gap-3">
+          <span class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm shrink-0">
+            ${index + 1}
+          </span>
+          <div>
+            <span class="text-3xs font-bold text-blue-600 uppercase tracking-wider block mb-1">${q.topic}</span>
+            <h2 class="text-base sm:text-lg font-bold text-[#0f284e] leading-snug">${q.question}</h2>
+          </div>
+        </div>
+        <div class="space-y-2.5 pt-2">
+          ${optionsHtml}
+        </div>
+      `;
+
+      // Render Feedback jika sudah dijawab
+      if (userAnswers[index] !== undefined) {
+        const isCorrect = userAnswers[index] === q.answer;
+        feedback.classList.remove('hidden', 'bg-emerald-50', 'border-emerald-200', 'text-emerald-900', 'bg-rose-50', 'border-rose-200', 'text-rose-900');
+        if (isCorrect) {
+          feedback.classList.add('bg-emerald-50', 'border-emerald-200', 'text-emerald-900');
+          feedback.innerHTML = `<strong>Jawaban Benar! 🎉</strong><br>${q.explanation}`;
+        } else {
+          feedback.classList.add('bg-rose-50', 'border-rose-200', 'text-rose-900');
+          feedback.innerHTML = `<strong>Jawaban Kurang Tepat ✕</strong><br>${q.explanation}`;
+        }
+      } else {
+        feedback.classList.add('hidden');
+      }
+
+      // Disabled state tombol sebelumnya
+      document.getElementById('btnPrevQuestion').disabled = (index === 0);
+      document.getElementById('btnNextQuestion').innerHTML = (index === questionsData.length - 1) ? 'Selesai 🏁' : 'Lanjut →';
+
+      // KaTeX Math Render
+      if (typeof renderAllMath === 'function') {
+        renderAllMath(container);
+        renderAllMath(feedback);
+        renderAllMath(document.getElementById('tipBoxText'));
+      }
+    }
+
+    function selectQuizAnswer(qIdx, optIdx) {
+      if (userAnswers[qIdx] !== undefined) return; // sudah dijawab
+      userAnswers[qIdx] = optIdx;
+
+      if (optIdx === questionsData[qIdx].answer) {
+        totalScore += 20; // 5 soal total 100
+      }
+      document.getElementById('scoreCounter').textContent = `Skor: ${totalScore}`;
+
+      renderQuestion(qIdx);
+    }
+
+    function prevQuestion() {
+      if (currentQIndex > 0) {
+        currentQIndex--;
+        renderQuestion(currentQIndex);
+      }
+    }
+
+    function nextQuestion() {
+      if (currentQIndex < questionsData.length - 1) {
+        currentQIndex++;
+        renderQuestion(currentQIndex);
+      } else {
+        // Tampilkan Modal Skor Akhir
+        alert(`Selamat! Anda telah menyelesaikan kuis dengan perolehan skor: ${totalScore} / 100.`);
+      }
+    }
+
+    // Inisialisasi Soal Pertama
+    document.addEventListener('DOMContentLoaded', () => {
+      renderQuestion(0);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Materi 4: Waktu Paruh & Kinetika Peluruhan - NUCLEAR LAB</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { 50: '#eff6ff', 100: '#dbeafe', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 900: '#1e3a8a' }
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+    onload="if (typeof renderAllMath === 'function') renderAllMath();"></script>
+  <style>.katex-display { margin: 0.6em 0 !important; overflow-x: auto; padding: 4px 0; }</style>
+</head>
+<body class="bg-[#f8fafd] text-slate-800 font-sans min-h-screen flex flex-col selection:bg-blue-600 selection:text-white">
+
+  <!-- NAVBAR -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center space-x-2.5">
+        <div class="text-blue-600">
+          <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3" fill="#2563eb" stroke="#1d4ed8"/>
+            <ellipse cx="12" cy="12" rx="10" ry="4" stroke="#2563eb" transform="rotate(30 12 12)"/>
+            <ellipse cx="12" cy="12" rx="10" ry="4" stroke="#2563eb" transform="rotate(90 12 12)"/>
+            <ellipse cx="12" cy="12" rx="10" ry="4" stroke="#2563eb" transform="rotate(150 12 12)"/>
+          </svg>
+        </div>
+        <span class="font-extrabold text-xl tracking-tight text-[#0f284e]">NUCLEAR LAB</span>
+      </a>
+
+      <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold">
+        <a href="index.html" class="text-slate-600 hover:text-blue-600 transition pb-1">Beranda</a>
+        <a href="materi.html" class="text-blue-600 border-b-2 border-blue-600 pb-1 font-bold">Materi</a>
+        <a href="simulasi.html" class="text-slate-600 hover:text-blue-600 transition pb-1">Simulasi</a>
+        <a href="kuis.html" class="text-slate-600 hover:text-blue-600 transition pb-1">Kuis</a>
+        <a href="panduan.html" class="text-slate-600 hover:text-blue-600 transition pb-1">Panduan</a>
+      </nav>
+
+      <div class="flex items-center space-x-3">
+        <a href="panduan.html" class="w-9 h-9 rounded-full bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-700 hover:bg-blue-100 transition shadow-xs">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/></svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENT MATERI 4 -->
+  <main class="flex-grow max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+
+    <!-- Breadcrumb -->
+    <div class="flex items-center gap-2 text-xs font-bold text-slate-500 uppercase tracking-wider">
+      <a href="index.html" class="hover:text-blue-600">Beranda</a>
+      <span>/</span>
+      <a href="materi.html" class="hover:text-blue-600">Materi</a>
+      <span>/</span>
+      <span class="text-blue-600 font-bold">Modul 4</span>
+    </div>
+
+    <!-- Judul Bab -->
+    <div class="bg-white p-6 sm:p-8 rounded-2xl border border-blue-100 shadow-xs">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="w-7 h-7 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xs">4</span>
+        <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">Modul Teori 4</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-[#0f284e]">Kinetika Peluruhan & Waktu Paruh ($T_{1/2}$)</h1>
+      <p class="text-slate-600 text-sm mt-2 leading-relaxed">
+        Penurunan diferensial kalkulus hukum peluruhan radioaktif eksponensial, perumusan konstanta peluruhan kuantum ($\lambda$), umur rata-rata nukleus ($\tau$), aktivitas radiasi Becquerel & Curie, serta dinamika kesetimbangan radioaktif Bateman.
+      </p>
+    </div>
+
+    <!-- Bagian 1: Derivasi Diferensial Hukum Peluruhan -->
+    <div class="bg-white p-6 sm:p-8 rounded-2xl border border-blue-100 shadow-xs space-y-4">
+      <h2 class="text-xl font-bold text-[#0f284e] flex items-center gap-2">
+        <span>⏱️</span> Derivasi Diferensial Hukum Peluruhan Eksponensial
+      </h2>
+      <p class="text-sm text-slate-600 leading-relaxed">
+        Karena disintegrasi radioaktif merupakan proses stokastik, laju perubahan jumlah inti aktif ($dN/dt$) pada setiap saat $t$ berbanding lurus secara langsung terhadap jumlah inti radioaktif yang masih ada ($N(t)$):
+      </p>
+
+      <!-- Kotak Derivasi Matematis -->
+      <div class="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
+        <div class="text-xs font-bold text-slate-700 uppercase tracking-wider">Langkah Derivasi Analitik:</div>
+        
+        <div class="space-y-2 text-xs text-slate-700 font-mono">
+          <p>1. Persamaan laju diferensial: <span class="font-serif font-bold text-blue-900">$$-\frac{dN(t)}{dt} = \lambda N(t)$$</span></p>
+          <p>2. Pemisahan variabel integrasi dari kondisi awal $t=0$ ($N=N_0$) ke waktu $t$ ($N=N(t)$):
+            <span class="font-serif font-bold text-blue-900">$$\int_{N_0}^{N(t)} \frac{dN}{N} = -\lambda \int_{0}^{t} dt$$</span>
+          </p>
+          <p>3. Hasil integrasi logaritma natural:
+            <span class="font-serif font-bold text-blue-900">$$\left[ \ln N \right]_{N_0}^{N(t)} = -\lambda t \;\implies\; \ln\left(\frac{N(t)}{N_0}\right) = -\lambda t$$</span>
+          </p>
+          <p>4. Eksponensiasi kedua ruas menghasilkan <strong>Hukum Peluruhan Standar</strong>:
+            <span class="font-serif font-bold text-blue-900 text-sm">$$N(t) = N_0 \, e^{-\lambda t}$$</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Hubungan dengan Waktu Paruh -->
+      <div class="p-4 rounded-xl bg-blue-50/70 border border-blue-200 space-y-2">
+        <strong class="text-blue-900 text-sm block">Definisi & Hubungan dengan Waktu Paruh ($T_{1/2}$):</strong>
+        <p class="text-xs text-slate-700 leading-relaxed">
+          <strong>Waktu Paruh ($T_{1/2}$)</strong> adalah selang waktu yang dibutuhkan hingga jumlah populasi inti radioaktif tereduksi menjadi tepat separuh ($50\%$) dari kondisi awal. Mensubstitusikan $N(T_{1/2}) = \frac{1}{2}N_0$:
+        </p>
+        <div class="text-center font-serif text-blue-950 text-base py-1">
+          $$\frac{1}{2}N_0 = N_0 \, e^{-\lambda T_{1/2}} \;\implies\; e^{\lambda T_{1/2}} = 2 \;\implies\; \lambda T_{1/2} = \ln 2$$
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1 text-xs">
+          <div class="p-3 bg-white rounded-lg border border-blue-200 text-center">
+            <span class="text-slate-500 font-bold block mb-1">Konstanta Peluruhan ($\lambda$)</span>
+            <span class="text-blue-800 font-serif text-sm font-bold">$$\lambda = \frac{\ln 2}{T_{1/2}} \approx \frac{0.693147}{T_{1/2}}$$</span>
+          </div>
+          <div class="p-3 bg-white rounded-lg border border-blue-200 text-center">
+            <span class="text-slate-500 font-bold block mb-1">Formulasi Basis Biner Praktis</span>
+            <span class="text-blue-800 font-serif text-sm font-bold">$$N(t) = N_0 \left(\frac{1}{2}\right)^{\frac{t}{T_{1/2}}} = N_0 \left(\frac{1}{2}\right)^n$$</span>
+            <span class="text-3xs text-slate-500 block mt-1">dengan $n = t / T_{1/2}$ (jumlah kelipatan periode paruh)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bagian 2: Umur Rata-Rata Nukleus -->
+    <div class="bg-white p-6 sm:p-8 rounded-2xl border border-blue-100 shadow-xs space-y-3">
+      <h2 class="text-xl font-bold text-[#0f284e] flex items-center gap-2">
+        <span>⏳</span> Umur Rata-Rata Nukleus (*Mean Lifetime*, $\tau$)
+      </h2>
+      <p class="text-sm text-slate-600 leading-relaxed">
+        Dalam teori probabilitas statistik, <strong>umur rata-rata ($\tau$)</strong> merupakan nilai ekspektasi matematis durasi eksistensi sebuah nukleus sebelum mengalami disintegrasi:
+      </p>
+
+      <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 text-center font-serif text-blue-950 text-sm">
+        $$\tau = \langle t \rangle = \frac{\int_0^\infty t \cdot \lambda e^{-\lambda t} dt}{\int_0^\infty \lambda e^{-\lambda t} dt} = \frac{1}{\lambda} = \frac{T_{1/2}}{\ln 2} \approx 1.4427 \cdot T_{1/2}$$
+      </div>
+
+      <p class="text-xs text-slate-600 leading-relaxed">
+        <strong>Interpretasi Fisis:</strong> Setelah rentang waktu $t = \tau$, jumlah inti radioaktif yang belum meluruh menyusut menjadi tepat fraksi $1/e \approx 36.79\%$ dari populasi aslinya ($N(\tau) = N_0 / e$).
+      </p>
+    </div>
+
+    <!-- Bagian 3: Aktivitas Radiasi & Satuan SI -->
+    <div class="bg-white p-6 sm:p-8 rounded-2xl border border-blue-100 shadow-xs space-y-4">
+      <h2 class="text-xl font-bold text-[#0f284e] flex items-center gap-2">
+        <span>📡</span> Aktivitas Radiasi ($A$) & Satuan Kemagnetan Disintegrasi
+      </h2>
+      <p class="text-sm text-slate-600 leading-relaxed">
+        <strong>Aktivitas Radiasi ($A$)</strong> didefinisikan sebagai laju disintegrasi nuklir bersih per satuan waktu (banyaknya peluruhan per detik):
+      </p>
+
+      <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 text-center font-serif text-blue-950 text-base">
+        $$A(t) = -\frac{dN(t)}{dt} = \lambda N(t) = A_0 \, e^{-\lambda t} = A_0 \left(\frac{1}{2}\right)^{\frac{t}{T_{1/2}}}$$
+      </div>
+
+      <!-- Satuan Aktivitas -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+        <div class="p-3.5 rounded-xl bg-blue-50/70 border border-blue-200">
+          <strong class="text-blue-900 block font-bold mb-1">Becquerel ($\text{Bq}$) - Satuan SI</strong>
+          <div class="font-serif text-blue-800 font-bold my-1 text-sm">$$1\text{ Bq} = 1\text{ disintegrasi/detik}$$</div>
+          <p class="text-3xs text-slate-600">Dinamai untuk menghormati Henri Becquerel.</p>
+        </div>
+        <div class="p-3.5 rounded-xl bg-blue-50/70 border border-blue-200">
+          <strong class="text-blue-900 block font-bold mb-1">Curie ($\text{Ci}$) - Satuan Historis</strong>
+          <div class="font-serif text-blue-800 font-bold my-1 text-sm">$$1\text{ Ci} = 3.7 \times 10^{10}\text{ Bq}$$</div>
+          <p class="text-3xs text-slate-600">Berdasarkan aktivitas tepat $1\text{ gram } ^{226}_{88}\text{Ra}$.</p>
+        </div>
+        <div class="p-3.5 rounded-xl bg-blue-50/70 border border-blue-200">
+          <strong class="text-blue-900 block font-bold mb-1">Aktivitas Spesifik ($a_s$)</strong>
+          <div class="font-serif text-blue-800 font-bold my-1 text-sm">$$a_s = \frac{A}{m} = \frac{\lambda N_A}{M}$$</div>
+          <p class="text-3xs text-slate-600">Aktivitas per satuan massa isotop murni ($\text{Bq/g}$).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bagian 4: Kesetimbangan Radioaktif Bateman -->
+    <div class="bg-white p-6 sm:p-8 rounded-2xl border border-blue-100 shadow-xs space-y-3">
+      <div class="flex items-center justify-between">
+        <h2 class="text-lg font-bold text-[#0f284e] flex items-center gap-2">
+          <span>🔄</span> Dinamika Peluruhan Berantai & Kesetimbangan Bateman
+        </h2>
+        <span class="text-2xs font-bold px-2 py-0.5 bg-blue-100 text-blue-800 rounded">Persamaan Bateman</span>
+      </div>
+      <p class="text-xs text-slate-600 leading-relaxed">
+        Pada deret peluruhan berantai di mana isotop induk ($1$) meluruh menjadi anak radioaktif ($2$) yang kemudian meluruh menjadi produk stabil ($3$):
+        $\;X_1 \xrightarrow{\lambda_1} X_2 \xrightarrow{\lambda_2} X_3$.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs pt-1">
+        <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
+          <strong class="text-blue-900 block font-bold">1. Kesetimbangan Sekuler ($T_1 \gg T_2$ atau $\lambda_1 \ll \lambda_2$)</strong>
+          <p class="text-slate-600 leading-relaxed">
+            Terjadi ketika waktu paruh nuklida induk luar biasa panjang dibanding anak. Setelah periode transisi, laju pembentukan anak persis seimbang dengan laju disintegrasinya:
+          </p>
+          <div class="font-serif text-blue-950 font-bold text-center py-1">
+            $$A_2 = A_1 \;\Longleftrightarrow\; \lambda_2 N_2 \approx \lambda_1 N_1$$
+          </div>
+          <p class="text-3xs text-slate-500">Contoh: $^{226}_{88}\text{Ra}$ ($1600\text{ th}$) meluruh menjadi $^{222}_{86}\text{Rn}$ ($3.82\text{ hari}$).</p>
+        </div>
+
+        <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
+          <strong class="text-blue-900 block font-bold">2. Kesetimbangan Transien ($T_1 > T_2$)</strong>
+          <p class="text-slate-600 leading-relaxed">
+            Waktu paruh induk lebih panjang dibanding anak, namun laju peluruhan induk masih terukur secara nyata. Rasio keaktifan keduanya mencapai tetapan konstan:
+          </p>
+          <div class="font-serif text-blue-950 font-bold text-center py-1">
+            $$\frac{A_2}{A_1} = \frac{\lambda_2}{\lambda_2 - \lambda_1} > 1$$
+          </div>
+          <p class="text-3xs text-slate-500">Contoh generator radiofarmaka medis: $^{99}_{42}\text{Mo}$ ($66\text{ jam}$) ke $^{99m}_{43}\text{Tc}$ ($6\text{ jam}$).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bagian 5: Contoh Soal Analitis Bertingkat -->
+    <div class="bg-white p-6 sm:p-8 rounded-2xl border border-blue-100 shadow-xs space-y-4">
+      <h2 class="text-xl font-bold text-[#0f284e]">Studi Kasus & Pembahasan Analitis</h2>
+      
+      <!-- Kasus 1: Dosis Terapi Medis -->
+      <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2 text-xs">
+        <strong class="text-slate-800 text-sm block">Kasus 1: Kinetika Peluruhan Radiofarmaka Tiroid ($^{131}\text{I}$)</strong>
+        <p class="text-slate-600 leading-relaxed">
+          Suatu sampel medis isotop Iodin-131 ($^{131}_{53}\text{I}$) memiliki waktu paruh $T_{1/2} = 8.0\text{ hari}$. Laboratorium radiofarmaka menerima paket isotop dengan aktivitas awal $A_0 = 400\text{ MBq}$. Tentukan sisa aktivitas setelah $24\text{ hari}$ dan persentase inti yang telah meluruh!
+        </p>
+        <div class="border-t border-slate-200 pt-2 text-slate-700 space-y-1 font-mono text-2xs">
+          <p>• Banyaknya periode paruh: $n = \frac{t}{T_{1/2}} = \frac{24\text{ hari}}{8.0\text{ hari}} = 3.0$ periode paruh.</p>
+          <p>• Aktivitas akhir: $A(24) = A_0 \cdot \left(\frac{1}{2}\right)^3 = 400 \times \frac{1}{8} = 50\text{ MBq}$.</p>
+          <p>• Fraksi sisa: $\frac{A}{A_0} = \frac{1}{8} = 12.5\%$.</p>
+          <p class="text-emerald-700 font-bold font-sans">
+            Kesimpulan: Aktivitas tersisa adalah $50\text{ MBq}$, dan fraksi inti yang telah luruh adalah $100\% - 12.5\% = 87.5\%$.
+          </p>
+        </div>
+      </div>
+
+      <!-- Kasus 2: Radiocarbon Dating -->
+      <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2 text-xs">
+        <strong class="text-slate-800 text-sm block">Kasus 2: Penanggalan Arkeologis Karbon-14 ($^{14}\text{C}$)</strong>
+        <p class="text-slate-600 leading-relaxed">
+          Sebuah artefak kayu purba dari situs purbakala menunjukkan rasio keaktifan spesifik Karbon-14 sebesar $25\%$ ($A(t)/A_0 = 0.25$) dibandingkan sampel kayu pohon hidup saat ini. Jika waktu paruh Karbon-14 adalah $5730\text{ tahun}$, berapakah perkiraan usia artefak tersebut?
+        </p>
+        <div class="border-t border-slate-200 pt-2 text-slate-700 space-y-1 font-mono text-2xs">
+          <p>• Hubungan aktivitas: $\frac{A(t)}{A_0} = \left(\frac{1}{2}\right)^{t / T_{1/2}} \;\implies\; 0.25 = \left(\frac{1}{2}\right)^2$.</p>
+          <p>• Jumlah periode paruh yang telah lewat: $n = 2$.</p>
+          <p>• Usia kayu purba: $t = n \times T_{1/2} = 2 \times 5730\text{ tahun} = 11.460\text{ tahun}$.</p>
+          <p class="text-emerald-700 font-bold font-sans">
+            Kesimpulan: Artefak kayu purbakala tersebut diperkirakan berumur $11.460\text{ tahun}$ yang lalu.
+          </p>
+        </div>
+      </div>
+
+      <div class="text-right">
+        <a href="simulasi.html" class="text-xs font-bold text-blue-600 hover:underline">
+          Buka Grafik Peluruhan Eksponensial Chart.js Interaktif di Halaman Simulasi →
+        </a>
+      </div>
+    </div>
+
+    <!-- Tombol Navigasi Lanjut -->
+    <div class="pt-6 border-t border-slate-200 flex flex-wrap justify-between items-center gap-4">
+      <a href="materi-3.html" class="px-5 py-2.5 rounded-full bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-semibold text-xs transition">
+        ← Modul 3: Radioaktivitas & Peluruhan
+      </a>
+      <a href="materi-5.html" class="px-6 py-2.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-600/20 transition flex items-center gap-1.5">
+        Lanjut ke Modul 5: Reaksi Inti, Fisi & Fusi →
+      </a>
+    </div>
+
+  </main>
+
+  <footer class="border-t border-slate-200 bg-white py-8 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4">NUCLEAR LAB - Modul 4: Kinetika Peluruhan & Waktu Paruh &copy; 2026</div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

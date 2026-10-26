@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modul 4: Lab Daya Tembus Radiasi - FisikaInti.Lab</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            atom: { 50: '#f0fdfa', 500: '#14b8a6', 600: '#0d9488', 700: '#0f766e', 900: '#134e4a' }
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+    onload="if (window.renderMathInElement) {
+      window.renderMathInElement(document.body, {
+        delimiters: [
+          { left: '$$', right: '$$', display: true },
+          { left: '$', right: '$', display: false },
+          { left: '\\[', right: '\\]', display: true },
+          { left: '\\(', right: '\\)', display: false }
+        ],
+        throwOnError: false
+      });
+    }"></script>
+  <style>canvas { image-rendering: auto; }</style>
+</head>
+<body class="bg-white text-slate-800 font-sans min-h-screen flex flex-col selection:bg-teal-500 selection:text-white">
+
+  <!-- NAVBAR -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-white/90 border-b border-slate-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-teal-600 to-cyan-500 flex items-center justify-center text-white text-xl font-bold shadow-md shadow-teal-500/20">
+          ⚛️
+        </div>
+        <span class="font-extrabold text-xl tracking-tight bg-gradient-to-r from-teal-700 via-cyan-700 to-blue-700 bg-clip-text text-transparent">
+          FisikaInti.Lab
+        </span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden lg:flex items-center space-x-1 text-sm font-medium">
+        <a href="index.html" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-teal-700 hover:bg-slate-100 transition">Beranda</a>
+        <a href="struktur-inti.html" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-teal-700 hover:bg-slate-100 transition">Struktur Inti</a>
+        <a href="defek-massa.html" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-teal-700 hover:bg-slate-100 transition">Defek Massa</a>
+        <a href="peluruhan.html" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-teal-700 hover:bg-slate-100 transition">Waktu Paruh</a>
+        <a href="daya-tembus.html" class="px-3 py-1.5 rounded-lg bg-teal-50 text-teal-800 font-bold border border-teal-200">Daya Tembus</a>
+        <a href="reaksi-inti.html" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-teal-700 hover:bg-slate-100 transition">Fisi & Fusi</a>
+        <a href="kuis.html" class="px-3.5 py-1.5 rounded-lg bg-teal-600 text-white font-semibold hover:bg-teal-700 transition shadow-sm">Kuis Evaluasi</a>
+      </nav>
+
+      <button id="mobileMenuBtn" class="lg:hidden p-2 rounded-lg bg-slate-100 text-slate-700 hover:text-teal-700" aria-label="Menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+      </button>
+    </div>
+
+    <div id="mobileMenu" class="hidden lg:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-4 space-y-1.5 text-sm font-medium shadow-lg">
+      <a href="index.html" class="block py-2 text-slate-700 hover:text-teal-600 px-3">🏠 Beranda</a>
+      <a href="struktur-inti.html" class="block py-2 text-slate-700 hover:text-teal-600 px-3">⚛️ Modul 1: Struktur & Model Inti</a>
+      <a href="defek-massa.html" class="block py-2 text-slate-700 hover:text-teal-600 px-3">⚡ Modul 2: Defek Massa & Energi Ikat</a>
+      <a href="peluruhan.html" class="block py-2 text-slate-700 hover:text-teal-600 px-3">⏳ Modul 3: Waktu Paruh & Peluruhan</a>
+      <a href="daya-tembus.html" class="block py-2 text-teal-700 font-bold bg-teal-50 px-3 rounded-lg">🛡️ Modul 4: Lab Daya Tembus Radiasi</a>
+      <a href="reaksi-inti.html" class="block py-2 text-slate-700 hover:text-teal-600 px-3">💥 Modul 5: Reaksi Fisi, Fusi & C-14</a>
+      <a href="kuis.html" class="block py-2 text-teal-700 font-bold px-3">📝 Modul 6: Kuis Evaluasi</a>
+    </div>
+  </header>
+
+  <!-- CONTENT -->
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
+
+    <!-- Header Modul -->
+    <div class="border-b border-slate-200 pb-6">
+      <div class="flex items-center gap-2 text-xs font-bold text-rose-700 uppercase tracking-wider mb-2">
+        <a href="index.html" class="hover:underline">Beranda</a> <span>/</span> <span>Modul 4</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">Lab Daya Tembus Sinar $\alpha$, $\beta$, dan $\gamma$</h1>
+      <p class="text-slate-600 text-base mt-2 max-w-3xl">
+        Setiap jenis radiasi radioaktif memiliki daya ionisasi dan daya tembus yang unik. Uji langsung kemampuan penetrasinya melewati kertas, aluminium, dan timbal.
+      </p>
+    </div>
+
+    <!-- Laboratorium Interaktif -->
+    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 shadow-sm">
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+        <div class="flex items-center gap-3">
+          <span class="text-sm font-bold text-slate-700">Pilih Sumber Radiasi:</span>
+          <button onclick="setRadiationRay('alpha')" id="btnRayAlpha" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-teal-600 text-white shadow-sm transition">Sinar Alfa ($\alpha$)</button>
+          <button onclick="setRadiationRay('beta')" id="btnRayBeta" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-white text-slate-700 border border-slate-300 hover:bg-slate-100 shadow-sm transition">Sinar Beta ($\beta$)</button>
+          <button onclick="setRadiationRay('gamma')" id="btnRayGamma" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-white text-slate-700 border border-slate-300 hover:bg-slate-100 shadow-sm transition">Sinar Gamma ($\gamma$)</button>
+        </div>
+        <button onclick="fireRadiation()" class="px-5 py-2 rounded-xl bg-rose-600 text-white font-bold text-sm hover:bg-rose-700 shadow-md shadow-rose-600/20 transition">
+          🚀 Tembakkan Radiasi
+        </button>
+      </div>
+
+      <div class="bg-white rounded-xl border border-slate-200 h-64 overflow-hidden relative shadow-inner mb-6">
+        <canvas id="radiationCanvas" width="800" height="256" class="w-full h-full"></canvas>
+        <div class="absolute bottom-2 left-4 text-xs text-slate-500 font-medium">
+          Status: <span id="rayStatusText" class="text-slate-800 font-bold">Siap menembakkan partikel...</span>
+        </div>
+      </div>
+
+      <!-- Tabel Perbandingan Sifat Radiasi -->
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm text-slate-700 border border-slate-200 rounded-xl overflow-hidden">
+          <thead class="bg-slate-100 text-slate-700 text-xs uppercase border-b border-slate-200">
+            <tr>
+              <th class="p-3.5">Jenis Sinar</th>
+              <th class="p-3.5">Identitas Partikel</th>
+              <th class="p-3.5">Muatan & Massa</th>
+              <th class="p-3.5">Daya Tembus</th>
+              <th class="p-3.5">Daya Ionisasi</th>
+              <th class="p-3.5">Penahan Efektif</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200 text-xs sm:text-sm bg-white">
+            <tr class="hover:bg-slate-50 transition">
+              <td class="p-3.5 font-bold text-teal-700">Alfa ($\alpha$)</td>
+              <td class="p-3.5">Inti Helium ($^4_2\text{He}$)</td>
+              <td class="p-3.5">$+2e$ ; $4\text{ sma}$</td>
+              <td class="p-3.5 text-rose-600 font-bold">Sangat Rendah</td>
+              <td class="p-3.5 text-emerald-700 font-bold">Sangat Kuat</td>
+              <td class="p-3.5">Selembar kertas / epidermis kulit</td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition">
+              <td class="p-3.5 font-bold text-cyan-700">Beta ($\beta$)</td>
+              <td class="p-3.5">Elektron ($^0_{-1}e$) / Positron ($^0_{+1}e$)</td>
+              <td class="p-3.5">$-1e$ / $+1e$ ; $\approx \frac{1}{1836}\text{ sma}$</td>
+              <td class="p-3.5 text-amber-600 font-bold">Sedang</td>
+              <td class="p-3.5 text-amber-600 font-bold">Sedang</td>
+              <td class="p-3.5">Pelat aluminium tipis ($2 - 3\text{ mm}$)</td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition">
+              <td class="p-3.5 font-bold text-indigo-700">Gamma ($\gamma$)</td>
+              <td class="p-3.5">Foton Gelombang Elektromagnetik</td>
+              <td class="p-3.5">$0$ ; $0$</td>
+              <td class="p-3.5 text-emerald-700 font-bold">Sangat Tinggi</td>
+              <td class="p-3.5 text-rose-600 font-bold">Paling Lemah</td>
+              <td class="p-3.5">Balok timbal tebal / dinding beton bertulang</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Tombol Navigasi Bawah -->
+    <div class="pt-8 border-t border-slate-200 flex justify-between items-center">
+      <a href="peluruhan.html" class="px-5 py-2.5 rounded-xl bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-semibold text-sm shadow-sm transition">
+        ← Modul 3: Waktu Paruh
+      </a>
+      <a href="reaksi-inti.html" class="px-6 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-sm shadow-md shadow-teal-600/20 transition flex items-center gap-1.5">
+        Lanjut ke Modul 5: Fisi & Fusi →
+      </a>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-slate-200 bg-slate-50 py-10 text-center text-xs text-slate-600">
+    <div class="max-w-7xl mx-auto px-4 space-y-2">
+      <div class="font-bold text-slate-800 text-sm">FisikaInti.Lab - Modul 4: Daya Tembus Radiasi</div>
+      <p class="text-slate-400">&copy; 2026 FisikaInti.Lab</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
